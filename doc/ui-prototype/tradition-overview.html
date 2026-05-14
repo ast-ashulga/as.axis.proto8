@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Epic of Gilgamesh — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C; --text-dis: #C4BCB1;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.bc { display: flex; align-items: center; gap: 6px; font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px; }
+.bc a { color: var(--link); }
+.bc .sep { color: var(--text-3); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent;
+  vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); }
+.rec { color: var(--tier-rec); }
+
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(300px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+
+/* Tablet grid */
+.tablet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+.tablet-card {
+  background: var(--surface); border: 1px solid var(--border-2); padding: 24px;
+  text-decoration: none; color: var(--text); display: block; position: relative;
+  transition: background 0.1s ease-in-out;
+}
+.tablet-card:hover { background: var(--overlay); color: var(--text); }
+.tablet-card:visited { color: var(--text); }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+  .tablet-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="tradition-overview.html" class="nav-l cur" aria-current="page" data-i18n="nav_gilgamesh">Gilgamesh</a>
+    <a href="parallels-index.html" class="nav-l" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- Tradition header -->
+  <header style="border-left: 3px solid var(--mesop); padding-left: 16px;">
+    <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--mesop); margin-bottom: 16px;" data-i18n="tradition_mesopotamian">MESOPOTAMIAN</p>
+    <h1 style="font: 500 32px/1.2 var(--serif); margin-bottom: 8px;" data-i18n="idx_title_gilgamesh">The Epic of Gilgamesh</h1>
+    <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 32px;" data-i18n-html="trad_gilgamesh_epoch">c. 2100–1200 BCE &nbsp;·&nbsp; Standard Babylonian Version &nbsp;·&nbsp; Cuneiform &nbsp;·&nbsp; Oral-to-written tradition</p>
+  </header>
+
+  <hr class="div">
+
+  <!-- Description -->
+  <div style="max-width: var(--col);">
+    <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 20px;" data-i18n="trad_gilgamesh_desc_p1">
+      The oldest surviving epic narrative. Gilgamesh, king of Uruk, is two-thirds god and one-third human — larger than life, and unable to come to terms with the human part. After the death of his companion Enkidu, Gilgamesh sets out to find the secret of eternal life. He does not find it. What he finds instead is the oldest recorded argument that a mortal life, fully lived, is enough.
+    </p>
+    <p style="font: 400 16px/1.7 var(--serif);" data-i18n="trad_gilgamesh_desc_p2">
+      The text survives in fragments across hundreds of clay tablets, found in libraries from Nineveh to Megiddo. The most complete version — the Standard Babylonian Version, assembled in the 12th century BCE by the scholar-priest Sîn-lēqi-unninni — is what we have here. Even the Standard Babylonian Version is not complete: dozens of passages survive only as lacunae, damage to the clay that no scholarship has bridged.
+    </p>
+  </div>
+
+  <hr class="div">
+
+  <!-- Cross-tradition resonances -->
+  <div style="margin-bottom: 40px; max-width: var(--col);">
+    <a href="parallels-index.html" style="font: 500 16px/1.7 var(--serif);" data-i18n="cross_tradition_link">Cross-tradition resonances in this epic →</a>
+    <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-top: 6px;" data-i18n="trad_cross_tradition_sub">
+      1 confirmed parallel — the flood narrative appears in Babylonian and Biblical traditions
+    </p>
+  </div>
+
+  <hr class="div">
+
+  <!-- Tablets -->
+  <section aria-label="Tablets">
+    <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 8px;" data-i18n="tablets_label">TABLETS</p>
+
+    <div class="tablet-grid" role="list">
+
+      <a href="tradition-overview.html" class="tablet-card" role="listitem" aria-label="Tablet I — The Coming of Enkidu">
+        <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px;" data-i18n="trad_tablet1_label">TABLET I</p>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet1_name">The Coming of Enkidu</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet1_desc">Gilgamesh, king of Uruk, tyrannizes his city. The gods create Enkidu — wild man of the steppe — to balance him. The two become inseparable companions.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="trad_tablet1_ep">4 episodes</p>
+      </a>
+
+      <a href="tradition-overview.html" class="tablet-card" role="listitem" aria-label="Tablet II — The Forest Journey">
+        <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px;" data-i18n="trad_tablet2_label">TABLET II</p>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet2_name">The Forest Journey</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet2_desc">Gilgamesh and Enkidu journey to the Cedar Forest to fight Humbaba, its monstrous guardian. The elders of Uruk are opposed; the two go anyway.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="trad_tablet2_ep">3 episodes</p>
+      </a>
+
+      <a href="tradition-overview.html" class="tablet-card" role="listitem" aria-label="Tablet III — The Bull of Heaven">
+        <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px;" data-i18n="trad_tablet3_label">TABLET III</p>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet3_name">The Bull of Heaven</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet3_desc">Ishtar seeks Gilgamesh's love; he refuses her with contemptuous precision. She sends the Bull of Heaven to destroy Uruk. Gilgamesh and Enkidu kill it.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="trad_tablet3_ep">2 episodes</p>
+      </a>
+
+      <a href="tradition-overview.html" class="tablet-card" role="listitem" aria-label="Tablet IV — The Death of Enkidu">
+        <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px;" data-i18n="trad_tablet4_label">TABLET IV</p>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet4_name">The Death of Enkidu</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet4_desc">Enkidu falls ill as punishment for killing Humbaba and the Bull of Heaven. He dies after twelve days of suffering. Gilgamesh refuses to accept it.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="trad_tablet4_ep">3 episodes</p>
+      </a>
+
+      <a href="tradition-overview.html" class="tablet-card" role="listitem" aria-label="Tablet V — The Search for Immortality">
+        <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px;" data-i18n="trad_tablet5_label">TABLET V</p>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet5_name">The Search for Immortality</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet5_desc">Devastated by grief, Gilgamesh abandons the city and sets out to find Utnapishtim — the one mortal granted eternal life — to learn his secret.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="trad_tablet5_ep">3 episodes</p>
+      </a>
+
+      <a href="tablet-hub.html" class="tablet-card" role="listitem" aria-label="Tablet XI — The Flood — has confirmed cross-tradition parallel" style="border-left: 3px solid var(--tier-doc);">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px;">
+          <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2);" data-i18n="trad_tablet11_label">TABLET XI</p>
+          <span style="font: 500 11px/1.4 var(--mono); color: var(--tier-doc); margin-top: 4px;" aria-label="Has confirmed cross-tradition parallel">[●]</span>
+        </div>
+        <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 12px;" data-i18n="trad_tablet11_name">The Flood</h2>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="trad_tablet11_desc">Utnapishtim tells Gilgamesh how he survived the great flood and was granted eternal life. The gods' gift to one cannot be Gilgamesh's. The reckoning.</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n-html="trad_tablet11_ep">
+          <span style="color: var(--tier-doc);" data-i18n="trad_tablet11_ep_parallel">● 1 confirmed parallel</span> &nbsp;·&nbsp; <span data-i18n="trad_tablet11_ep_count">3 episodes</span>
+        </p>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_gilgamesh">Phase 1 · Gilgamesh tradition · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+initLocale();
+</script>
+</body>
+</html>

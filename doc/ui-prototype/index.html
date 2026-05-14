@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C; --text-dis: #C4BCB1;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --greek: #B05B3B; --greek-bg: #F5EDEA;
+  --roman: #4A6B8A; --roman-bg: #EBF0F5;
+  --indian: #B8860B; --indian-bg: #F5F2E0;
+  --casian: #3D7A5C; --casian-bg: #E8F2EC;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+.wrap { padding-inline: var(--mx); }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, .wrap, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 1023px) {
+  .forthcoming-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 767px) {
+  nav.site-nav, .wrap, footer { padding-inline: var(--mx-m); }
+  .forthcoming-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="locale" aria-label="Language: English / Russian" role="group">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- Hero -->
+  <div class="wrap" style="padding-block: 64px 48px;">
+    <div style="max-width: 640px; margin-inline: auto; text-align: center;">
+      <h1 style="font: 500 32px/1.2 var(--serif); margin-bottom: 16px;" data-i18n-html="hero_title_html">
+        Humanity's great epics,<br>navigable to their depths.
+      </h1>
+      <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2);" data-i18n-html="hero_subtitle_html">
+        Six traditions. Every claim marked<br>for what kind of evidence supports it.
+      </p>
+    </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);">
+
+  <!-- Active traditions -->
+  <div class="wrap" style="margin-bottom: 4px;">
+    <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 12px;" data-i18n="active_traditions">Active traditions</p>
+  </div>
+
+  <div class="wrap" style="margin-bottom: 8px;">
+    <div role="region" aria-label="Gilgamesh — active tradition"
+         style="background: var(--mesop-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--mesop); padding: 32px 40px;">
+      <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--mesop); margin-bottom: 16px;" data-i18n="tradition_mesopotamian">MESOPOTAMIAN</p>
+      <h2 style="font: 500 24px/1.3 var(--serif); margin-bottom: 8px;" data-i18n="idx_title_gilgamesh">The Epic of Gilgamesh</h2>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 24px;" data-i18n="idx_gilgamesh_epoch">c. 2100–1200 BCE · Standard Babylonian Version</p>
+      <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col); margin-bottom: 20px;" data-i18n="idx_gilgamesh_desc">
+        The oldest surviving epic narrative. A king's search for immortality after the death of his companion. The earliest
+        recorded flood story. The oldest question about whether a life can mean anything if it ends.
+      </p>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px;" data-i18n-html="idx_gilgamesh_stats">
+        6 tablets &nbsp;·&nbsp; 15 episodes &nbsp;·&nbsp; 1 confirmed cross-tradition parallel
+      </p>
+      <a href="./tradition-overview.html" style="font: 500 16px/1.7 var(--serif); color: var(--link);" data-i18n="enter_gilgamesh">Enter the Epic of Gilgamesh →</a>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-bottom: 8px;">
+    <div role="region" aria-label="Iliad — active tradition"
+         style="background: var(--greek-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--greek); padding: 32px 40px;">
+      <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--greek); margin-bottom: 16px;" data-i18n="tradition_greek">GREEK</p>
+      <h2 style="font: 500 24px/1.3 var(--serif); margin-bottom: 8px;" data-i18n="idx_title_iliad">The Iliad</h2>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 24px;" data-i18n="idx_iliad_epoch">c. 8th century BCE · Attributed to Homer · Dactylic hexameter</p>
+      <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col); margin-bottom: 20px;" data-i18n="idx_iliad_desc">
+        24 books. The Trojan War, the rage of Achilles, the death of Hector. The oldest surviving text of the Western literary tradition, composed in oral form before writing, committed to text in the 8th century BCE. The poem ends not with victory but with grief shared between enemies.
+      </p>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px;" data-i18n-html="idx_iliad_stats">
+        6 books &nbsp;·&nbsp; 16 episodes &nbsp;·&nbsp; 1 confirmed cross-tradition parallel
+      </p>
+      <a href="./iliad-overview.html" style="font: 500 16px/1.7 var(--serif); color: var(--link);" data-i18n="enter_iliad">Enter the Iliad →</a>
+    </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);">
+
+  <!-- Forthcoming traditions -->
+  <div class="wrap" style="margin-bottom: 40px;">
+    <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 24px;" data-i18n="forthcoming_traditions">Forthcoming traditions</p>
+
+    <div class="forthcoming-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px;">
+      <div class="fc-card" data-id="roman" tabindex="0" role="button" aria-expanded="false" aria-controls="fc-roman"
+           style="background: var(--surface); border: 1px dashed var(--border-3); padding: 20px; cursor: pointer; opacity: 0.62; transition: opacity 0.15s ease-in-out;">
+        <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 8px;" data-i18n="tradition_roman_card">○ ROMAN</p>
+        <p style="font: 400 18px/1.4 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_metamorphoses">Metamorphoses</p>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 10px;" data-i18n="idx_author_ovid">Ovid</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="in_preparation">In preparation</p>
+      </div>
+      <div class="fc-card" data-id="indian" tabindex="0" role="button" aria-expanded="false" aria-controls="fc-indian"
+           style="background: var(--surface); border: 1px dashed var(--border-3); padding: 20px; cursor: pointer; opacity: 0.62; transition: opacity 0.15s ease-in-out;">
+        <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 8px;" data-i18n="tradition_indian_card">○ INDIAN</p>
+        <p style="font: 400 18px/1.4 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_mahabharata">Mahabharata</p>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 10px;">&nbsp;</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="in_preparation">In preparation</p>
+      </div>
+      <div class="fc-card" data-id="manas" tabindex="0" role="button" aria-expanded="false" aria-controls="fc-manas"
+           style="background: var(--surface); border: 1px dashed var(--border-3); padding: 20px; cursor: pointer; opacity: 0.62; transition: opacity 0.15s ease-in-out;">
+        <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 8px;" data-i18n="tradition_manas_card">○ CENTRAL ASIAN</p>
+        <p style="font: 400 18px/1.4 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_manas">Manas</p>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 10px;" data-i18n="idx_manas_subtitle">Kyrgyz oral epic</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="in_preparation">In preparation</p>
+      </div>
+      <div class="fc-card" data-id="jangar" tabindex="0" role="button" aria-expanded="false" aria-controls="fc-jangar"
+           style="background: var(--surface); border: 1px dashed var(--border-3); padding: 20px; cursor: pointer; opacity: 0.62; transition: opacity 0.15s ease-in-out;">
+        <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 8px;" data-i18n="tradition_jangar_card">○ CENTRAL ASIAN</p>
+        <p style="font: 400 18px/1.4 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_jangar">Jangar</p>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 10px;" data-i18n="idx_jangar_subtitle">Mongolian/Kalmyk</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="in_preparation">In preparation</p>
+      </div>
+    </div>
+
+    <!-- Info panels (inline, not modal) -->
+    <div id="fc-roman" class="fc-panel" hidden style="background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px; margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div>
+          <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 6px;" data-i18n="tradition_roman_full">○ ROMAN TRADITION</p>
+          <h3 style="font: 500 20px/1.35 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_metamorphoses">Metamorphoses</h3>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3);" data-i18n="idx_author_ovid">Ovid</p>
+        </div>
+        <button class="fc-close" data-target="fc-roman" style="background: none; border: none; cursor: pointer; font: 400 14px/1.5 var(--serif); color: var(--link); padding: 0;" data-i18n="close_x">close ×</button>
+      </div>
+      <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 12px;" data-i18n="idx_roman_desc">Fifteen books spanning the creation of the world to the deification of Julius Caesar. The most comprehensive survey of classical mythology in continuous verse; composed c. 8 CE at the peak of Augustan literary culture.</p>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n-html="idx_roman_phase">Translation: under consideration &nbsp;·&nbsp; Expected: Phase 2</p>
+    </div>
+    <div id="fc-indian" class="fc-panel" hidden style="background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px; margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div>
+          <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 6px;" data-i18n="tradition_indian_full">○ INDIAN TRADITION</p>
+          <h3 style="font: 500 20px/1.35 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_mahabharata">Mahabharata</h3>
+        </div>
+        <button class="fc-close" data-target="fc-indian" style="background: none; border: none; cursor: pointer; font: 400 14px/1.5 var(--serif); color: var(--link); padding: 0;" data-i18n="close_x">close ×</button>
+      </div>
+      <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 12px;" data-i18n="idx_indian_desc">The longest poem in any language — roughly ten times the length of the Iliad and Odyssey combined. The war of the Pandavas and Kauravas, the Bhagavad Gita's discourse on duty and the soul, and an encyclopaedic account of dharma that shaped an entire civilisation's moral vocabulary.</p>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n-html="idx_indian_phase">Translation: Kisari Mohan Ganguli (1883–1896) — public domain &nbsp;·&nbsp; Expected: Phase 2</p>
+    </div>
+    <div id="fc-manas" class="fc-panel" hidden style="background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px; margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div>
+          <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 6px;" data-i18n="tradition_central_asian_full">○ CENTRAL ASIAN TRADITION</p>
+          <h3 style="font: 500 20px/1.35 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_manas">Manas</h3>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3);" data-i18n="idx_manas_subtitle">Kyrgyz oral epic</p>
+        </div>
+        <button class="fc-close" data-target="fc-manas" style="background: none; border: none; cursor: pointer; font: 400 14px/1.5 var(--serif); color: var(--link); padding: 0;" data-i18n="close_x">close ×</button>
+      </div>
+      <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 12px;" data-i18n="idx_manas_desc">The Kyrgyz national epic, preserved in oral tradition by bards called manaschi. The warrior-king Manas unites the Kyrgyz people, leads them to their ancestral homeland, and dies in the prime of victory — a founding myth of collective identity. Among the longest oral epic traditions in world literature, with some versions running to half a million lines.</p>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="idx_manas_phase">Expected: Phase 2</p>
+    </div>
+    <div id="fc-jangar" class="fc-panel" hidden style="background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px; margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+        <div>
+          <p style="font: 500 11px/1.4 var(--mono); margin-bottom: 6px;" data-i18n="tradition_central_asian_full">○ CENTRAL ASIAN TRADITION</p>
+          <h3 style="font: 500 20px/1.35 var(--serif); margin-bottom: 4px;" data-i18n="idx_work_jangar">Jangar</h3>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3);" data-i18n="idx_jangar_oral_epic">Mongolian/Kalmyk oral epic</p>
+        </div>
+        <button class="fc-close" data-target="fc-jangar" style="background: none; border: none; cursor: pointer; font: 400 14px/1.5 var(--serif); color: var(--link); padding: 0;" data-i18n="close_x">close ×</button>
+      </div>
+      <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 12px;" data-i18n="idx_jangar_desc">The epic of the Kalmyk and western Mongolian peoples. Jangar, the hero-king of the paradise realm of Bumba, and his twelve legendary paladins defend the ideal kingdom against enemies from all directions. Preserved in oral tradition until the early 20th century; first written down by Russian ethnographers in the 1800s.</p>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="idx_jangar_phase">Expected: Phase 2</p>
+    </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);">
+
+  <!-- About -->
+  <div class="wrap" style="max-width: calc(var(--col) + var(--mx) * 2); margin-inline: auto; padding-bottom: 0;">
+    <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 20px;" data-i18n="about_platform">About the platform</h2>
+    <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px; max-width: var(--col);" data-i18n="idx_about_p1">
+      Mnemosyne Engine is an explorable interface for the great epic traditions of the world. Every claim is marked for what kind of evidence supports it: primary source, scholarly inference, active scholarly debate, or AI-generated interpretation reviewed by a named scholar. You can read a plain-language summary or the original translation; zoom into scholarly debate or cross to another tradition's parallel passage. The depth you want is always one step away.
+    </p>
+    <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col);" data-i18n="idx_about_p2">
+      No claim is presented without its epistemic grounding. When a passage is actively contested among scholars, that contest is made visible — not resolved or hidden. When an interpretation was generated by AI and reviewed by a human expert, that provenance is disclosed at the top of every content block. The platform's promise is not completeness; it is honesty about what is known, what is inferred, and what remains in open debate.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_main">Phase 1 · Gilgamesh + Iliad · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_main">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier. Computationally-detected relationships are never shown publicly until confirmed by a scholar.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+
+// Forthcoming card interaction
+document.querySelectorAll('.fc-card').forEach(card => {
+  function toggle() {
+    const id = card.dataset.id;
+    const panel = document.getElementById('fc-' + id);
+    const open = card.getAttribute('aria-expanded') === 'true';
+    // Close all
+    document.querySelectorAll('.fc-panel').forEach(p => { p.hidden = true; });
+    document.querySelectorAll('.fc-card').forEach(c => { c.setAttribute('aria-expanded', 'false'); c.style.opacity = '0.62'; });
+    if (!open && panel) {
+      panel.hidden = false;
+      card.setAttribute('aria-expanded', 'true');
+      card.style.opacity = '1';
+    }
+  }
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+
+document.querySelectorAll('.fc-close').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = document.getElementById(btn.dataset.target);
+    if (panel) panel.hidden = true;
+    const id = btn.dataset.target.replace('fc-', '');
+    document.querySelectorAll('.fc-card').forEach(c => {
+      if (c.dataset.id === id) { c.setAttribute('aria-expanded', 'false'); c.style.opacity = '0.62'; }
+    });
+  });
+});
+initLocale();
+</script>
+</body>
+</html>

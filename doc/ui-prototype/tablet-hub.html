@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablet XI: The Flood — Gilgamesh — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C; --text-dis: #C4BCB1;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; max-width: calc(var(--col) + var(--mx) * 2); margin-inline: auto; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.bc { display: flex; align-items: center; gap: 6px; font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px; }
+.bc a { color: var(--link); }
+.bc .sep { color: var(--text-3); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent;
+  vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); }
+.rec { color: var(--tier-rec); }
+
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(300px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.pop-close { display: none; }
+
+/* Episode cards */
+.ep-card {
+  display: block; background: var(--surface); border: 1px solid var(--border-2);
+  padding: 24px; text-decoration: none; color: var(--text);
+  margin-bottom: 12px; transition: background 0.1s ease-in-out;
+}
+.ep-card:hover { background: var(--overlay); color: var(--text); }
+.ep-card:visited { color: var(--text); }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="tradition-overview.html" class="nav-l cur" data-i18n="nav_gilgamesh">Gilgamesh</a>
+    <a href="parallels-index.html" class="nav-l" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <nav class="bc" aria-label="Breadcrumb">
+    <a href="tradition-overview.html" data-i18n="nav_gilgamesh">Gilgamesh</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page" data-i18n="tablet_hub_breadcrumb">Tablet XI</span>
+  </nav>
+
+  <!-- Tablet header -->
+  <header style="margin-bottom: 8px;">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+      <h1 style="font: 500 24px/1.3 var(--serif);" data-i18n="tablet_hub_heading">TABLET XI</h1>
+      <button class="badge rec" aria-label="Confidence tier: Reconstructed" aria-expanded="false">
+        <span data-i18n="badge_reconstructed">◑ RECONSTRUCTED</span>
+        <div class="badge-pop" role="tooltip">
+          <div class="pop-head">
+            <span data-i18n="badge_pop_rec_head">◑ RECONSTRUCTED</span>
+            <button class="pop-close" data-i18n="close_x">close ×</button>
+          </div>
+          <p data-i18n="tablet_hub_rec_pop_intro">Inferred from partial evidence; scholarly consensus with acknowledged gaps.</p>
+          <p data-i18n="tablet_hub_rec_pop_detail">Tablet XI survives in multiple copies, the best-preserved being the Nineveh copy (CDLI P003793). The overall tablet completeness is high, but approximately 15–20 lines are damaged or missing across all known copies.</p>
+        </div>
+      </button>
+    </div>
+    <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 20px;" data-i18n="tablet_hub_subtitle">The Flood Tablet</h2>
+    <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col);" data-i18n="tablet_hub_intro">
+      The best-preserved tablet of the Standard Babylonian Version. Lines 1–196 contain the flood narrative; the rest records Utnapishtim's challenge and Gilgamesh's failure, followed by a coda added in the 12th century BCE by Sîn-lēqi-unninni. This is the tablet that first established the Gilgamesh epic's importance to modern scholarship when George Smith identified it in 1872.
+    </p>
+  </header>
+
+  <hr class="div">
+
+  <!-- Episodes -->
+  <section aria-label="Episodes">
+    <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 20px;" data-i18n="episodes_label">EPISODES</p>
+
+    <div role="list">
+
+      <!-- Episode 1: The Flood (has parallel) -->
+      <a href="fragment-view.html" class="ep-card" role="listitem"
+         aria-label="The Flood Episode — has 1 confirmed cross-tradition parallel">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <h3 style="font: 400 18px/1.4 var(--serif);" data-i18n-html="tab_ep1_name_html">
+            <span style="color: var(--tier-doc); margin-inline-end: 6px;" aria-label="Has confirmed cross-tradition parallel">●</span>
+            THE FLOOD EPISODE
+          </h3>
+        </div>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="tab_ep1_desc">
+          The gods decree a flood to destroy humanity. Utnapishtim is warned by Ea and builds a great boat. The flood comes, subsides for seven days, and the gods quarrel bitterly over the outcome.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 6px;">nms://gilgamesh/tablet-xi/flood</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--tier-doc);" data-i18n="tablet_ep1_nas_confirm">● 1 confirmed parallel</p>
+      </a>
+
+      <!-- Episode 2: Utnapishtim's Challenge -->
+      <a href="fragment-view.html?episode=sleep-challenge" class="ep-card" role="listitem"
+         aria-label="Utnapishtim's Challenge">
+        <h3 style="font: 400 18px/1.4 var(--serif); margin-bottom: 10px;" data-i18n="tab_ep2_name">UTNAPISHTIM'S CHALLENGE</h3>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="tab_ep2_desc">
+          Utnapishtim offers Gilgamesh a challenge: stay awake for seven days. Gilgamesh sleeps immediately. The failure is documented — a loaf of bread baked for each day of his sleep.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">nms://gilgamesh/tablet-xi/sleep-challenge</p>
+      </a>
+
+      <!-- Episode 3: The Plant of Immortality -->
+      <a href="fragment-view.html?episode=plant" class="ep-card" role="listitem"
+         aria-label="The Plant of Immortality">
+        <h3 style="font: 400 18px/1.4 var(--serif); margin-bottom: 10px;" data-i18n="tab_ep3_name">THE PLANT OF IMMORTALITY</h3>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="tab_ep3_desc">
+          Utnapishtim's wife reveals the location of a plant that restores youth. Gilgamesh dives to the bottom of the sea to find it. He succeeds — and then loses it to a serpent while he sleeps.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">nms://gilgamesh/tablet-xi/plant</p>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- Tablet navigation -->
+  <nav aria-label="Adjacent tablets" style="display: flex; justify-content: space-between; margin-bottom: 0;">
+    <a href="tradition-overview.html" style="font: 400 14px/1.5 var(--serif);" data-i18n="tablet_hub_nav_prev" aria-label="Previous tablet">← Tablet V · The Search for Immortality</a>
+    <a href="tradition-overview.html" style="font: 400 14px/1.5 var(--serif);" data-i18n="tablet_hub_nav_next" aria-label="Next tablet">Tablet XII · The Netherworld →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_gilgamesh">Phase 1 · Gilgamesh tradition · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+
+// Badge expansion
+document.querySelectorAll('.badge').forEach(badge => {
+  badge.addEventListener('click', function(e) {
+    const pop = this.querySelector('.badge-pop');
+    if (!pop) return;
+    const open = pop.classList.contains('open');
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!open) { pop.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+  });
+});
+document.querySelectorAll('.pop-close').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.closest('.badge-pop').classList.remove('open');
+    btn.closest('.badge').setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.badge')) {
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+
+// Keep all badges collapsed on load/navigation restore.
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+initLocale();
+</script>
+</body>
+</html>

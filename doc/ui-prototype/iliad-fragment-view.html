@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title="iliad_frag_ransom_doc_title">The Ransom of Hector — Book XXIV — Iliad — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C; --text-dis: #C4BCB1;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --greek: #B05B3B; --greek-bg: #F5EDEA;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; max-width: calc(var(--col) + var(--mx) * 2); margin-inline: auto; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.bc { display: flex; align-items: center; gap: 6px; font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px; }
+.bc a { color: var(--link); }
+.bc .sep { color: var(--text-3); }
+
+/* Badges */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent;
+  vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); } .rec { color: var(--tier-rec); }
+.con { color: var(--tier-con); } .ins { color: var(--tier-ins); }
+
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(300px, calc(100vw - 40px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; align-items: center; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.pop-close { display: none; }
+.badge-pop p { margin-bottom: 8px; }
+.badge-pop ul { list-style: none; margin-top: 6px; }
+.badge-pop li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 3px; }
+.badge-pop li::before { content: "· "; }
+
+/* NAS row */
+.nas-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.nas-addr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+.nas-copy { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.nas-copy:hover { color: var(--link-h); }
+.copied-confirm { font: 400 11px/1.4 var(--mono); color: var(--tier-doc); display: none; }
+
+/* Layer indicator */
+.layer-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 24px; padding: 10px 0; border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); }
+.layer-tab {
+  background: none; border: none; cursor: pointer;
+  font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 4px 0;
+}
+.layer-tab[aria-selected="true"] { color: var(--text); font-weight: 500; }
+.layer-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.layer-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 0 12px; user-select: none; }
+
+/* Content area */
+.content-area { border: 1px solid var(--border-2); background: var(--surface); padding: 32px 36px; margin-bottom: 0; }
+
+/* Layer panels */
+.layer-panel { display: none; }
+.layer-panel.active { display: block; }
+
+/* AI disclosure */
+.ai-disclosure { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+.ai-disclosure .disc-link { background: none; border: none; cursor: pointer; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.sources-panel { display: none; margin-top: 12px; background: var(--inset); padding: 12px 16px; }
+.sources-panel li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; list-style: none; }
+.sources-panel li::before { content: "· "; }
+
+/* Body text */
+.body-p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+.body-p:last-of-type { margin-bottom: 0; }
+
+/* Translation */
+.trans-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+.trans-passage { font: 400 16px/1.7 var(--serif); }
+.trans-passage p { margin-bottom: 16px; }
+.trans-attribution { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+
+/* Scholaria sections */
+.schol-section { margin-bottom: 28px; }
+.schol-section:last-child { margin-bottom: 0; }
+.schol-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-2); display: flex; align-items: center; gap: 12px; }
+.schol-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 14px; }
+.schol-body p:last-child { margin-bottom: 0; }
+.schol-cite li { font: 400 14px/1.5 var(--serif); list-style: none; margin-bottom: 6px; color: var(--text-2); }
+.schol-cite li::before { content: "· "; }
+
+/* Structure toggle */
+.structure-toggle {
+  display: block; background: none; border: none; cursor: pointer;
+  font: 400 14px/1.5 var(--serif); color: var(--accent); padding: 0;
+  margin-top: 24px; text-decoration: underline; text-underline-offset: 2px;
+}
+.structure-toggle:hover { color: var(--link-h); }
+.structure-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Track view */
+.track-view {
+  display: none; background: var(--inset);
+  border: 1px solid var(--border-2); border-top: none;
+  padding: 24px 28px;
+}
+.track-view.open { display: block; }
+.track-view-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 20px; }
+.track-row { margin-bottom: 24px; }
+.track-row:last-of-type { margin-bottom: 0; }
+.track-label { font: 500 11px/1.4 var(--mono); color: var(--text-2); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.fw-help { background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 1px 5px; }
+.fw-help:hover { color: var(--text); }
+.annot-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.annot-block {
+  background: var(--surface); border: 1px solid var(--border-2);
+  padding: 10px 12px; cursor: pointer; position: relative; min-width: 120px;
+}
+.annot-block:hover { background: var(--overlay); }
+.annot-block:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.annot-code { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 3px; }
+.annot-name { font: 400 13px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px; }
+
+/* Annotation expansion panel */
+.annot-panel {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 150;
+  width: min(320px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.annot-panel.open { display: block; }
+.annot-panel-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.annot-panel-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.annot-panel p { margin-bottom: 8px; }
+.annot-panel .meta-line { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+
+/* Framework explainer */
+.fw-explainer { display: none; margin-top: 8px; background: var(--surface); border: 1px solid var(--border-2); padding: 14px 16px; }
+.fw-explainer.open { display: block; }
+.fw-exp-head { font: 500 13px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.fw-exp-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+
+/* Inactive track toggles */
+.inactive-tracks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+.add-track { background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 3px 10px; }
+.add-track:hover { color: var(--text); border-color: var(--border); }
+
+/* Parallel strip */
+.parallel-strip { border: 1px solid var(--border-2); margin-top: 16px; }
+.parallel-strip-head { background: var(--surface); padding: 14px 20px; border-bottom: 1px solid var(--border-2); }
+.parallel-card { padding: 20px; }
+.parallel-card-title { font: 400 18px/1.4 var(--serif); margin-bottom: 8px; }
+.parallel-card-body { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px; }
+.parallel-card-type { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 14px; }
+
+/* Episode nav */
+.ep-nav { margin-top: 40px; display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border-2); padding-bottom: 8px; }
+.ep-nav a { font: 400 14px/1.5 var(--serif); }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+  .content-area { padding: 20px 18px; }
+  .annot-row { flex-direction: column; }
+  .annot-block { min-width: auto; }
+  .ep-nav { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="iliad-overview.html" class="nav-l cur" data-i18n="nav_iliad">Iliad</a>
+    <a href="parallels-index.html" class="nav-l" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- Breadcrumb + NAS -->
+  <nav class="bc" aria-label="Breadcrumb">
+    <a href="iliad-overview.html" data-i18n="nav_iliad">Iliad</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href="iliad-book-hub.html" data-i18n="iliad_frag_book24_bc">Book XXIV</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span data-i18n="iliad_frag_ransom_crumb" aria-current="page">The Ransom of Hector</span>
+  </nav>
+
+  <div class="nas-row" role="status" aria-live="polite">
+    <span class="nas-addr" id="nas-addr">nms://iliad/book-xxiv/ransom-of-hector</span>
+    <button type="button" class="nas-copy" id="nas-copy-btn" data-i18n-aria-label="nas_copy_aria" aria-label="Copy NAS address to clipboard" data-i18n="copy_btn">copy</button>
+    <span class="copied-confirm" id="copied-confirm" role="status" aria-live="polite" data-i18n="copied_confirm">copied</span>
+  </div>
+
+  <!-- Episode heading -->
+  <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+    <h1 id="episode-title" style="font: 500 24px/1.3 var(--serif);" data-i18n="iliad_frag_ransom_title">THE RANSOM OF HECTOR</h1>
+    <button type="button" class="badge ins" id="episode-badge" data-i18n-aria-tier="tier_aria_ai_reviewed" aria-label="Confidence tier: AI-Reviewed" aria-expanded="false"><span id="episode-badge-span" class="episode-badge-span">▲ AI-REVIEWED</span>
+      <div class="badge-pop" id="episode-badge-pop">
+        <div class="pop-head"><span id="episode-badge-pop-head" class="pop-head-label">▲ AI-REVIEWED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+        <div id="episode-badge-pop-body"></div>
+      </div>
+    </button>
+  </div>
+  <p style="font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 0;" data-i18n="iliad_frag_ransom_subtitle">Book XXIV of the Iliad</p>
+
+  <!-- Layer indicator -->
+  <div class="layer-indicator" role="tablist" id="layer-indicator" data-i18n-aria-region="content_depth_layers_aria" aria-label="Content depth layers">
+    <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-i18n="layer_surface">[ Surface ● ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-i18n="layer_translated">[ Translated ○ ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-i18n="layer_scholaria">[ Scholaria ○ ]</button>
+  </div>
+
+  <!-- Content area -->
+  <div class="content-area" id="content-area" tabindex="-1">
+
+    <!-- ─── SURFACE LAYER ─── -->
+    <div id="layer-surface" class="layer-panel active" role="tabpanel" aria-labelledby="tab-surface">
+      <div class="ai-disclosure" role="note">
+        <span data-i18n-html="iliad_frag_ransom_ai_lead_html" id="frag-ai-lead"></span>
+        <button type="button" class="disc-link" id="see-sources-btn" data-i18n="see_sources" aria-expanded="false" aria-controls="sources-panel">[See sources]</button>
+        <div class="sources-panel" id="sources-panel" role="region" data-i18n-aria-region="sources_region_label" aria-label="Grounding sources">
+          <ul id="sources-list-ul">
+            <li>nms://iliad/book-xxiv/ransom-of-hector&nbsp;<span data-i18n="frag_nas_tag_doc"> [● Documented]</span></li>
+            <li>nms://iliad/book-xxiv/priams-journey&nbsp;<span data-i18n="frag_nas_tag_doc"> [● Documented]</span></li>
+            <li>nms://iliad/book-xxiv/gods-decide&nbsp;<span data-i18n="frag_nas_tag_rec"> [◑ Reconstructed]</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="body-p" data-i18n="iliad_frag_ransom_surf_p1">Priam, old king of Troy, has crossed enemy lines alone at night. Hermes, sent by Zeus, appeared to him disguised as a young Myrmidon soldier and guided him past the Greek sentries and through the sleeping camp to Achilles' hut. Priam arrives after Achilles has eaten; his two companions sit apart. Priam enters unnoticed and kneels before Achilles.</p>
+
+      <p class="body-p" data-i18n="iliad_frag_ransom_surf_p2">He clasps Achilles' knees and kisses his hands — the terrible man-slaying hands that killed Hector and so many of Priam's other sons. He begs Achilles to think of his own father Peleus, who is old and alone and will never see his son again. He is, Priam says, in a worse position than Peleus: he had the best sons in Troy and has lost them all. He asks only for Hector's body, to bury it properly.</p>
+
+      <p class="body-p" data-i18n="iliad_frag_ransom_surf_p3">Achilles is overcome. He weeps for his own father and for Patroclus. Priam weeps for Hector. The two men weep together, side by side, in the same hut, for their separate dead. Neither can stop the other. Neither tries. When the weeping finally subsides, Achilles raises Priam by his hand and speaks to him with something like gentleness: the gods have spun this thread for mortals, he says — to live in grief — while the gods themselves have no sorrows. He agrees to return the body. He instructs his companions to prepare it: wash it, anoint it, wrap it, so that Priam does not see the wounds and renew his grief before he can get away.</p>
+
+      <p class="body-p" style="margin-bottom: 0;" data-i18n="iliad_frag_ransom_surf_p4">Achilles and Priam share a meal. Priam marvels at Achilles; Achilles marvels at Priam. Achilles promises eleven days of truce for the funeral rites — he will hold the Greeks back. Before dawn, Hermes wakes Priam and leads him out of the camp. Priam crosses the plain with Hector's body on the cart and reaches Troy as the sun rises. The poem's last word is the funeral of Hector, tamer of horses.</p>
+    </div>
+
+    <!-- ─── TRANSLATED LAYER ─── -->
+    <div id="layer-translated" class="layer-panel" role="tabpanel" aria-labelledby="tab-translated">
+      <div class="trans-header">
+        <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;" data-i18n="iliad_frag_ransom_trans_credit">Translation: Andrew Lang, Walter Leaf, and Ernest Myers (1882)</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 2px;" data-i18n-html="iliad_frag_ransom_trans_source_html">Source: Lang, Leaf &amp; Myers, <em style="font-style: italic;">The Iliad of Homer</em> (1882) · Public domain</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="iliad_frag_ransom_trans_lines">Book XXIV, lines 477–551 (selected)</p>
+      </div>
+
+      <div class="trans-passage" data-i18n-html="iliad_frag_trans_passage_html" lang="en"></div>
+      <p class="trans-attribution" data-i18n="iliad_frag_ransom_trans_attr">— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 477–526 (selected)</p>
+    </div>
+
+    <!-- ─── SCHOLARIA LAYER ─── -->
+    <div id="layer-scholaria" class="layer-panel" role="tabpanel" aria-labelledby="tab-scholaria">
+
+      <div class="schol-section">
+        <div class="schol-head">
+          <span data-i18n="schol_manuscript_status">MANUSCRIPT STATUS</span>
+          <button type="button" class="badge doc" style="cursor: default;" data-i18n-aria-tier="tier_aria_documented_short" aria-label="Confidence tier: Documented"><span data-i18n="badge_documented">● DOCUMENTED</span></button>
+        </div>
+        <div class="schol-body">
+          <p data-i18n="iliad_frag_ransom_schol_ms_p">Book XXIV survives in all major manuscript traditions of the Iliad. The Venetus A (Marcianus graecus 454, 10th century CE) is the most important witness: it preserves not only the text but extensive marginal scholia recording the editorial work of the Alexandrian scholars, including Zenodotus, Aristophanes of Byzantium, and Aristarchus. The book is attested in dozens of Roman-era papyri from Egypt, several of which preserve lines not found in the medieval manuscripts.</p>
+        </div>
+      </div>
+
+      <div class="schol-section">
+        <div class="schol-head">
+          <span data-i18n="schol_textual_history">TEXTUAL HISTORY</span>
+          <button type="button" class="badge rec" style="cursor: default;" data-i18n-aria-tier="tier_aria_reconstructed_short" aria-label="Confidence tier: Reconstructed"><span data-i18n="badge_reconstructed">◑ RECONSTRUCTED</span></button>
+        </div>
+        <div class="schol-body">
+          <p data-i18n="iliad_frag_ransom_schol_hist_p">Aristarchus of Samothrace (c. 216–144 BCE) athetized (bracketed as potentially spurious) approximately 12 lines in Book XXIV, including portions of the opening divine assembly (lines 25–30) where the gods debate Hector's treatment. His reasons are recorded in the Venetus A scholia: some lines seemed inconsistent with earlier divine characterizations, others appeared metrically anomalous. Subsequent editors have largely restored these lines, but the athetesis marks an important moment in the transmission history and indicates that ancient readers were already uncertain about the text's edges.</p>
+        </div>
+      </div>
+
+      <div class="schol-section">
+        <div class="schol-head">
+          <span data-i18n="iliad_frag_ransom_schol_debate_head">SCHOLARLY DEBATE: THE ENDING OF THE ILIAD</span>
+          <button type="button" class="badge con" style="cursor: default;" data-i18n-aria-tier="tier_aria_contested_short" aria-label="Confidence tier: Contested"><span data-i18n="badge_contested">◈ CONTESTED</span></button>
+        </div>
+        <div class="schol-body">
+          <p data-i18n="iliad_frag_ransom_schol_debate_p">Whether Book XXIV was the original ending of the poem — or whether a different ending existed in earlier oral versions — remains actively debated. Cedric Whitman (1958) argued that the poem's geometric ring-composition structure requires Book XXIV as its inevitable close: the symmetrical pattern of the poem demands that what begins with Achilles' rage and Chryses' ransom request end with another ransom and another old father. M.L. West (2011) argued that the final scene is compositionally anomalous in several respects and may reflect late editorial addition or expansion. The current majority position holds Book XXIV as integral to the poem's structure and meaning; the debate hinges on oral composition theory and the weight given to manuscript evidence versus structural argument.</p>
+        </div>
+      </div>
+
+      <div class="schol-section">
+        <div class="schol-head"><span data-i18n="schol_scholarship_cited">SCHOLARSHIP CITED</span></div>
+        <ul class="schol-cite">
+          <li data-i18n-html="iliad_frag_ransom_cite_nagy_html">Gregory Nagy, <em>The Best of the Achaeans</em> (Johns Hopkins University Press, 1979).</li>
+          <li data-i18n-html="iliad_frag_ransom_cite_whitman_html">Cedric Whitman, <em>Homer and the Heroic Tradition</em> (Harvard University Press, 1958), pp. 254–284.</li>
+          <li data-i18n-html="iliad_frag_ransom_cite_west_html">M.L. West, <em>The Making of the Iliad: Disquisition and Analytical Commentary</em> (Oxford University Press, 2011), pp. 313–340.</li>
+          <li data-i18n-html="iliad_frag_ransom_cite_kirk_html">G.S. Kirk (ed.), <em>The Iliad: A Commentary</em>, vol. VI (Cambridge University Press, 1993).</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Structure toggle (shared) -->
+    <button type="button" class="structure-toggle" id="structure-toggle" data-i18n="show_structure" aria-expanded="false" aria-controls="track-view">Show structure ▾</button>
+
+  </div><!-- /content-area -->
+
+  <!-- Track View -->
+  <div class="track-view" id="track-view" role="region" data-i18n-aria-region="iliad_frag_track_region_aria" aria-label="Structural annotation tracks" hidden aria-hidden="true">
+    <p class="track-view-head" data-i18n="iliad_frag_track_head">ANNOTATION TRACKS · Book XXIV · The Ransom of Hector</p>
+
+    <!-- Propp row -->
+    <div class="track-row">
+      <div class="track-label">
+        <span data-i18n="iliad_frag_track_propp_label">PROPP</span>
+        <button type="button" class="fw-help" data-i18n-aria-label="iliad_frag_propp_help_aria" aria-label="About Propp's Morphology" data-explainer="exp-propp"><span data-i18n="iliad_frag_fw_help_suffix">[?]</span></button>
+      </div>
+      <div class="fw-explainer" id="exp-propp">
+        <div class="fw-exp-head"><span data-i18n="iliad_frag_propp_exp_title">Propp's Morphology of the Folktale (1928)</span> <button type="button" class="fw-exp-close" data-i18n="close_x">close ×</button></div>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);" data-i18n="iliad_frag_propp_exp_body">Vladimir Propp identified 31 narrative "functions" — actions that advance the story — recurring in Russian folktales in a consistent sequence. Later scholars applied the framework to myth and epic traditions worldwide. The numbers (PROPP-8, PROPP-19, etc.) are the function index from Propp's original 1928 classification.</p>
+      </div>
+      <div class="annot-row" role="group" data-i18n-aria-region="iliad_frag_annot_propp_group_aria" aria-label="Propp annotations">
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_propp8_aria" aria-label="PROPP-8: Villainy / Lack, confidence Reconstructed" tabindex="0">
+          <p class="annot-code">PROPP-8</p>
+          <p class="annot-name" data-i18n="iliad_frag_propp8_name">Villainy / Lack</p>
+          <span class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_recon_short">◑ Recon.</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_propp8_panel_head">PROPP-8 · Villainy / Lack</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_propp8_panel_p">The hero's lack driving the narrative. Here: Achilles lacks the ability to restore what grief has taken — Patroclus cannot be returned. Hector's body becomes a displaced object for grief that cannot be resolved otherwise.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_rec">Confidence: ◑ RECONSTRUCTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_nas">NAS: nms://iliad/book-xxiv/ransom-of-hector</p>
+          </div>
+        </div>
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_propp19_aria" aria-label="PROPP-19: Return, confidence Documented" tabindex="0">
+          <p class="annot-code">PROPP-19</p>
+          <p class="annot-name" data-i18n="iliad_frag_propp19_name">Return</p>
+          <span class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_doc_short">● Docu.</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_propp19_panel_head">PROPP-19 · Return</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_propp19_panel_p">Priam returns to Troy with Hector's body. The structural function of return here is double: Priam returns home; Hector is returned to the human community of mourning. Both returns are made possible by Achilles' act of grace.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_doc">Confidence: ● DOCUMENTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_propp31_aria" aria-label="PROPP-31: Recognition, confidence Documented" tabindex="0">
+          <p class="annot-code">PROPP-31</p>
+          <p class="annot-name" data-i18n="iliad_frag_propp31_name">Recognition</p>
+          <span class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_doc_short">● Docu.</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_propp31_panel_head">PROPP-31 · Recognition</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_propp31_panel_p">Both Achilles and Priam recognise the other as a mirror of their own grief. Priam sees Peleus in himself; Achilles sees mortality in Priam. The recognition is mutual and transforms both. It is also the structural close of Achilles' arc: he recognises himself as mortal.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_doc">Confidence: ● DOCUMENTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campbell row -->
+    <div class="track-row">
+      <div class="track-label">
+        <span data-i18n="iliad_frag_track_campbell_label">CAMPBELL</span>
+        <button type="button" class="fw-help" data-i18n-aria-label="iliad_frag_campbell_help_aria" aria-label="About Campbell's Hero's Journey" data-explainer="exp-campbell"><span data-i18n="iliad_frag_fw_help_suffix">[?]</span></button>
+      </div>
+      <div class="fw-explainer" id="exp-campbell">
+        <div class="fw-exp-head"><span data-i18n="iliad_frag_campbell_exp_title">Campbell's Hero with a Thousand Faces (1949)</span> <button type="button" class="fw-exp-close" data-i18n="close_x">close ×</button></div>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);" data-i18n="iliad_frag_campbell_exp_body">Joseph Campbell identified a common narrative structure — the monomyth or "hero's journey" — across world mythologies: departure, initiation, and return. The stages here map Campbell's terminology to the Iliad text.</p>
+      </div>
+      <div class="annot-row" role="group" data-i18n-aria-region="iliad_frag_annot_campbell_group_aria" aria-label="Campbell annotations">
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_campbell_elixir_aria" aria-label="Return with the Elixir, confidence Documented" tabindex="0">
+          <p class="annot-code">CAMPBELL</p>
+          <p class="annot-name" data-i18n="iliad_frag_campbell_return_name">Return with the Elixir</p>
+          <span class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_annot_documented">● Documented</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_campbell_return_panel_head">Campbell · Return with the Elixir</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_campbell_return_panel_p">Priam returns with Hector's body — not a magic boon but the restoration of a human claim. Campbell's "elixir" here is relational: the ability to mourn properly, which Priam carries back to Troy.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_doc">Confidence: ● DOCUMENTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_campbell_atone_aria" aria-label="Atonement with the Father, confidence Reconstructed" tabindex="0">
+          <p class="annot-code">CAMPBELL</p>
+          <p class="annot-name" data-i18n="iliad_frag_campbell_atone_name">Atonement with the Father</p>
+          <span class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_annot_reconstructed">◑ Reconstructed</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_campbell_atone_panel_head">Campbell · Atonement with the Father</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_campbell_atone_panel_p">Achilles' reconciliation with Priam maps onto Campbell's atonement with the father figure. Priam is not literally Achilles' father, but he occupies the structural position: the old man whose loss mirrors the grief Achilles carries for Peleus and Patroclus both.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_rec">Confidence: ◑ RECONSTRUCTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TMI row -->
+    <div class="track-row">
+      <div class="track-label">
+        <span data-i18n="iliad_frag_track_tmi_label">TMI (Thompson Motif Index)</span>
+        <button type="button" class="fw-help" data-i18n-aria-label="iliad_frag_tmi_help_aria" aria-label="About the Thompson Motif Index" data-explainer="exp-tmi"><span data-i18n="iliad_frag_fw_help_suffix">[?]</span></button>
+      </div>
+      <div class="fw-explainer" id="exp-tmi">
+        <div class="fw-exp-head"><span data-i18n="iliad_frag_tmi_exp_title">Thompson Motif Index (1955–1958)</span> <button type="button" class="fw-exp-close" data-i18n="close_x">close ×</button></div>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);" data-i18n="iliad_frag_tmi_exp_body">Stith Thompson's six-volume index classifies recurring narrative motifs across world folklore and mythology. Each motif has an alphanumeric code. P-codes cover social relations and customs; T-codes cover sex, love, and the emotions.</p>
+      </div>
+      <div class="annot-row" role="group" data-i18n-aria-region="iliad_frag_annot_tmi_group_aria" aria-label="TMI annotations">
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_tmi325_aria" aria-label="P325: Guest and host, confidence Documented" tabindex="0">
+          <p class="annot-code">P325</p>
+          <p class="annot-name" data-i18n="iliad_frag_tmi_p325_name">Guest and host</p>
+          <span class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_annot_documented">● Documented</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_tmi325_panel_head">TMI P325 · Guest and host</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_tmi_p325_panel_p">Xenia — the Greek guest-friendship code — is observed between enemies. Achilles provides Priam with a seat, a shared meal, and safe passage home. The truce is a xenia gesture that overrides the war context entirely. Thompson P325 covers guest receives hospitality.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_doc">Confidence: ● DOCUMENTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+        <div class="annot-block" role="button" aria-expanded="false" data-i18n-aria-label="iliad_frag_annot_tmi211_aria" aria-label="T211.9: Mourning for dead, confidence Reconstructed" tabindex="0">
+          <p class="annot-code">T211.9</p>
+          <p class="annot-name" data-i18n="iliad_frag_tmi_t211_name">Mourning for dead</p>
+          <span class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;" data-i18n="iliad_frag_badge_recon_short">◑ Recon.</span>
+          <div class="annot-panel">
+            <div class="annot-panel-head"><span data-i18n="iliad_frag_tmi211_panel_head">TMI T211.9 · Mourning for dead</span> <button type="button" class="annot-panel-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_frag_tmi_t211_panel_p">Mutual mourning of enemies is documented as a rare motif. Thompson T211.9 covers ritualized mourning behaviors; this scene is among its most formally elaborate instances in world literature: two men who are enemies weeping together for separate losses, neither able to comfort the other.</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_conf_rec">Confidence: ◑ RECONSTRUCTED</p>
+            <p class="meta-line" data-i18n="iliad_frag_meta_annotated">Annotated by: Dr. E. Pantelia · 2026-05-10</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inactive track toggles -->
+    <div class="inactive-tracks">
+      <button type="button" class="add-track" data-i18n="iliad_frag_add_bakhtin" aria-pressed="false" onclick="this.style.opacity='0.5'; this.setAttribute('aria-pressed','true');">[+ Bakhtin chronotopes]</button>
+      <button type="button" class="add-track" data-i18n="iliad_frag_add_levi" aria-pressed="false" onclick="this.style.opacity='0.5'; this.setAttribute('aria-pressed','true');">[+ Lévi-Strauss mythemes]</button>
+      <button type="button" class="add-track" data-i18n="iliad_frag_add_emotion" aria-pressed="false" onclick="this.style.opacity='0.5'; this.setAttribute('aria-pressed','true');">[+ Emotional valence]</button>
+    </div>
+  </div><!-- /track-view -->
+
+  <!-- Parallel strip -->
+  <div class="parallel-strip" id="parallel-strip" role="complementary" data-i18n-aria-region="iliad_frag_parallel_strip_aria" aria-label="Cross-tradition parallels">
+    <div class="parallel-strip-head">
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);" data-i18n="parallel_strip_heading">Structural resonance in another tradition</p>
+    </div>
+    <div class="parallel-card">
+      <p style="margin-bottom: 10px;">
+        <button type="button" class="badge rec" data-i18n-aria-tier="tier_aria_reconstructed_short" aria-label="Confidence tier: Reconstructed" aria-expanded="false">
+          <span data-i18n="badge_reconstructed">◑ RECONSTRUCTED</span>
+          <div class="badge-pop">
+            <div class="pop-head"><span data-i18n="badge_pop_rec_head">◑ RECONSTRUCTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="parallels_badge_rec_body">Structurally identified resonance; scholarly consensus with acknowledged interpretive elements. Confirmed and annotated by Dr. E. Pantelia.</p>
+          </div>
+        </button>
+      </p>
+      <h2 class="parallel-card-title" data-i18n-html="iliad_frag_parallel_card_title_html">Grief and the Hero &nbsp;·&nbsp; <span style="font-weight: 400; color: var(--text-2);">Tablet VIII — Epic of Gilgamesh · Mesopotamian tradition</span></h2>
+      <p class="parallel-card-body" data-i18n="iliad_frag_parallel_card_body">Both heroes lose their closest companion; both are left to confront mortality through the loss. The companion's death is the structural hinge on which heroic identity turns in both traditions.</p>
+      <p class="parallel-card-type" data-i18n="parallel_type_structural">Type: Structural resonance — not a shared source</p>
+      <a href="iliad-parallel-view.html" data-i18n-aria-label="iliad_frag_parallel_read_aria" aria-label="Read parallel: Grief and the Hero — Iliad and Gilgamesh" data-i18n="read_this_parallel" style="font: 500 16px/1.7 var(--serif);">Read this parallel →</a>
+    </div>
+  </div>
+
+  <!-- Episode navigation -->
+  <nav class="ep-nav" aria-label="Adjacent episodes">
+    <a href="iliad-book-hub.html" rel="prev" data-i18n-aria-label="iliad_ep_nav_prev_aria" aria-label="Previous episode" data-i18n="iliad_frag_nav_prev">← Book XXIV · Priam's Night Journey</a>
+    <a href="iliad-book-hub.html" rel="next" data-i18n-aria-label="iliad_ep_nav_next_aria" aria-label="Back to book hub" data-i18n="iliad_frag_nav_next">Book XXIV overview →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_iliad">Phase 1 · Gilgamesh + Iliad · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+// ── Locale ──
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+
+// ── Layer state machine (translation-aware) ──
+const ILIAD_LAYER_DEFS = {
+  surface: {
+    tabId: 'tab-surface', panelId: 'layer-surface',
+    badgeCls: 'ins', badgeTextKey: 'badge_ai_reviewed', popHeadKey: 'badge_pop_ai_head', tierAriaKey: 'tier_aria_ai_reviewed'
+  },
+  translated: {
+    tabId: 'tab-translated', panelId: 'layer-translated',
+    badgeCls: 'doc', badgeTextKey: 'badge_documented', popHeadKey: 'badge_pop_doc_head', tierAriaKey: 'tier_aria_documented_short'
+  },
+  scholaria: {
+    tabId: 'tab-scholaria', panelId: 'layer-scholaria',
+    badgeCls: 'con', badgeTextKey: 'iliad_frag_badge_scholaria_label', popHeadKey: 'iliad_frag_badge_scholaria_head', tierAriaKey: 'tier_aria_contested_documented_combo'
+  }
+};
+
+let activeIliadLayer = 'surface';
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function iliadSurfacePopInner(t) {
+  const lis = ['nms://iliad/book-xxiv/ransom-of-hector', 'nms://iliad/book-xxiv/priams-journey']
+    .map(n => '<li>' + escapeHtml(n) + escapeHtml(t.frag_nas_tag_doc || '') + '</li>').join('');
+  return '<p>' + escapeHtml(t.frag_badge_ai_pop_p1 || '') + '</p><p>' + escapeHtml(t.iliad_frag_badge_ai_pop_p2 || '') + '</p><ul>' + lis + '</ul>';
+}
+
+function iliadTranslatedPopInner(t) {
+  return '<p>' + escapeHtml(t.iliad_frag_badge_trans_pop_p1 || '') + '</p>';
+}
+
+function iliadScholiaPopInner(t) {
+  return '<p>' + escapeHtml(t.iliad_frag_badge_schol_pop_p1 || '') + '</p>';
+}
+
+function refreshIliadEpisodeBadgePopBody() {
+  const t = TRANSLATIONS[getLocale()];
+  const body = document.getElementById('episode-badge-pop-body');
+  if (!body || !t) return;
+  if (activeIliadLayer === 'surface') body.innerHTML = iliadSurfacePopInner(t);
+  else if (activeIliadLayer === 'translated') body.innerHTML = iliadTranslatedPopInner(t);
+  else body.innerHTML = iliadScholiaPopInner(t);
+}
+
+function restoreIliadLayerTabLabels() {
+  const t = TRANSLATIONS[getLocale()];
+  document.querySelectorAll('.layer-tab').forEach(tab => {
+    const key = tab.dataset.i18n;
+    if (!key || t[key] === undefined) return;
+    let label = t[key];
+    const selected = tab.getAttribute('aria-selected') === 'true';
+    if (selected) label = label.replace(/○/g, '●');
+    else label = label.replace(/●/g, '○');
+    tab.textContent = label;
+  });
+}
+
+function syncIliadEpisodeBadge() {
+  const t = TRANSLATIONS[getLocale()];
+  const def = ILIAD_LAYER_DEFS[activeIliadLayer];
+  if (!t || !def) return;
+  const badge = document.getElementById('episode-badge');
+  if (!badge) return;
+  badge.className = 'badge ' + def.badgeCls;
+  const prefix = t.tier_confidence_prefix || 'Confidence tier: ';
+  const tierLabel = t[def.tierAriaKey] !== undefined ? t[def.tierAriaKey] : def.tierAriaKey;
+  badge.setAttribute('aria-label', prefix + tierLabel);
+  const badgeSpan = document.getElementById('episode-badge-span');
+  if (badgeSpan && t[def.badgeTextKey] !== undefined) badgeSpan.textContent = t[def.badgeTextKey];
+  const head = document.getElementById('episode-badge-pop-head');
+  if (head && t[def.popHeadKey] !== undefined) head.textContent = t[def.popHeadKey];
+  refreshIliadEpisodeBadgePopBody();
+}
+
+function refreshIliadNasAria() {
+  const t = TRANSLATIONS[getLocale()];
+  const el = document.getElementById('nas-addr');
+  if (!el || !t) return;
+  const p = t.nas_address_aria_prefix || 'NAS address: ';
+  el.setAttribute('aria-label', p + el.textContent.trim());
+}
+
+function switchLayer(name, isInit) {
+  const def = ILIAD_LAYER_DEFS[name];
+  if (!def) return;
+  activeIliadLayer = name;
+
+  Object.values(ILIAD_LAYER_DEFS).forEach(l => {
+    const panel = document.getElementById(l.panelId);
+    const tab = document.getElementById(l.tabId);
+    if (panel) panel.classList.remove('active');
+    if (tab) tab.setAttribute('aria-selected', 'false');
+  });
+
+  const panel = document.getElementById(def.panelId);
+  const tab = document.getElementById(def.tabId);
+  if (panel) panel.classList.add('active');
+  if (tab) tab.setAttribute('aria-selected', 'true');
+
+  restoreIliadLayerTabLabels();
+  syncIliadEpisodeBadge();
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('layer', name);
+  history.pushState({ layer: name }, '', url);
+
+  if (!isInit) {
+    document.getElementById('content-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+document.querySelectorAll('.layer-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchLayer(tab.dataset.layer));
+  tab.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchLayer(tab.dataset.layer); }
+  });
+});
+
+const trackView = document.getElementById('track-view');
+
+window.addEventListener('mnemosyne:locale', () => {
+  refreshIliadNasAria();
+  syncIliadEpisodeBadge();
+  restoreIliadLayerTabLabels();
+  const seeBtn = document.getElementById('see-sources-btn');
+  const srcPanel = document.getElementById('sources-panel');
+  if (seeBtn && srcPanel && TRANSLATIONS[getLocale()]) {
+    const t = TRANSLATIONS[getLocale()];
+    const open = srcPanel.style.display === 'block';
+    seeBtn.textContent = open ? (t.hide_sources || '') : (t.see_sources || '');
+  }
+  const toggle = document.getElementById('structure-toggle');
+  if (toggle && trackView && !trackView.classList.contains('open')) {
+    toggle.textContent = TRANSLATIONS[getLocale()].show_structure || '';
+  }
+});
+
+// ── NAS copy ──
+document.getElementById('nas-copy-btn').addEventListener('click', function() {
+  const addr = document.getElementById('nas-addr')?.textContent?.trim() || '';
+  navigator.clipboard.writeText(addr).catch(() => {});
+  const locale = getLocale();
+  const t = TRANSLATIONS[locale];
+  this.textContent = t.copied_confirm || 'copied';
+  document.getElementById('copied-confirm').style.display = 'inline';
+  const btn = this;
+  setTimeout(() => {
+    btn.textContent = t.copy_btn || 'copy';
+    document.getElementById('copied-confirm').style.display = 'none';
+  }, 1500);
+});
+
+// ── See sources ──
+document.getElementById('see-sources-btn').addEventListener('click', function() {
+  const panel = document.getElementById('sources-panel');
+  const open = panel.style.display === 'block';
+  panel.style.display = open ? 'none' : 'block';
+  this.setAttribute('aria-expanded', open ? 'false' : 'true');
+  const locale = getLocale();
+  const t = TRANSLATIONS[locale];
+  this.textContent = open ? (t.see_sources || '') : (t.hide_sources || '');
+});
+
+// ── Structure toggle ──
+document.getElementById('structure-toggle').addEventListener('click', function() {
+  const open = trackView.classList.contains('open');
+  trackView.classList.toggle('open', !open);
+  trackView.hidden = open;
+  trackView.setAttribute('aria-hidden', open ? 'true' : 'false');
+  this.setAttribute('aria-expanded', open ? 'false' : 'true');
+  const locale = getLocale();
+  const t = TRANSLATIONS[locale];
+  this.textContent = open ? (t.show_structure || '') : (t.hide_structure || '');
+});
+
+// ── Badge expansion ──
+function setupBadges() {
+  document.querySelectorAll('.badge').forEach(badge => {
+    badge.addEventListener('click', function(e) {
+      const pop = this.querySelector('.badge-pop');
+      if (!pop) return;
+      const open = pop.classList.contains('open');
+      document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!open) { pop.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+  document.querySelectorAll('.pop-close').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.closest('.badge-pop').classList.remove('open');
+      btn.closest('.badge').setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+setupBadges();
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.badge')) {
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  trackView.classList.remove('open');
+  trackView.hidden = true;
+  trackView.setAttribute('aria-hidden', 'true');
+  const toggle = document.getElementById('structure-toggle');
+  toggle.setAttribute('aria-expanded', 'false');
+  const loc = getLocale();
+  toggle.textContent = TRANSLATIONS[loc].show_structure || '';
+});
+
+// ── Annotation block expansion ──
+document.querySelectorAll('.annot-block').forEach(block => {
+  function toggleAnnot(e) {
+    if (e.target.closest('.annot-panel') || e.target.closest('.badge')) return;
+    const panel = block.querySelector('.annot-panel');
+    if (!panel) return;
+    const open = panel.classList.contains('open');
+    document.querySelectorAll('.annot-panel').forEach(p => { p.classList.remove('open'); p.closest('.annot-block')?.setAttribute('aria-expanded', 'false'); });
+    if (!open) { panel.classList.add('open'); block.setAttribute('aria-expanded', 'true'); }
+  }
+  block.addEventListener('click', toggleAnnot);
+  block.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAnnot(e); } });
+});
+document.querySelectorAll('.annot-panel-close').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const panel = btn.closest('.annot-panel');
+    panel.classList.remove('open');
+    panel.closest('.annot-block')?.setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.annot-block')) {
+    document.querySelectorAll('.annot-panel').forEach(p => { p.classList.remove('open'); p.closest('.annot-block')?.setAttribute('aria-expanded', 'false'); });
+  }
+});
+
+// ── Framework explainers ──
+document.querySelectorAll('.fw-help').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const expId = btn.dataset.explainer;
+    const exp = document.getElementById(expId);
+    const open = exp?.classList.contains('open');
+    document.querySelectorAll('.fw-explainer').forEach(f => f.classList.remove('open'));
+    if (!open && exp) exp.classList.add('open');
+  });
+});
+document.querySelectorAll('.fw-exp-close').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); btn.closest('.fw-explainer').classList.remove('open'); });
+});
+applyLocale(getLocale());
+refreshIliadNasAria();
+(function initIliadLayerFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const layer = params.get('layer') || 'surface';
+  switchLayer(layer, true);
+})();
+</script>
+</body>
+</html>

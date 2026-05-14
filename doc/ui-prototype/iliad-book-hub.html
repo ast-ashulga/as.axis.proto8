@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title="iliad_book24_hub_doc_title">Book XXIV: The Ransom — Iliad — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C; --text-dis: #C4BCB1;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --greek: #B05B3B; --greek-bg: #F5EDEA;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; max-width: calc(var(--col) + var(--mx) * 2); margin-inline: auto; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.bc { display: flex; align-items: center; gap: 6px; font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px; }
+.bc a { color: var(--link); }
+.bc .sep { color: var(--text-3); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent;
+  vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); }
+.rec { color: var(--tier-rec); }
+
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(300px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.pop-close { display: none; }
+
+/* Episode cards */
+.ep-card {
+  display: block; background: var(--surface); border: 1px solid var(--border-2);
+  padding: 24px; text-decoration: none; color: var(--text);
+  margin-bottom: 12px; transition: background 0.1s ease-in-out;
+}
+.ep-card:hover { background: var(--overlay); color: var(--text); }
+.ep-card:visited { color: var(--text); }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="iliad-overview.html" class="nav-l cur" data-i18n="nav_iliad">Iliad</a>
+    <a href="parallels-index.html" class="nav-l" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <nav class="bc" aria-label="Breadcrumb">
+    <a href="iliad-overview.html" data-i18n="nav_iliad">Iliad</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page" data-i18n="iliad_frag_book24_bc">Book XXIV</span>
+  </nav>
+
+  <!-- Book header -->
+  <header style="margin-bottom: 8px;">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+      <h1 style="font: 500 24px/1.3 var(--serif);" data-i18n="iliad_book24_label">BOOK XXIV</h1>
+      <button type="button" class="badge rec" data-i18n-aria-tier="tier_aria_reconstructed_short" aria-label="Confidence tier: Reconstructed" aria-expanded="false">
+        <span data-i18n="badge_reconstructed">◑ RECONSTRUCTED</span>
+        <div class="badge-pop" role="tooltip">
+          <div class="pop-head">
+            <span data-i18n="badge_pop_rec_head">◑ RECONSTRUCTED</span>
+            <button type="button" class="pop-close" data-i18n="close_x">close ×</button>
+          </div>
+          <p data-i18n="tablet_hub_rec_pop_intro">Inferred from partial evidence; scholarly consensus with acknowledged gaps.</p>
+          <p data-i18n="iliad_book24_rec_pop_detail">Book XXIV survives in all major manuscript traditions. However, Aristarchus of Samothrace athetized (bracketed as potentially spurious) approximately 12 lines, including parts of the opening divine assembly. The overall book is secure; specific line attribution remains a matter of scholarly debate.</p>
+        </div>
+      </button>
+    </div>
+    <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 20px;" data-i18n="iliad_book24_name">The Ransom</h2>
+    <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col);" data-i18n="iliad_book24_hub_intro">
+      The final book of the Iliad. After Achilles kills Hector, he continues to defile the body — dragging it around Patroclus' tomb each morning. The gods, offended by this treatment, intervene. Zeus sends Iris to Priam and Thetis to Achilles. Priam loads a ransom cart and crosses enemy lines at night, guided by Hermes in disguise. He reaches Achilles and supplicates him directly. Both men weep for their dead. Achilles relents; the body is washed, anointed, and returned. A truce of eleven days is granted for the funeral rites.
+    </p>
+  </header>
+
+  <hr class="div">
+
+  <!-- Episodes -->
+  <section data-i18n-aria-region="iliad_book24_episodes_region_aria" aria-label="Episodes">
+    <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 20px;" data-i18n="episodes_label">EPISODES</p>
+
+    <div role="list">
+
+      <!-- Episode 1: The Gods Decide -->
+      <a href="iliad-book-hub.html" class="ep-card" role="listitem"
+         data-i18n-aria-label="iliad_book24_ep1_aria" aria-label="The Gods Decide — episode 1 of Book XXIV">
+        <h3 style="font: 400 18px/1.4 var(--serif); margin-bottom: 10px;" data-i18n="iliad_book24_ep1_title">THE GODS DECIDE</h3>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="iliad_book24_ep1_desc">
+          Zeus calls an assembly after Achilles continues dragging Hector's body around Patroclus' tomb. Iris is sent to Priam with Zeus's instructions: go to Achilles, bring ransom, retrieve the body. Thetis is sent to Achilles with a gentle rebuke. The divine machinery that makes the ransom possible is set in motion.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">nms://iliad/book-xxiv/gods-decide</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-dis); margin-top: 4px;" data-i18n="iliad_book24_ep_coming">Full fragment view coming in next release</p>
+      </a>
+
+      <!-- Episode 2: Priam's Night Journey -->
+      <a href="iliad-book-hub.html" class="ep-card" role="listitem"
+         data-i18n-aria-label="iliad_book24_ep2_aria" aria-label="Priam's Night Journey — episode 2 of Book XXIV">
+        <h3 style="font: 400 18px/1.4 var(--serif); margin-bottom: 10px;" data-i18n="iliad_book24_ep2_title">PRIAM'S NIGHT JOURNEY</h3>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="iliad_book24_ep2_desc">
+          Priam loads a ransom cart with treasures — gold, cauldrons, robes — and sets out alone through enemy lines with his herald Idaeus. Hermes appears disguised as a young Myrmidon soldier, escorts Priam past the Greek sentries, and guides him unseen through the camp to Achilles' hut.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">nms://iliad/book-xxiv/priams-journey</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-dis); margin-top: 4px;" data-i18n="iliad_book24_ep_coming">Full fragment view coming in next release</p>
+      </a>
+
+      <!-- Episode 3: The Ransom of Hector (has parallel) -->
+      <a href="iliad-fragment-view.html" class="ep-card" role="listitem"
+         data-i18n-aria-label="iliad_book24_ep3_aria" aria-label="The Ransom of Hector — has 1 cross-tradition parallel"
+         style="border-left: 3px solid var(--tier-rec);">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <h3 style="font: 400 18px/1.4 var(--serif);">
+            <span style="color: var(--tier-rec); margin-inline-end: 6px;" data-i18n-aria-label="iliad_book24_parallel_glyph_aria" aria-label="Has cross-tradition parallel">◑</span>
+            <span data-i18n="iliad_frag_ransom_title">THE RANSOM OF HECTOR</span>
+          </h3>
+        </div>
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;" data-i18n="iliad_book24_ep3_desc">
+          Priam supplicates Achilles at the knees, kissing the hands that killed Hector. Both men weep simultaneously — Priam for Hector, Achilles for his father Peleus and for Patroclus. Achilles relents. The body is washed, anointed, and wrapped so Priam cannot see the wounds. A shared meal; eleven days of truce; Priam departs before dawn with Hector on the cart.
+        </p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 6px;">nms://iliad/book-xxiv/ransom-of-hector</p>
+        <p style="font: 400 11px/1.4 var(--mono); color: var(--tier-rec);" data-i18n="iliad_book24_ep_parallel">◑ 1 structural parallel</p>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- Book navigation -->
+  <nav data-i18n-aria-region="iliad_book24_adjacent_books_aria" aria-label="Adjacent books" style="display: flex; justify-content: space-between; margin-bottom: 0;">
+    <a href="iliad-overview.html" style="font: 400 14px/1.5 var(--serif);" data-i18n-aria-label="iliad_book_nav_prev_aria" aria-label="Previous book" data-i18n="iliad_book24_nav_prev">← Book XXII · Hector</a>
+    <a href="iliad-overview.html" style="font: 400 14px/1.5 var(--serif);" data-i18n-aria-label="iliad_book_nav_overview_aria" aria-label="Return to overview" data-i18n="iliad_book24_nav_return_overview">Return to overview →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_iliad">Phase 1 · Gilgamesh + Iliad · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+
+// Badge expansion
+document.querySelectorAll('.badge').forEach(badge => {
+  badge.addEventListener('click', function(e) {
+    const pop = this.querySelector('.badge-pop');
+    if (!pop) return;
+    const open = pop.classList.contains('open');
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!open) { pop.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+  });
+});
+document.querySelectorAll('.pop-close').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.closest('.badge-pop').classList.remove('open');
+    btn.closest('.badge').setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.badge')) {
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+applyLocale(getLocale());
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title="iliad_parallel_doc_title">Grief and the Hero — Structural Resonance — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --greek: #B05B3B; --greek-bg: #F5EDEA;
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent; vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); }
+.rec { color: var(--tier-rec); }
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(280px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.pop-close { display: none; }
+.badge-pop p { margin-bottom: 8px; }
+
+/* Parallel header */
+.parallel-header {
+  background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px;
+  margin-bottom: 24px;
+}
+
+/* Tradition panels */
+.tradition-panels {
+  display: flex; gap: 0; align-items: stretch; margin-bottom: 24px;
+}
+.trad-panel {
+  flex: 1; border: 1px solid var(--border-2); padding: 28px;
+}
+.trad-panel:first-child { border-right: none; }
+.trad-panel.mesop-panel { background: var(--mesop-bg); }
+.trad-panel.greek-panel { background: var(--greek-bg); }
+.trad-label { font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; margin-bottom: 14px; }
+.trad-name { font: 500 20px/1.35 var(--serif); margin-bottom: 4px; }
+.trad-sub { font: 400 16px/1.5 var(--serif); color: var(--text-2); margin-bottom: 4px; }
+.trad-date { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.trad-divider { border: none; border-top: 1px solid var(--border-2); margin-block: 16px; }
+.trad-passage { font: 400 16px/1.7 var(--serif); }
+.trad-passage p { margin-bottom: 12px; }
+.trad-attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+.phase-disclosure { font: 400 italic 14px/1.5 var(--serif); color: var(--text-2); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+
+/* Scholarly note */
+.schol-note { background: var(--surface); border: 1px solid var(--border-2); padding: 32px 40px; }
+.note-section { margin-bottom: 32px; }
+.note-section:last-child { margin-bottom: 0; }
+.note-head { font: 500 18px/1.4 var(--serif); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-2); }
+.note-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 16px; }
+.note-body p:last-child { margin-bottom: 0; }
+.cite-list { list-style: none; margin-top: 8px; }
+.cite-list li { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 8px; }
+.cite-list li::before { content: "· "; }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+  .tradition-panels { flex-direction: column; }
+  .trad-panel:first-child { border-right: 1px solid var(--border-2); border-bottom: none; }
+  .schol-note { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="iliad-overview.html" class="nav-l" data-i18n="nav_iliad">Iliad</a>
+    <a href="parallels-index.html" class="nav-l cur" aria-current="page" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <div style="margin-bottom: 20px;">
+    <a href="iliad-overview.html" style="font: 400 14px/1.5 var(--serif);"
+       data-i18n="iliad_parallel_view_back"
+       data-i18n-aria-label="iliad_parallel_view_back_aria"
+       aria-label="Back to Iliad tradition overview">← Back to Iliad</a>
+  </div>
+
+  <!-- Parallel header -->
+  <div class="parallel-header" role="region" aria-label="Parallel summary" data-i18n-aria-region="iliad_parallel_region_parallel">
+    <h1 style="font: 500 24px/1.3 var(--serif); margin-bottom: 6px;" data-i18n="iliad_parallel_heading">Structural resonance: Grief and the Hero</h1>
+    <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="parallel_type_structural">Type: Structural resonance — not a shared source</p>
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+      <button class="badge rec" aria-label="Confidence tier: Reconstructed" aria-expanded="false">
+        <span data-i18n="badge_reconstructed">◑ RECONSTRUCTED</span>
+        <div class="badge-pop">
+          <div class="pop-head"><span data-i18n="badge_pop_rec_head">◑ RECONSTRUCTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+          <p data-i18n="parallels_badge_rec_body">Structurally identified resonance; scholarly consensus with acknowledged interpretive elements. This parallel was confirmed and annotated by Dr. E. Pantelia after review of both primary texts.</p>
+        </div>
+      </button>
+      <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="iliad_parallel_attributed_pantelia">Attributed: Dr. E. Pantelia</span>
+    </div>
+  </div>
+
+  <!-- Tradition panels -->
+  <div class="tradition-panels" role="region" aria-label="Tradition passages" data-i18n-aria-region="iliad_parallel_region_passages">
+
+    <!-- Iliad panel -->
+    <div class="trad-panel greek-panel" role="region" aria-label="Greek tradition panel" data-i18n-aria-region="iliad_parallel_panel_greek_aria">
+      <p class="trad-label" style="color: var(--greek);" data-i18n="iliad_parallel_label_greek">─── GREEK ───────────────</p>
+      <h2 class="trad-name" data-i18n="idx_title_iliad">The Iliad</h2>
+      <p class="trad-sub" data-i18n="iliad_parallel_iliad_sub">Book XXIV — The Ransom of Hector</p>
+      <p class="trad-date" data-i18n="iliad_parallel_iliad_date">c. 8th century BCE (oral tradition); written text by ~550 BCE</p>
+
+      <div style="margin-bottom: 14px;">
+        <button class="badge doc" aria-label="Confidence tier: Documented" aria-expanded="false">
+          <span data-i18n="badge_documented">● DOCUMENTED</span>
+          <div class="badge-pop">
+            <div class="pop-head"><span data-i18n="badge_pop_doc_head">● DOCUMENTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_parallel_badge_iliad_doc_pop">Attested primary source in public-domain translation.</p>
+          </div>
+        </button>
+        <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-inline-start: 10px;" data-i18n="iliad_parallel_credit_iliad">Translation: Andrew Lang, Walter Leaf, and Ernest Myers (1882) · Public domain</span>
+      </div>
+
+      <hr class="trad-divider">
+
+      <div class="trad-passage" data-i18n-html="iliad_parallel_passage_iliad_html" lang="en">
+        <p>Priam the old man passed within the house and found Achilles, dear to Zeus, sitting apart, and the heroes were seated apart. And two alone, Automedon and Alkimos, of the stock of Ares, were busy in attendance; for Achilles had but newly ceased from meat and drink, and the table was still standing by him.</p>
+        <p>And great Priam entered unnoticed, and stood near, and clasped the knees of Achilles, and kissed his terrible man-slaying hands that had slain so many of Priam's sons.</p>
+        <p>And as when a mighty woe cometh upon a man who in his own country hath slain another, and he cometh to the land of strangers, to a rich man's house, and wonder holdeth them that see him — so Achilles wondered when he saw godlike Priam, and the rest wondered likewise, and looked upon one another.</p>
+        <p>Then spake Priam and made his prayer: "Bethink thee of thy father, O Achilles like to gods, whose years are even as mine, on the grievous threshold of old age. Yet truly while he heareth of thee as still alive he rejoiceth in his heart, and hopeth every day that he shall see his dear son returning from Troy-land. But I am all-hapless, since I had the best sons in broad Troy-land, and I deem that not one of them is left."</p>
+        <p>So spake he, and stirred in Achilles desire to make lament for his father; and he took the old man's hand and gently put him from him. And the two bethought them of their dead and wept; and Priam wept sore for Hector the man-slayer, as he lay before Achilles' feet; and Achilles wept for his own father, and now again for Patroclus; and the sound of their mourning rose throughout the house.</p>
+      </div>
+
+      <p class="trad-attr" data-i18n="iliad_parallel_attr_iliad">— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 477–512 (selected)</p>
+
+      <a href="iliad-fragment-view.html" style="font: 400 14px/1.5 var(--serif); display: inline-block; margin-top: 16px;"
+         data-i18n="iliad_parallel_fragment_link"
+         data-i18n-aria-label="iliad_parallel_fragment_link_aria"
+         aria-label="Open full Iliad Fragment View for Book XXIV ransom episode">
+        Open full Fragment View →
+      </a>
+    </div>
+
+    <!-- Gilgamesh panel -->
+    <div class="trad-panel mesop-panel" role="region" aria-label="Mesopotamian tradition panel" data-i18n-aria-region="iliad_parallel_panel_mesop_aria">
+      <p class="trad-label" style="color: var(--mesop);" data-i18n="iliad_parallel_label_mesop">─── MESOPOTAMIAN ───────────────</p>
+      <h2 class="trad-name" data-i18n="parallel_view_epi_title">Epic of Gilgamesh</h2>
+      <p class="trad-sub" data-i18n="iliad_parallel_epi_sub_enkidu">Tablet VIII — The Death of Enkidu</p>
+      <p class="trad-date" data-i18n="parallel_view_epi_date_sbv">c. 1200 BCE (Standard Babylonian Version)</p>
+
+      <div style="margin-bottom: 14px;">
+        <button class="badge doc" aria-label="Confidence tier: Documented" aria-expanded="false">
+          <span data-i18n="badge_documented">● DOCUMENTED</span>
+          <div class="badge-pop">
+            <div class="pop-head"><span data-i18n="badge_pop_doc_head">● DOCUMENTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="iliad_parallel_badge_gilg_doc_pop">Attested primary source; public-domain translation.</p>
+          </div>
+        </button>
+        <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-inline-start: 10px;" data-i18n="parallel_view_credit_thompson">Translation: R. Campbell Thompson (1930) · Public domain</span>
+      </div>
+
+      <hr class="trad-divider">
+
+      <div class="trad-passage" data-i18n-html="iliad_parallel_passage_gilgamesh_html" lang="en">
+        <p>Gilgamesh bemoaned Enkidu, his friend, weeping bitterly over him:</p>
+        <p>"Enkidu, my friend, whom I loved more than all labours that I did —<br>
+        he who with me ranged the wilderness and slew the lion,<br>
+        he who with me took Humbaba in the Cedar Forest —<br>
+        what is the sleep that hath seized thee now?"</p>
+        <p>He touched his heart but it did not beat. He covered Enkidu's face as one covers a bride. Like an eagle he circled over him. Like a lioness whose whelps are taken he paced to and fro. He tore out his hair and threw it from him.</p>
+      </div>
+
+      <p class="trad-attr" data-i18n="iliad_parallel_attr_gilgamesh">— Thompson (1930), Tablet VIII (reconstructed from multiple fragments)</p>
+
+      <p class="phase-disclosure" role="note" data-i18n="iliad_parallel_gilgamesh_phase_note">
+        Phase 1: Full fragment view for Tablet VIII is not yet available. Tablet VIII will be fully browsable in the next release.
+      </p>
+    </div>
+
+  </div><!-- /tradition-panels -->
+
+  <!-- Scholarly note -->
+  <div class="schol-note" role="complementary" aria-label="Scholarly note" data-i18n-aria-region="iliad_parallel_note_region">
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="iliad_parallel_note_what_head">What resonates</h2>
+      <div class="note-body">
+        <p data-i18n="iliad_parallel_note_what_p1">Both heroes lose their closest companion — Patroclus for Achilles, Enkidu for Gilgamesh. In both traditions the companion is the hero's alter-ego: the part of himself uncomplicated by kingship, reputation, or divine inheritance. The structural position of the companion's death is identical in both epics: it is the pivot on which the hero's understanding of mortality turns.</p>
+        <p data-i18n="iliad_parallel_note_what_p2">The grief gestures are almost identical across traditions separated by centuries and cultures. Both heroes lie prostrate, refuse food, refuse comfort from those around them, and name the dead aloud. The refusal of food — a primal marker of rejection of life's rhythms — appears in both Achilles' withdrawal after Patroclus' death (Book XVIII) and Gilgamesh's prostration over Enkidu (Tablet VIII). Neither hero can be moved by anyone until the narrative's deeper structure intervenes.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="iliad_parallel_note_why_head">Why it resonates</h2>
+      <div class="note-body">
+        <p data-i18n="iliad_parallel_note_why_p1">The companion functions in both traditions as a mirror: Achilles sees in Patroclus the mortal, vulnerable self he cannot acknowledge in the battlefield persona; Gilgamesh sees in Enkidu the wild-born freedom he could not sustain as king in Uruk. When the mirror breaks, both heroes are forced to confront what they had been using the companion to avoid. The grief is not only mourning — it is a reckoning with the self.</p>
+        <p data-i18n="iliad_parallel_note_why_p2">This structural convergence may reflect something prior to either tradition: the companion as the narrative device through which a larger-than-human hero becomes human. The death of the companion is the moment the hero's mythology cannot absorb. Neither tradition invented this; both traditions use it to do the same work.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="iliad_parallel_note_diverge_head">Where it diverges</h2>
+      <div class="note-body">
+        <p data-i18n="iliad_parallel_note_diverge_p1">Achilles accepts mortality and chooses glory (kleos). His encounter with Priam in Book XXIV is a controlled re-entry into the human world: both men weep together, the body is restored, and the truce is granted. Achilles does not overcome grief — he moves through it into an act of grace that the Iliad presents as the poem's moral culmination. His own death is foretold and accepted; he has already chosen it.</p>
+        <p data-i18n="iliad_parallel_note_diverge_p2">Gilgamesh refuses. He leaves Uruk, abandons his kingship, and spends the remaining tablets attempting to escape the conclusion his grief has handed him. He seeks the secret of immortality precisely because Enkidu's death has made mortality real. He fails. The divergence is not in the depth of grief but in what each hero does with it: Achilles turns outward and restores relation; Gilgamesh turns inward and pursues escape.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="iliad_parallel_note_reveals_head">What the divergence reveals</h2>
+      <div class="note-body">
+        <p data-i18n="iliad_parallel_note_reveals_p1">Grief is the hinge-point of heroic identity in both traditions. The moment the companion dies, the hero's definition of himself — built entirely on strength, companionship, and action — becomes insufficient. What each tradition builds on that hinge reveals its deepest values.</p>
+        <p data-i18n="iliad_parallel_note_reveals_p2">The Iliad builds toward acceptance and the restoration of relation: the returned body, the shared meal, the observed truce between enemies. These are gestures of xenia — guest-friendship — that override the war context entirely. The poem insists that even enemies can recognise each other's humanity when grief creates the opening.</p>
+        <p data-i18n="iliad_parallel_note_reveals_p3">Gilgamesh builds toward the question of whether any form of acceptance is possible at all. The Mesopotamian tradition does not answer this question with grace; it answers it with the walls of Uruk and the implicit argument that the human thing a man builds may be the only immortality available to him. Both answers are genuine; the parallel does not resolve the difference. It illuminates it.</p>
+      </div>
+    </div>
+
+    <div class="note-section" style="margin-bottom: 0;">
+      <h2 class="note-head" data-i18n="parallel_view_note_scholarship_head">Scholarship cited</h2>
+      <ul class="cite-list">
+        <li data-i18n-html="iliad_parallel_cite_nagy_html">Gregory Nagy, <em>The Best of the Achaeans</em> (Johns Hopkins University Press, 1979), pp. 69–83.</li>
+        <li data-i18n-html="iliad_parallel_cite_schein_html">Seth Schein, <em>The Mortal Hero: An Introduction to Homer's Iliad</em> (University of California Press, 1984), pp. 128–152.</li>
+        <li data-i18n-html="iliad_parallel_cite_george_iliad_html">Andrew George, <em>The Babylonian Gilgamesh Epic</em> (Oxford University Press, 2003), vol. I, pp. 466–490.</li>
+        <li data-i18n-html="iliad_parallel_cite_shay_html">Jonathan Shay, <em>Achilles in Vietnam: Combat Trauma and the Undoing of Character</em> (Atheneum, 1994), pp. 39–68.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_iliad">Phase 1 · Gilgamesh + Iliad · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+document.querySelectorAll('.badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    const pop = this.querySelector('.badge-pop');
+    if (!pop) return;
+    const open = pop.classList.contains('open');
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!open) { pop.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+  });
+});
+document.querySelectorAll('.pop-close').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.closest('.badge-pop').classList.remove('open');
+    btn.closest('.badge').setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.badge')) {
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+applyLocale(getLocale());
+</script>
+</body>
+</html>

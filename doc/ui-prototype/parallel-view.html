@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title="parallel_view_doc_title">The Great Flood — Structural resonance — Mnemosyne Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #F7F3EE; --surface: #F0EBE3; --inset: #E8E1D6; --overlay: #EDE7DC;
+  --text: #1A1714; --text-2: #5C5650; --text-3: #9B948C;
+  --border: #C4BCB1; --border-2: #D9D2C8; --border-3: #E5DFDA;
+  --accent: #3D3830; --link: #5C4B35; --link-h: #3D3020; --link-v: #7A6B58;
+  --mesop: #9B6B2F; --mesop-bg: #F5F0E8;
+  --biblical-bg: #F2EFE9; /* Neutral-warm, distinct from Mesopotamian */
+  --tier-doc: #4A6B4A; --tier-rec: #6B5A30; --tier-con: #7A4040; --tier-ins: #4A4A6B;
+  --serif: "EB Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --nav-h: 48px; --mx: 80px; --mx-t: 40px; --mx-m: 20px; --col: 720px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 16px; line-height: 1.7; }
+
+.skip { position: fixed; top: -100%; left: 0; z-index: 9999; background: var(--accent); color: #fff; padding: 8px 16px; font: 500 11px/1.4 var(--mono); text-decoration: none; }
+.skip:focus { top: 0; }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-h); }
+a:visited { color: var(--link-v); }
+
+nav.site-nav {
+  position: sticky; top: 0; height: var(--nav-h);
+  background: var(--bg); border-bottom: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--mx); z-index: 100;
+}
+.wordmark { font: 500 11px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text); text-decoration: none; }
+.wordmark:hover, .wordmark:visited { color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 32px; }
+.nav-l { font: 400 11px/1.4 var(--mono); color: var(--text-2); text-decoration: none; }
+.nav-l:hover { color: var(--text); }
+.nav-l.cur { color: var(--text); border-bottom: 1px solid var(--text); padding-bottom: 1px; }
+.nav-l:visited { color: var(--text-2); }
+.locale { display: flex; align-items: center; gap: 4px; }
+.locale-b { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+.locale-b.on { color: var(--text); font-weight: 500; text-decoration: none; }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+main { padding-inline: var(--mx); padding-block: 40px 0; }
+.div { border: none; border-top: 1px solid var(--border-2); margin-block: 40px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+  border: 1px solid currentColor; border-radius: 2px;
+  cursor: pointer; position: relative; user-select: none; background: transparent; vertical-align: middle;
+}
+.badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { color: var(--tier-doc); }
+.badge-pop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  width: min(280px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 16px; z-index: 200;
+  font: 400 14px/1.5 var(--serif); color: var(--text);
+}
+.badge-pop.open { display: block; }
+.pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+.pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+.pop-close { display: none; }
+.badge-pop p { margin-bottom: 8px; }
+
+/* Parallel header */
+.parallel-header {
+  background: var(--surface); border: 1px solid var(--border-2); padding: 24px 32px;
+  margin-bottom: 24px;
+}
+
+/* Tradition panels */
+.tradition-panels {
+  display: flex; gap: 0; align-items: stretch; margin-bottom: 24px;
+}
+.trad-panel {
+  flex: 1; border: 1px solid var(--border-2); padding: 28px;
+}
+.trad-panel:first-child { border-right: none; }
+.trad-panel.mesop-panel { background: var(--mesop-bg); }
+.trad-panel.biblical-panel { background: var(--biblical-bg); }
+.trad-label { font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; margin-bottom: 14px; }
+.trad-name { font: 500 20px/1.35 var(--serif); margin-bottom: 4px; }
+.trad-sub { font: 400 16px/1.5 var(--serif); color: var(--text-2); margin-bottom: 4px; }
+.trad-date { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.trad-divider { border: none; border-top: 1px solid var(--border-2); margin-block: 16px; }
+.trad-passage { font: 400 16px/1.7 var(--serif); }
+.trad-passage p { margin-bottom: 12px; }
+.trad-passage p.verse { margin-inline-start: 16px; margin-bottom: 3px; font-style: italic; }
+.trad-attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+.phase-disclosure { font: 400 italic 14px/1.5 var(--serif); color: var(--text-2); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+
+/* Scholarly note */
+.schol-note { background: var(--surface); border: 1px solid var(--border-2); padding: 32px 40px; }
+.note-section { margin-bottom: 32px; }
+.note-section:last-child { margin-bottom: 0; }
+.note-head { font: 500 18px/1.4 var(--serif); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-2); }
+.note-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 16px; }
+.note-body p:last-child { margin-bottom: 0; }
+.cite-list { list-style: none; margin-top: 8px; }
+.cite-list li { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 8px; }
+.cite-list li::before { content: "· "; }
+
+footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--border-2); }
+.f-name { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 1279px) { nav.site-nav, main, footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  nav.site-nav, main, footer { padding-inline: var(--mx-m); }
+  .nav-links { gap: 16px; }
+  .tradition-panels { flex-direction: column; }
+  .trad-panel:first-child { border-right: 1px solid var(--border-2); border-bottom: none; }
+  .schol-note { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="index.html" class="wordmark" aria-label="Mnemosyne Engine — home">MNEMOSYNE ENGINE</a>
+  <div class="nav-links">
+    <a href="tradition-overview.html" class="nav-l" data-i18n="nav_gilgamesh">Gilgamesh</a>
+    <a href="parallels-index.html" class="nav-l cur" data-i18n="nav_parallels">Parallels</a>
+  </div>
+  <div class="locale" role="group" aria-label="Language: English / Russian">
+    <button class="locale-b on" aria-current="true" onclick="setLocale(this)">EN</button>
+    <span class="locale-sep">/</span>
+    <button class="locale-b" onclick="setLocale(this)">RU</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <div style="margin-bottom: 20px;">
+    <a href="tradition-overview.html" style="font: 400 14px/1.5 var(--serif);" id="parallel-view-back" data-i18n="parallel_view_back" data-i18n-aria-label="parallel_view_back_aria" aria-label="Back to Gilgamesh tradition overview">← Back to Gilgamesh</a>
+  </div>
+
+  <!-- Parallel header -->
+  <div class="parallel-header" role="region" aria-label="Parallel summary" data-i18n-aria-region="parallel_view_region_parallel">
+    <h1 style="font: 500 24px/1.3 var(--serif); margin-bottom: 6px;" data-i18n="parallel_flood_heading">Structural resonance: The Great Flood</h1>
+    <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;" data-i18n="parallel_type_shared">Type: Shared human condition — not a shared source</p>
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+      <button class="badge doc" aria-label="Confidence tier: Documented" aria-expanded="false">
+        <span data-i18n="badge_documented">● DOCUMENTED</span>
+        <div class="badge-pop">
+          <div class="pop-head"><span data-i18n="badge_pop_doc_head">● DOCUMENTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+          <p data-i18n="parallel_view_parallel_badge_pop">Primary source; strong scholarly consensus. This parallel was confirmed and annotated by Dr. A. Kovacs after review of both primary texts.</p>
+        </div>
+      </button>
+      <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" data-i18n="parallel_view_attributed_kovacs">Attributed: Dr. A. Kovacs</span>
+    </div>
+  </div>
+
+  <!-- Tradition panels -->
+  <div class="tradition-panels" role="region" aria-label="Tradition passages" id="tradition-panels-region" data-i18n-aria-region="parallel_view_region_passages">
+
+    <!-- Gilgamesh panel -->
+    <div class="trad-panel mesop-panel" role="region" aria-label="Mesopotamian tradition panel" id="panel-mesop" data-i18n-aria-region="parallel_view_panel_mesop_aria">
+      <p class="trad-label" style="color: var(--mesop);" data-i18n="parallel_view_label_mesop">─── MESOPOTAMIAN ───────────────</p>
+      <h2 class="trad-name" data-i18n="parallel_view_epi_title">Epic of Gilgamesh</h2>
+      <p class="trad-sub" data-i18n="parallel_view_epi_sub_flood">Tablet XI — The Flood</p>
+      <p class="trad-date" data-i18n="parallel_view_epi_date_sbv">c. 1200 BCE (Standard Babylonian Version)</p>
+
+      <div style="margin-bottom: 14px;">
+        <button class="badge doc" aria-label="Confidence tier: Documented" aria-expanded="false">
+          <span data-i18n="badge_documented">● DOCUMENTED</span>
+          <div class="badge-pop">
+            <div class="pop-head"><span data-i18n="badge_pop_doc_head">● DOCUMENTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="parallel_view_badge_panel_pop_thompson">Attested primary source in public-domain translation.</p>
+          </div>
+        </button>
+        <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-inline-start: 10px;" data-i18n="parallel_view_credit_thompson">Translation: R. Campbell Thompson (1930) · Public domain</span>
+      </div>
+
+      <hr class="trad-divider">
+
+      <div class="trad-passage" lang="en">
+        <p>Utnapishtim said:</p>
+        <p class="verse">"The great gods decided to make a flood.</p>
+        <p class="verse"> Anu, their father, swore;</p>
+        <p class="verse"> Enlil, their counselor, swore;</p>
+        <p class="verse"> their military leader Ninurta swore;</p>
+        <p class="verse"> their canal-officer Ennugi swore.</p>
+        <p class="verse"> But Ea took an oath also with them.</p>
+        <p class="verse"> He repeated their secret to the reed house:</p>
+        <p class="verse"> 'O reed house, reed house! O wall, wall!</p>
+        <p class="verse">  Hear, O reed house! Understand, O wall!'"</p>
+      </div>
+
+      <p class="trad-attr" data-i18n="parallel_view_attr_thompson_excerpt">— Thompson (1930), Tablet XI, lines 9–20</p>
+
+      <a href="fragment-view.html" style="font: 400 14px/1.5 var(--serif); display: inline-block; margin-top: 16px;"
+         aria-label="Open full Gilgamesh Fragment View for Tablet XI flood episode" id="parallel-fragment-open" data-i18n="parallel_view_fragment_link" data-i18n-aria-label="parallel_view_fragment_link_aria">
+        Open full Fragment View →
+      </a>
+    </div>
+
+    <!-- Genesis panel -->
+    <div class="trad-panel biblical-panel" role="region" aria-label="Hebrew/Biblical tradition panel" id="panel-bibl" data-i18n-aria-region="parallel_view_panel_bibl_aria">
+      <p class="trad-label" style="color: var(--text-2);" data-i18n="parallel_view_label_hebrew_bibl">─── HEBREW / BIBLICAL ───────────</p>
+      <h2 class="trad-name" data-i18n="parallel_view_genesis_title">Genesis 6–9</h2>
+      <p class="trad-sub" data-i18n="parallel_view_genesis_sub_flood">The Flood Narrative</p>
+      <p class="trad-date" data-i18n="parallel_view_genesis_date_kjv">(King James Version, 1611)</p>
+
+      <div style="margin-bottom: 14px;">
+        <button class="badge doc" aria-label="Confidence tier: Documented" aria-expanded="false">
+          <span data-i18n="badge_documented">● DOCUMENTED</span>
+          <div class="badge-pop">
+            <div class="pop-head"><span data-i18n="badge_pop_doc_head">● DOCUMENTED</span> <button type="button" class="pop-close" data-i18n="close_x">close ×</button></div>
+            <p data-i18n="parallel_view_badge_panel_pop_genesis">Attested primary source; public-domain translation.</p>
+          </div>
+        </button>
+        <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-inline-start: 10px;" data-i18n="parallel_view_credit_kjv">Translation: KJV (1611) · Public domain</span>
+      </div>
+
+      <hr class="trad-divider">
+
+      <div class="trad-passage" lang="en">
+        <p>And God saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually.</p>
+        <p>And it repented the LORD that he had made man on the earth, and it grieved him at his heart.</p>
+        <p>And Noah did according unto all that the LORD commanded him.</p>
+      </div>
+
+      <p class="trad-attr" data-i18n="parallel_view_attr_genesis_excerpt">— Genesis 6:5–6; 7:5 (KJV)</p>
+
+      <p class="phase-disclosure" role="note" data-i18n="parallel_view_genesis_phase_note">
+        Phase 1: Full fragment view for this tradition is not yet available. The Genesis tradition is documented here for comparative purposes; it will be fully onboarded in Phase 2.
+      </p>
+    </div>
+
+  </div><!-- /tradition-panels -->
+
+  <!-- Scholarly note -->
+  <div class="schol-note" role="complementary" aria-label="Scholarly note" id="scholarly-note-region" data-i18n-aria-region="parallel_view_note_region">
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="parallel_view_note_what_head">What resonates</h2>
+      <div class="note-body">
+        <p data-i18n="parallel_view_note_what_p">Both narratives depict a deity (or divine council) deciding to destroy humanity with a flood because of human wrongdoing. In both, a single righteous man is warned and instructed to build a boat to preserve life. In both, birds are sent to determine whether the waters have receded. The structural sequence — divine judgment / chosen survivor / vessel / birds / aftermath — is shared with remarkable precision across traditions separated by culture and century.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="parallel_view_note_why_head">Why it resonates</h2>
+      <div class="note-body">
+        <p data-i18n="parallel_view_note_why_p1">The flood functions as a threshold in both traditions: what exists before it and what exists after are fundamentally different. In Gilgamesh, the flood is the mechanism by which a human acquires exceptional standing — Utnapishtim's immortality is a direct consequence of his survival. In Genesis, the flood establishes the foundational covenant between the divine and humanity.</p>
+        <p data-i18n="parallel_view_note_why_p2">The shared structural function — flood as world-reordering threshold — is more significant than the surface similarity of boats and birds. Both traditions use the flood not merely as catastrophe but as a pivot on which the relationship between the human and the divine turns.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="parallel_view_note_diverge_head">Where it diverges</h2>
+      <div class="note-body">
+        <p data-i18n="parallel_view_note_diverge_p1">The most significant divergence is in what the survivor receives. Utnapishtim is granted literal immortality — a singular exception the gods declare will not be repeated. This immortality becomes the central rebuke of the Gilgamesh epic: Gilgamesh cannot have what Utnapishtim has. The gate is permanently closed.</p>
+        <p data-i18n="parallel_view_note_diverge_p2">In Genesis, Noah receives a covenant and a promise — the flood will not recur; the rainbow is its sign. Survival leads outward (a renewed world, a new beginning for all) rather than inward (an exceptional individual forever sealed from death). The same structural sequence produces opposite resolutions.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-head" data-i18n="parallel_view_note_reveals_head">What the divergence reveals</h2>
+      <div class="note-body">
+        <p data-i18n="parallel_view_note_reveals_p1">The Gilgamesh version uses the flood to permanently close the gate on immortality — Utnapishtim's survival proves the exception, not the rule, and Gilgamesh's encounter with him is a rebuke, not an invitation. The Genesis version uses the flood to open a covenantal relationship between the divine and humanity — it is a beginning, not a terminus.</p>
+        <p data-i18n="parallel_view_note_reveals_p2">Both narratives use the same architecture to answer different theological questions: what separates humans from the divine (Gilgamesh), and what binds the divine to humanity (Genesis). Understanding the shared structure makes the divergence more meaningful, not less. Each tradition's answer is sharpened by knowing the other existed.</p>
+      </div>
+    </div>
+
+    <div class="note-section" style="margin-bottom: 0;">
+      <h2 class="note-head" data-i18n="parallel_view_note_scholarship_head">Scholarship cited</h2>
+      <ul class="cite-list">
+        <li data-i18n-html="parallel_view_cite_george_html">Andrew George, <em>The Babylonian Gilgamesh Epic</em> (OUP, 2003), vol. I, pp. 70–99.</li>
+        <li data-i18n-html="parallel_view_cite_speiser_html">E.A. Speiser, <em>Genesis</em>, Anchor Bible Commentary (1964), pp. 54–69.</li>
+        <li data-i18n-html="parallel_view_cite_tigay_html">Jeffrey Tigay, <em>The Evolution of the Gilgamesh Epic</em> (1982), pp. 214–240.</li>
+        <li data-i18n-html="parallel_view_cite_heidel_html">Alexander Heidel, <em>The Gilgamesh Epic and Old Testament Parallels</em> (1949).</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="f-name">MNEMOSYNE ENGINE</p>
+  <p class="f-phase" data-i18n="footer_phase_gilgamesh">Phase 1 · Gilgamesh tradition · EN + RU interface</p>
+  <p class="f-stmt" data-i18n="footer_stmt_short">All AI-generated content is reviewed by a scholar before publication. All claims are marked with an epistemic tier.</p>
+  <nav class="f-links" aria-label="Footer navigation">
+    <a href="#" data-i18n="footer_about">About</a>
+    <a href="#" data-i18n="footer_epistemic">Epistemic tiers</a>
+    <a href="#" data-i18n="footer_contact">Contact</a>
+  </nav>
+</footer>
+
+<script src="translations.js"></script>
+<script>
+function setLocale(btn) {
+  applyLocale(btn.textContent.trim() === 'RU' ? 'ru' : 'en');
+}
+
+document.querySelectorAll('.badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    const pop = this.querySelector('.badge-pop');
+    if (!pop) return;
+    const open = pop.classList.contains('open');
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!open) { pop.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+  });
+});
+document.querySelectorAll('.pop-close').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.closest('.badge-pop').classList.remove('open');
+    btn.closest('.badge').setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.badge')) {
+    document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.badge').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+
+applyLocale(getLocale());
+</script>
+</body>
+</html>
