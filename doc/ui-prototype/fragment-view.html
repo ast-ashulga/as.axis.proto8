@@ -135,6 +135,21 @@ main { padding-inline: var(--mx); padding-block: 40px 0; max-width: calc(var(--c
 .schol-cite li { font: 400 14px/1.5 var(--serif); list-style: none; margin-bottom: 6px; color: var(--text-2); }
 .schol-cite li::before { content: "· "; }
 
+/* Demo marker */
+.demo-marker { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+/* Narrated layer */
+.narr-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+.narr-body p:last-of-type { margin-bottom: 0; }
+.narr-quote { display: block; margin: 20px 0 20px 24px; padding-left: 16px; border-left: 2px solid var(--border); font: italic 16px/1.7 var(--serif); }
+.narr-cite { display: block; font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 6px; font-style: normal; }
+/* Original layer */
+.orig-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+.orig-passage { font: 400 13px/1.6 var(--mono); white-space: pre; overflow-x: auto; background: var(--inset); padding: 20px 24px; margin-bottom: 12px; display: block; }
+.orig-attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+/* Empty layer state */
+.layer-empty-notice { padding: 48px 0; text-align: center; color: var(--text-3); font: 400 14px/1.5 var(--serif); }
+.layer-tab--disabled { color: var(--text-dis) !important; cursor: default !important; pointer-events: none; }
+
 /* Structure toggle */
 .structure-toggle {
   display: block; background: none; border: none; cursor: pointer;
@@ -275,7 +290,11 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
   <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label="Content depth layers">
     <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-i18n="layer_surface">[ Surface ● ]</button>
     <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated" data-i18n="layer_narrated">[ Narrated ○ ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
     <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-i18n="layer_translated">[ Translated ○ ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original" data-i18n="layer_original">[ Original ○ ]</button>
     <span class="layer-sep" aria-hidden="true">·</span>
     <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-i18n="layer_scholaria">[ Scholaria ○ ]</button>
   </div>
@@ -296,6 +315,27 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
       </div>
 
       <div id="fragment-surface-body"></div>
+    </div>
+
+    <!-- ─── NARRATED LAYER ─── -->
+    <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated">
+      <p class="demo-marker" data-i18n="demo_content_marker">AI-generated demo content — not scholar-reviewed</p>
+      <div class="narr-full" id="narr-full">
+        <div class="narr-body">
+          <p>The flood episode in Tablet XI is not what it appears to be at first reading. On the surface, Utnapishtim is answering Gilgamesh's question about immortality. But the narrative logic runs the other way: the flood story is the reason Utnapishtim <em>cannot</em> give Gilgamesh what he came for. The gods granted immortality once, to one man, in unusual circumstances, and they will not do it again. The flood is therefore a theological argument inside a narrative: Utnapishtim's survival was not a reward for righteousness — the text makes no such claim — but an act of divine improvisation by Ea, who was bound by an oath not to warn any human directly and found a technically permissible way around it.</p>
+          <p>The episode opens with a city Gilgamesh already knows: Shuruppak, on the Euphrates. The great gods convened — Anu, Enlil, Ninurta, Ennugi, and Ea — and in their hearts moved to bring the flood. Ea alone could not subscribe. Unable to break his oath by warning Utnapishtim directly, he addressed the reed fence of his house:</p>
+          <blockquote class="narr-quote">
+            <span>"O reed fence, reed fence! O wall, wall!<br>Hear, O reed fence; understand, O wall!<br>O man of Shurippak, son of Ubara-tutu,<br>tear down thy house, build a ship;<br>abandon thy possessions, seek thou life;<br>thy goods despise, save thy life;<br>bring up the seed of all living things into the ship."</span>
+            <cite class="narr-cite">— Thompson (1930), Tablet XI, lines 22–29</cite>
+          </blockquote>
+          <p>Utnapishtim obeys, builds, and loads. The flood arrives for seven days — a darkness so total the poem says even the gods cowered. When the waters recede, he releases three birds: dove (returns), swallow (returns), raven (does not return). He makes sacrifice; the gods crowd the smoke "like flies," starved from the days without offerings. Enlil is furious to find a survivor. Ea rebukes him: was it just to punish all for the fault of some? In the end Enlil grants immortality to Utnapishtim and his wife — not as policy but as conclusion. Andrew George (2003) argues this episode was shaped specifically for the Standard Babylonian Version: the immortality of Utnapishtim was made theologically singular precisely so that Gilgamesh, standing here, can receive no share of it.</p>
+          <blockquote class="narr-quote">
+            <span>"Utnapishtim said unto him, unto Gilgamish:<br>'I will reveal unto thee, O Gilgamish, a secret story,<br>and the decision of the gods I will tell thee.'"</span>
+            <cite class="narr-cite">— Thompson (1930), Tablet XI, lines 1–3</cite>
+          </blockquote>
+        </div>
+      </div>
+      <div class="layer-empty-notice" id="narr-empty" style="display:none;" data-i18n="honest_absence_narrated">The narrated layer for this episode is not yet available.</div>
     </div>
 
     <!-- ─── TRANSLATED LAYER ─── -->
@@ -336,6 +376,43 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
 
         <p class="trans-attribution">— Thompson (1930), Tablet XI, lines 1–47 (selected)</p>
       </div>
+    </div>
+
+    <!-- ─── ORIGINAL LAYER ─── -->
+    <div id="layer-original" class="layer-panel" role="tabpanel" aria-labelledby="tab-original">
+      <p class="demo-marker" data-i18n="demo_content_marker">AI-generated demo content — not scholar-reviewed</p>
+      <div class="orig-full" id="orig-full">
+        <div class="orig-header">
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Standard Babylonian recension, Tablet XI (selected lines)</p>
+          <p class="orig-attr">Transliteration after George (2003) · The Babylonian Gilgamesh Epic, vol. I–II · Oxford University Press</p>
+          <p class="orig-attr">Nineveh copy (K.3375+), library of Ashurbanipal, 7th century BCE · CDLI P003793</p>
+        </div>
+        <pre class="orig-passage" lang="akk" dir="ltr">XI.9    ša gimrēti ašakkanam
+XI.10   Šuruppak āla tīde
+XI.11   ša ina kippat nāri mašil
+XI.12   ālu šū labīru u ilāni libbuš
+XI.13   libbā-šunu iš-te-'-u-ma rabûtu ilāni
+XI.14   abūba eppišu ina kišādi-šunu
+
+XI.22   bīt-ka šupur mākurri ibniš
+XI.23   ù mimmê tuklatīka umazzi
+XI.24   napšātka šuṣur
+XI.25   zēr kala nišī ina mākurri šuqil
+
+XI.36   Ea bēl-ī iqbâm-ma
+XI.37   šumma annâ tēpuš
+XI.38   lū-uṣ-ṣir lu-ub-ni
+
+XI.68   kibrāti ana šāri isturrā-ma
+XI.69   arki šamê arkī ikmi tenzâm
+XI.70   ūmu ūm abūbi illikam-ma
+
+XI.96   eli māti kīma qabli tallakt
+XI.97   ūm abūbi šalšat ūm
+XI.98   ikmi tenzâm ana mātim kī illikam</pre>
+        <p class="orig-attr">[demo-line-ref: line numbers approximate; gaps in surviving tablets marked by convention]</p>
+      </div>
+      <div class="layer-empty-notice" id="orig-empty" style="display:none;" data-i18n="honest_absence_original">Original-language text for this episode is not yet available.</div>
     </div>
 
     <!-- ─── SCHOLARIA LAYER ─── -->
@@ -600,8 +677,16 @@ const LAYER_DEFS = {
     tabId: 'tab-surface', panelId: 'layer-surface',
     badgeCls: 'ins', badgeTextKey: 'badge_ai_reviewed', popHeadKey: 'badge_pop_ai_head', tierAriaKey: 'AI-Reviewed'
   },
+  narrated: {
+    tabId: 'tab-narrated', panelId: 'layer-narrated',
+    badgeCls: 'rec', badgeTextKey: 'badge_reconstructed', popHeadKey: 'badge_pop_rec_head', tierAriaKey: 'Reconstructed'
+  },
   translated: {
     tabId: 'tab-translated', panelId: 'layer-translated',
+    badgeCls: 'doc', badgeTextKey: 'badge_documented', popHeadKey: 'badge_pop_doc_head', tierAriaKey: 'Documented'
+  },
+  original: {
+    tabId: 'tab-original', panelId: 'layer-original',
     badgeCls: 'doc', badgeTextKey: 'badge_documented', popHeadKey: 'badge_pop_doc_head', tierAriaKey: 'Documented'
   },
   scholaria: {
@@ -648,6 +733,8 @@ const FRAG_EPISODES = {
 
 let activeFragEpisode = 'flood';
 let activeFragLayer = 'surface';
+
+function parseFragEpisodeSlug() {
   const q = new URLSearchParams(window.location.search).get('episode') || 'flood';
   if (q === 'sleep-challenge') return 'sleep';
   if (q === 'plant') return 'plant';
@@ -683,13 +770,23 @@ function fragScholiaPopInner(t) {
   return '<p>' + escapeHtml(t.frag_badge_schol_pop_p1) + '</p>';
 }
 
+function fragNarratedPopInner(t) {
+  return '<p>' + escapeHtml(t.frag_badge_narr_pop_p1 || '') + '</p>';
+}
+
+function fragOriginalPopInner(t) {
+  return '<p>' + escapeHtml(t.frag_badge_orig_pop_p1 || '') + '</p>';
+}
+
 function refreshEpisodeBadgePopBody() {
   const t = TRANSLATIONS[getLocale()];
   const cfg = FRAG_EPISODES[activeFragEpisode];
   const body = document.getElementById('episode-badge-pop-body');
   if (!body || !t) return;
   if (activeFragLayer === 'surface') body.innerHTML = fragSurfaceAiPopInner(t, cfg);
+  else if (activeFragLayer === 'narrated') body.innerHTML = fragNarratedPopInner(t);
   else if (activeFragLayer === 'translated') body.innerHTML = fragTranslatedPopInner(t);
+  else if (activeFragLayer === 'original') body.innerHTML = fragOriginalPopInner(t);
   else body.innerHTML = fragScholiaPopInner(t);
 }
 
@@ -747,6 +844,8 @@ function applyFragmentChrome() {
   const parallelStrip = document.getElementById('parallel-strip');
   if (parallelStrip) parallelStrip.hidden = !cfg.parallelStrip;
 
+  updateLayerTabAvailability(activeFragEpisode);
+
   const urlNow = new URL(window.location.href);
   if (urlNow.searchParams.get('episode') !== encodeEpisodeQuery(activeFragEpisode)) {
     urlNow.searchParams.set('episode', encodeEpisodeQuery(activeFragEpisode));
@@ -785,9 +884,36 @@ function syncFragEpisodeBadge() {
   refreshEpisodeBadgePopBody();
 }
 
+function updateLayerTabAvailability(episode) {
+  const hasDepth = episode === 'flood';
+  ['narrated', 'original'].forEach(slug => {
+    const tab = document.getElementById(LAYER_DEFS[slug].tabId);
+    if (!tab) return;
+    if (hasDepth) {
+      tab.classList.remove('layer-tab--disabled');
+      tab.removeAttribute('aria-disabled');
+    } else {
+      tab.classList.add('layer-tab--disabled');
+      tab.setAttribute('aria-disabled', 'true');
+    }
+  });
+  const narrFull = document.getElementById('narr-full');
+  const narrEmpty = document.getElementById('narr-empty');
+  const origFull = document.getElementById('orig-full');
+  const origEmpty = document.getElementById('orig-empty');
+  if (narrFull) narrFull.style.display = hasDepth ? '' : 'none';
+  if (narrEmpty) narrEmpty.style.display = hasDepth ? 'none' : '';
+  if (origFull) origFull.style.display = hasDepth ? '' : 'none';
+  if (origEmpty) origEmpty.style.display = hasDepth ? 'none' : '';
+  if (!hasDepth && (activeFragLayer === 'narrated' || activeFragLayer === 'original')) {
+    switchLayer('surface', true);
+  }
+}
+
 function switchLayer(name, isInit) {
   const def = LAYER_DEFS[name];
   if (!def) return;
+  if (document.getElementById(def.tabId)?.getAttribute('aria-disabled') === 'true') return;
   activeFragLayer = name;
   const t = TRANSLATIONS[getLocale()];
 

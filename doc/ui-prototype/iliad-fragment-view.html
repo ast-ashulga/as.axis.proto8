@@ -133,6 +133,18 @@ main { padding-inline: var(--mx); padding-block: 40px 0; max-width: calc(var(--c
 .schol-cite li { font: 400 14px/1.5 var(--serif); list-style: none; margin-bottom: 6px; color: var(--text-2); }
 .schol-cite li::before { content: "· "; }
 
+/* Layer 1 / 3 additions */
+.demo-marker { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+.narr-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+.narr-body p:last-of-type { margin-bottom: 0; }
+.narr-quote { display: block; margin: 20px 0 20px 24px; padding-left: 16px; border-left: 2px solid var(--border); font: italic 16px/1.7 var(--serif); }
+.narr-cite { display: block; font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 6px; font-style: normal; }
+.orig-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+.orig-passage { font: 400 13px/1.6 var(--mono); white-space: pre; overflow-x: auto; background: var(--inset); padding: 20px 24px; margin-bottom: 12px; display: block; }
+.orig-attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+.layer-empty-notice { padding: 48px 0; text-align: center; color: var(--text-3); font: 400 14px/1.5 var(--serif); }
+.layer-tab--disabled { color: var(--text-dis) !important; cursor: default !important; pointer-events: none; }
+
 /* Structure toggle */
 .structure-toggle {
   display: block; background: none; border: none; cursor: pointer;
@@ -272,7 +284,11 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
   <div class="layer-indicator" role="tablist" id="layer-indicator" data-i18n-aria-region="content_depth_layers_aria" aria-label="Content depth layers">
     <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-i18n="layer_surface">[ Surface ● ]</button>
     <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated" data-i18n="layer_narrated">[ Narrated ○ ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
     <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-i18n="layer_translated">[ Translated ○ ]</button>
+    <span class="layer-sep" aria-hidden="true">·</span>
+    <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original" data-i18n="layer_original">[ Original ○ ]</button>
     <span class="layer-sep" aria-hidden="true">·</span>
     <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-i18n="layer_scholaria">[ Scholaria ○ ]</button>
   </div>
@@ -303,6 +319,20 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
       <p class="body-p" style="margin-bottom: 0;" data-i18n="iliad_frag_ransom_surf_p4">Achilles and Priam share a meal. Priam marvels at Achilles; Achilles marvels at Priam. Achilles promises eleven days of truce for the funeral rites — he will hold the Greeks back. Before dawn, Hermes wakes Priam and leads him out of the camp. Priam crosses the plain with Hector's body on the cart and reaches Troy as the sun rises. The poem's last word is the funeral of Hector, tamer of horses.</p>
     </div>
 
+    <!-- ─── NARRATED LAYER ─── -->
+    <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated">
+      <p class="demo-marker" data-i18n="demo_content_marker">AI-generated demo content — not scholar-reviewed</p>
+      <div class="narr-body">
+        <p>The ransom scene in Book XXIV is the moral and emotional culmination of the Iliad, arriving after twenty-three books of war, rage, and grief. What makes it so singular is the thing it refuses: it refuses to let the meeting between Priam and Achilles be about the war. The two men are enemies — the father of the man who killed Achilles' closest companion, and the man who killed the son — but when they sit together, they do not argue or negotiate. They grieve, and they grieve in parallel. Achilles tells Priam the story of Niobe, who wept so much for her twelve dead children that she became a stone that still weeps. The implication is not that grief ends, but that it must eventually yield to necessity — to eating, to living, to the body's demands on the spirit.</p>
+        <p>The scene operates on two registers simultaneously. On one level it is practical: Priam must get the body back, and Achilles has reasons to give it. On another it is theological: Zeus himself has arranged this meeting, sending Hermes to guide Priam through the sleeping Greek camp, telling the gods that Achilles' refusal to return the body is becoming an affront to divine order. The gods want the body buried. But the text is careful not to reduce Achilles' gift to divine compulsion — the moment of his relenting is the moment Priam asks him to think of his own father, and something breaks open in Achilles that the gods did not arrange.</p>
+        <blockquote class="narr-quote">
+          <span>"So the old man spake, and stirred within Achilles desire to make lament for his father. And he took the old man's hand and gently put him from him, and the twain were mingled in remembrance, and wept sore, the one for Hector the man-slayer, weeping, weeping at Achilles' feet, and Achilles wept for his own father and now again for Patroclus."</span>
+          <cite class="narr-cite">— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 507–512</cite>
+        </blockquote>
+        <p>Gregory Nagy (1979) reads the entire Iliad as structured around the concept of <em>kleos</em> — the glory that survives death in song — and argues that Book XXIV is the moment where the poem acknowledges the cost of kleos most honestly. Achilles will be remembered forever; so will his killing of Hector; so will the grief of Priam. The poem does not pretend this is a good arrangement. It is simply the arrangement. Achilles' last gift — returning the body, guaranteeing the funeral — is the gesture through which the poem concedes that glory requires acknowledgment of the human it is made from.</p>
+      </div>
+    </div>
+
     <!-- ─── TRANSLATED LAYER ─── -->
     <div id="layer-translated" class="layer-panel" role="tabpanel" aria-labelledby="tab-translated">
       <div class="trans-header">
@@ -313,6 +343,38 @@ footer { margin-top: 64px; padding: 32px var(--mx); border-top: 1px solid var(--
 
       <div class="trans-passage" data-i18n-html="iliad_frag_trans_passage_html" lang="en"></div>
       <p class="trans-attribution" data-i18n="iliad_frag_ransom_trans_attr">— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 477–526 (selected)</p>
+    </div>
+
+    <!-- ─── ORIGINAL LAYER ─── -->
+    <div id="layer-original" class="layer-panel" role="tabpanel" aria-labelledby="tab-original">
+      <p class="demo-marker" data-i18n="demo_content_marker">AI-generated demo content — not scholar-reviewed</p>
+      <div class="orig-header">
+        <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Iliad, Book XXIV (selected lines)</p>
+        <p class="orig-attr">Text after Monro &amp; Allen, <em>Homeri Opera</em>, Oxford Classical Texts (1920) · Vol. I–II</p>
+        <p class="orig-attr">Venetus A (Marcianus graecus 454, 10th century CE) · Primary manuscript tradition</p>
+      </div>
+      <pre class="orig-passage" lang="grc" dir="ltr">XXIV.477  ἦλθε δ᾽ ἐς κλισίην, ἵν᾽ Ἀχιλλεὺς δῖος ἕεστο·
+XXIV.478  αὐτὸν δ᾽ εὗρ᾽ ἔνδοθι· οἱ δ᾽ ἀπάνευθε καθῆντο
+XXIV.479  δοιὼ οἰόθεν οἶο, Αὐτομέδων τε καὶ Ἄλκιμος
+XXIV.480  ὄζοι Ἄρηος· νέον δὲ τετάρτατο δείπνου ἐδωδή·
+
+XXIV.486  Πρίαμος δ᾽ ἄρα γοῦνα Ἀχιλλῆος κύσε χεῖράς τε,
+XXIV.487  δεινάς, ἀνδροφόνους, αἵ οἱ πολέας κτάνον υἷας.
+XXIV.488  ὡς δ᾽ ὅτ᾽ ἂν ἄνδρα κατάσχῃ ἄτη, ὃς τ᾽ ἐνὶ πάτρῃ
+XXIV.489  φῶτα κατακτείνας ἄλλων ἐξίκετο δῆμον,
+
+XXIV.507  ὣς ἔφατ᾽, ἐν δ᾽ ἄρα οἱ πατρὸς πόθον ὦρσε γόοιο·
+XXIV.508  ἁψάμενος δ᾽ ἄρα χειρὸς ἀπώσατο ἦκα γέροντα·
+XXIV.509  τὼ δὲ μνησαμένω, ὃ μὲν Ἕκτορος ἀνδροφόνοιο
+XXIV.510  κλαῖεν ἁδινὰ πρόπαρ᾽ αὐτὸν ἑλυσθείς,
+XXIV.511  αὐτὰρ Ἀχιλλεὺς κλαῖεν ἑὸν πατέρ᾽, ἄλλοτε δ᾽ αὖτε
+XXIV.512  Πάτροκλον· τῶν δὲ στοναχὴ κατὰ δώματ᾽ ὀρώρει.
+
+XXIV.599  δαίνυσθαι· μετὰ δ᾽ υἷε Ἀχιλλῆος θεοειδέος
+XXIV.600  Ἕκτορα κλαῖε· τὰ δ᾽ ὄσσε Ἀχιλλεύς,
+XXIV.601  ἄλλοτε μὲν Πρίαμον μεγαλήτορα θαύμαζεν
+XXIV.602  εἰσορόων ὄψιν τε καὶ ἔπος ἀΐοντι.</pre>
+      <p class="orig-attr">[demo-line-ref: line numbers after Monro &amp; Allen OCT; diacritics approximate in display — consult TLG for critical text]</p>
     </div>
 
     <!-- ─── SCHOLARIA LAYER ─── -->
@@ -551,8 +613,16 @@ const ILIAD_LAYER_DEFS = {
     tabId: 'tab-surface', panelId: 'layer-surface',
     badgeCls: 'ins', badgeTextKey: 'badge_ai_reviewed', popHeadKey: 'badge_pop_ai_head', tierAriaKey: 'tier_aria_ai_reviewed'
   },
+  narrated: {
+    tabId: 'tab-narrated', panelId: 'layer-narrated',
+    badgeCls: 'rec', badgeTextKey: 'badge_reconstructed', popHeadKey: 'badge_pop_rec_head', tierAriaKey: 'tier_aria_reconstructed_short'
+  },
   translated: {
     tabId: 'tab-translated', panelId: 'layer-translated',
+    badgeCls: 'doc', badgeTextKey: 'badge_documented', popHeadKey: 'badge_pop_doc_head', tierAriaKey: 'tier_aria_documented_short'
+  },
+  original: {
+    tabId: 'tab-original', panelId: 'layer-original',
     badgeCls: 'doc', badgeTextKey: 'badge_documented', popHeadKey: 'badge_pop_doc_head', tierAriaKey: 'tier_aria_documented_short'
   },
   scholaria: {
@@ -585,12 +655,22 @@ function iliadScholiaPopInner(t) {
   return '<p>' + escapeHtml(t.iliad_frag_badge_schol_pop_p1 || '') + '</p>';
 }
 
+function iliadNarratedPopInner(t) {
+  return '<p>' + escapeHtml(t.iliad_frag_badge_narr_pop_p1 || '') + '</p>';
+}
+
+function iliadOriginalPopInner(t) {
+  return '<p>' + escapeHtml(t.iliad_frag_badge_orig_pop_p1 || '') + '</p>';
+}
+
 function refreshIliadEpisodeBadgePopBody() {
   const t = TRANSLATIONS[getLocale()];
   const body = document.getElementById('episode-badge-pop-body');
   if (!body || !t) return;
   if (activeIliadLayer === 'surface') body.innerHTML = iliadSurfacePopInner(t);
+  else if (activeIliadLayer === 'narrated') body.innerHTML = iliadNarratedPopInner(t);
   else if (activeIliadLayer === 'translated') body.innerHTML = iliadTranslatedPopInner(t);
+  else if (activeIliadLayer === 'original') body.innerHTML = iliadOriginalPopInner(t);
   else body.innerHTML = iliadScholiaPopInner(t);
 }
 
