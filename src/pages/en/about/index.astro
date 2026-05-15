@@ -1,9 +1,4 @@
 ---
-import PageStub from '~/templates/PageStub.astro';
-import { withBase } from '~/utils/url';
+import AboutPage from '~/templates/AboutPage.astro';
 ---
-<PageStub
-  locale="en"
-  title="About"
-  crumbs={[{ label: 'Home', href: withBase('/en/') }, { label: 'About' }]}
-/>
+<AboutPage locale="en" />

@@ -63,7 +63,17 @@ const navBase = withBase(`/${locale}`);
       {tr[`locale_${alternateLocale}`]}
     </a>
   </div>
+  <button id="help-btn" class="help-btn" aria-label={tr.onboarding_reopen_aria} hidden>?</button>
 </nav>
+
+<script>
+  const helpBtn = document.getElementById('help-btn');
+  const panel = document.getElementById('how-to-read-panel');
+  if (helpBtn && panel) {
+    helpBtn.hidden = false;
+    helpBtn.addEventListener('click', () => { panel.hidden = false; });
+  }
+</script>
 
 <style>
 nav.site-nav {
@@ -118,6 +128,18 @@ nav.site-nav {
 a.locale-b { text-decoration: underline; text-underline-offset: 2px; }
 a.locale-b:hover { color: var(--text); }
 .locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+.help-btn {
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 2px;
+  cursor: pointer;
+  font: 500 11px/1.4 var(--mono);
+  color: var(--text-3);
+  padding: 2px 7px;
+  margin-left: 12px;
+}
+.help-btn:hover { color: var(--text); border-color: var(--border); }
 
 @media (max-width: 1279px) {
   nav.site-nav { padding-inline: var(--mx-t); }

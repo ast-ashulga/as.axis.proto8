@@ -1,0 +1,85 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+---
+
+<BaseLayout title={tr.footer_contact} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home, href: `/${locale}/` },
+      { label: tr.footer_contact },
+    ]} />
+
+    <h1 class="page-title">{tr.footer_contact}</h1>
+
+    <p class="body-p intro">{tr.contact_intro}</p>
+
+    <div class="contact-block">
+      <p class="contact-label">{tr.contact_email_label}</p>
+      <p class="contact-value">
+        <a href={`mailto:${tr.contact_email_value}`} class="contact-link">
+          {tr.contact_email_value}
+        </a>
+      </p>
+    </div>
+
+    <p class="body-p scholar-note">{tr.contact_scholar_note}</p>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-inline: var(--mx);
+    padding-block: 40px 64px;
+    max-width: calc(var(--col) + var(--mx) * 2);
+    margin-inline: auto;
+  }
+  .page-title {
+    font: 500 24px/1.3 var(--serif);
+    margin-bottom: 24px;
+  }
+  .body-p {
+    font: 400 16px/1.7 var(--serif);
+    max-width: var(--col);
+  }
+  .intro {
+    margin-bottom: 32px;
+  }
+  .contact-block {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+  .contact-label {
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 8px;
+  }
+  .contact-value {
+    font: 400 16px/1.5 var(--serif);
+  }
+  .contact-link {
+    color: var(--link);
+  }
+  .contact-link:hover { color: var(--link-h); }
+  .scholar-note {
+    color: var(--text-2);
+  }
+
+  @media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+  @media (max-width: 767px)  { .page-body { padding-inline: var(--mx-m); } }
+</style>

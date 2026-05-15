@@ -431,4 +431,69 @@ export const en: Translations = {
   iliad_parallel_cite_schein_html:     'Seth Schein, <em>The Mortal Hero: An Introduction to Homer\'s Iliad</em> (University of California Press, 1984), pp. 128–152.',
   iliad_parallel_cite_george_iliad_html: 'Andrew George, <em>The Babylonian Gilgamesh Epic</em> (Oxford University Press, 2003), vol. I, pp. 466–490.',
   iliad_parallel_cite_shay_html:       'Jonathan Shay, <em>Achilles in Vietnam: Combat Trauma and the Undoing of Character</em> (Atheneum, 1994), pp. 39–68.',
+
+  /* ── Phase B: Layer labels ──────────────────────────────────────── */
+  layer_surface_plain:     'Summary',
+  layer_narrated_plain:    'Narrative',
+  layer_translated_plain:  'Translation',
+  layer_original_plain:    'Original',
+  layer_scholaria_plain:   'Scholarship',
+  layer_surface_poetic:    'Surface',
+  layer_narrated_poetic:   'Narrated',
+  layer_translated_poetic: 'Translated',
+  layer_original_poetic:   'Original',
+  layer_scholaria_poetic:  'Scholaria',
+  layer_unavailable:       '(unavailable)',
+
+  /* ── Phase B: Epistemic legend ──────────────────────────────────── */
+  epistemic_legend_heading:    'How evidence is marked',
+  epistemic_legend_learn_more: 'Learn more about epistemic tiers →',
+
+  /* ── Phase B: Onboarding panel ──────────────────────────────────── */
+  onboarding_heading:        'How to read this page',
+  onboarding_layers_head:    'Depth layers',
+  onboarding_surface_desc:   'A plain-language summary of the episode.',
+  onboarding_narrated_desc:  'A scholarly narrative with quoted passages from the translated text.',
+  onboarding_translated_desc:'The passage in English translation (public-domain source).',
+  onboarding_original_desc:  'The text in its original language.',
+  onboarding_scholaria_desc: 'Full scholarly apparatus: manuscript history, key variants, cited scholarship.',
+  onboarding_tiers_head:     'Evidence tiers',
+  onboarding_tiers_desc:     'Every claim carries a tier badge marking what kind of evidence supports it. Tap or click any badge to read the details.',
+  onboarding_dismiss:        'Got it',
+  onboarding_reopen_aria:    'Open reading guide',
+
+  /* ── Phase B: Epistemic tiers page ─────────────────────────────── */
+  epistemic_tiers_intro_p1: 'Every claim, passage, and interpretation on Mnemosyne Engine carries one of four epistemic tier badges. The badges mark what kind of evidence supports the content — not how important or interesting it is. A passage from a surviving cuneiform tablet is not more important than a scholarly inference; it is differently grounded.',
+  epistemic_tiers_intro_p2: 'The tiers serve two audiences simultaneously: general readers who want to know how certain something is before trusting it, and scholars who need to see the provenance of every interpretive move before engaging with it.',
+  epistemic_tiers_section_text_head: 'Text content',
+  epistemic_tiers_documented_example: 'Attested passage from R. Campbell Thompson\'s 1930 translation of Tablet XI, drawn from the Nineveh cuneiform tablets held by the British Museum.',
+  epistemic_tiers_reconstructed_example: 'The Standard Babylonian narrative synthesis of Tablet XI, assembled from multiple fragmentary sources by Sîn-lēqi-unninni in the 12th century BCE.',
+  epistemic_tiers_contested_example: 'Whether Book XXIV of the Iliad constitutes the poem\'s original ending is an open scholarly question; the current majority holds it integral, but M.L. West (2011) argues for late expansion.',
+  epistemic_tiers_ai_reviewed_example: 'AI-generated episode summaries in the Surface layer, each reviewed by a named scholar before publication and marked with the reviewer\'s name and date.',
+  epistemic_tiers_imagery_head: 'Imagery',
+  epistemic_tiers_imagery_intro: 'The same four tiers apply to every image displayed on the platform — artifact photographs, scholarly engravings, and platform-produced diagrams alike. No image renders without a tier badge and a source citation.',
+  epistemic_tiers_img_documented_desc: 'Photograph of a surviving artifact. Example: a cuneiform tablet held by the British Museum, photographed and published under CC license.',
+  epistemic_tiers_img_reconstructed_desc: '19th- or early 20th-century scholarly engraving or reconstruction based on partial evidence, published in a peer-reviewed source.',
+  epistemic_tiers_img_contested_desc: 'Artist\'s reconstruction where the depicted subject is actively debated among scholars. The reconstruction is acknowledged as interpretive.',
+  epistemic_tiers_img_ai_reviewed_desc: 'Modern visualization — narrative structure maps, constellation diagrams, Scholaria graphics — produced by the platform and reviewed by a named scholar.',
+  epistemic_tiers_candidates_head: 'Computationally-detected candidates',
+  epistemic_tiers_candidates_body: 'The platform uses computational methods to detect structural similarities across traditions. These relationships carry the internal status of "candidates": they are tracked and queued for scholar review, but are never shown to users until a scholar has reviewed and confirmed them. What you see on this platform has been confirmed. The pipeline behind it has more.',
+
+  /* ── Phase B: About page ────────────────────────────────────────── */
+  about_mission_head: 'What Mnemosyne Engine is',
+  about_mission_p1: 'Mnemosyne Engine is an explorable interface for the great epic traditions of the world. Its central commitment is epistemic honesty: every claim is marked for what kind of evidence supports it. You can read a plain-language summary or the original translation, zoom into scholarly debate, or cross to another tradition\'s parallel passage. The depth you want is always one step away.',
+  about_mission_p2: 'No claim is presented without its grounding. When a passage is actively contested among scholars, that contest is made visible — not resolved or hidden. When an interpretation was generated by AI and reviewed by a human expert, that provenance is disclosed at the top of every content block. The platform\'s promise is not completeness; it is honesty about what is known, what is inferred, and what remains in open debate.',
+  about_phase1_head: 'Phase 1 scope',
+  about_phase1_p: 'The current release covers two traditions: the Epic of Gilgamesh (Standard Babylonian Version, c. 1200 BCE) and the Iliad (attributed to Homer, c. 8th century BCE). The interface is available in English and Russian. One confirmed cross-tradition parallel is documented: the Flood narrative in Gilgamesh and Genesis 6–9. Four additional traditions — Mahabharata, Ramayana, Aeneid, and Shahnameh — are planned for Phase 2.',
+  about_editorial_head: 'Editorial policy',
+  about_editorial_p1: 'AI-generated content is disclosed at the top of every block in which it appears, with the name of the scholar who reviewed it and the date of review. Demo content that has not yet been scholar-reviewed is explicitly marked as such. These are not aesthetic choices; they are the only way the platform can make the distinction between evidence and interpretation legible to both general readers and scholars.',
+  about_editorial_p2: 'The platform will not add AI-generated illustrations of figures, scenes, or events. Placing a generated image of Gilgamesh or Achilles on a platform whose identity is epistemic provenance would signal that the intellectual honesty is cosmetic. This rule is enforced at the infrastructure level: the ArtifactFigure component requires an epistemic tier, and the compiler rejects untiered images.',
+  about_imagery_head: 'Tier-marked imagery',
+  about_imagery_p: 'Every image on the platform carries a tier badge and a source citation, using the same four-tier system as text content. Artifact photographs are Documented; scholarly engravings are Reconstructed; interpretive reconstructions are Contested; platform-produced diagrams reviewed by a named scholar are AI-Reviewed. This is the only digital humanities platform we know of that makes this distinction explicit at the component level.',
+
+  /* ── Phase B: Contact page ──────────────────────────────────────── */
+  contact_intro: 'Mnemosyne Engine is a scholarly humanities project in active development.',
+  contact_email_label: 'Email',
+  contact_email_value: 'contact@mnemosyne.engine',
+  contact_scholar_note: 'We welcome correspondence from scholars working in epic traditions, comparative mythology, and digital humanities. If you would like to review content, propose a parallel, or suggest a correction, please write to us.',
 };

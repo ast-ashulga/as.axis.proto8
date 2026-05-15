@@ -1,0 +1,73 @@
+---
+interface Props {
+  tradition: 'mesopotamian' | 'greek';
+}
+
+const { tradition } = Astro.props;
+---
+
+{tradition === 'mesopotamian' ? (
+  <svg
+    class="tradition-divider"
+    viewBox="0 0 240 10"
+    height="10"
+    width="100%"
+    aria-hidden="true"
+    role="presentation"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <!-- Three cuneiform-geometric wedge groups, evenly spaced -->
+    <!-- Group 1 at x=40 -->
+    <polygon points="38,8 40,2 42,8" fill="var(--mesop)" opacity="0.3" />
+    <rect x="38.5" y="8" width="3" height="1.5" fill="var(--mesop)" opacity="0.3" />
+    <!-- Group 2 at x=120 -->
+    <polygon points="118,8 120,2 122,8" fill="var(--mesop)" opacity="0.3" />
+    <rect x="118.5" y="8" width="3" height="1.5" fill="var(--mesop)" opacity="0.3" />
+    <!-- Group 3 at x=200 -->
+    <polygon points="198,8 200,2 202,8" fill="var(--mesop)" opacity="0.3" />
+    <rect x="198.5" y="8" width="3" height="1.5" fill="var(--mesop)" opacity="0.3" />
+    <!-- Baseline -->
+    <line x1="0" y1="9.5" x2="240" y2="9.5" stroke="var(--mesop)" stroke-opacity="0.12" stroke-width="0.5" />
+  </svg>
+) : (
+  <svg
+    class="tradition-divider"
+    viewBox="0 0 240 10"
+    height="10"
+    width="100%"
+    aria-hidden="true"
+    role="presentation"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <!-- Greek meander / key pattern: two units centered -->
+    <!-- Unit 1 at x=80 -->
+    <polyline
+      points="70,8 70,4 76,4 76,2 82,2 82,6 78,6 78,8"
+      fill="none"
+      stroke="var(--greek)"
+      stroke-opacity="0.3"
+      stroke-width="1.5"
+      stroke-linejoin="miter"
+    />
+    <!-- Unit 2 at x=158 -->
+    <polyline
+      points="158,8 158,4 164,4 164,2 170,2 170,6 166,6 166,8"
+      fill="none"
+      stroke="var(--greek)"
+      stroke-opacity="0.3"
+      stroke-width="1.5"
+      stroke-linejoin="miter"
+    />
+    <!-- Baseline -->
+    <line x1="0" y1="9.5" x2="240" y2="9.5" stroke="var(--greek)" stroke-opacity="0.12" stroke-width="0.5" />
+  </svg>
+)}
+
+<style>
+  .tradition-divider {
+    display: block;
+    width: 100%;
+    height: 10px;
+    margin-block: 8px;
+  }
+</style>

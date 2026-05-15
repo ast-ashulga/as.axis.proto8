@@ -1,9 +1,4 @@
 ---
-import PageStub from '~/templates/PageStub.astro';
-import { withBase } from '~/utils/url';
+import EpistemicTiersPage from '~/templates/EpistemicTiersPage.astro';
 ---
-<PageStub
-  locale="en"
-  title="Epistemic tiers"
-  crumbs={[{ label: 'Home', href: withBase('/en/') }, { label: 'Epistemic tiers' }]}
-/>
+<EpistemicTiersPage locale="en" />

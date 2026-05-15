@@ -1,0 +1,33 @@
+---
+interface Props {
+  tradition: 'mesopotamian' | 'greek';
+}
+
+const { tradition } = Astro.props;
+---
+
+<p class="body-p drop-cap-p" data-tradition={tradition}>
+  <slot />
+</p>
+
+<style>
+  .drop-cap-p::first-letter {
+    float: left;
+    line-height: 0.82;
+    margin: 0.06em 0.08em 0 0;
+    font-weight: 500;
+  }
+  .drop-cap-p[data-tradition="mesopotamian"]::first-letter {
+    color: var(--mesop);
+    font-size: 3.1em;
+  }
+  .drop-cap-p[data-tradition="greek"]::first-letter {
+    color: var(--greek);
+    font-size: 3.1em;
+  }
+  @media (max-width: 767px) {
+    .drop-cap-p::first-letter {
+      font-size: 2.1em;
+    }
+  }
+</style>

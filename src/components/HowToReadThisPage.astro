@@ -1,0 +1,148 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+
+const layers = [
+  { plain: tr.layer_surface_plain,    poetic: tr.layer_surface_poetic,    desc: tr.onboarding_surface_desc    },
+  { plain: tr.layer_narrated_plain,   poetic: tr.layer_narrated_poetic,   desc: tr.onboarding_narrated_desc   },
+  { plain: tr.layer_translated_plain, poetic: tr.layer_translated_poetic, desc: tr.onboarding_translated_desc },
+  { plain: tr.layer_original_plain,   poetic: tr.layer_original_poetic,   desc: tr.onboarding_original_desc   },
+  { plain: tr.layer_scholaria_plain,  poetic: tr.layer_scholaria_poetic,  desc: tr.onboarding_scholaria_desc  },
+];
+---
+
+<div
+  id="how-to-read-panel"
+  class="onboarding-panel"
+  role="dialog"
+  aria-labelledby="onboarding-heading"
+  aria-modal="false"
+  hidden
+>
+  <div class="onboarding-inner">
+    <h2 id="onboarding-heading" class="onboarding-title">{tr.onboarding_heading}</h2>
+
+    <div class="onboarding-section">
+      <h3 class="onboarding-sub">{tr.onboarding_layers_head}</h3>
+      <dl class="layers-list">
+        {layers.map(({ plain, poetic, desc }) => (
+          <div class="layers-row">
+            <dt class="layers-label">
+              <span class="layers-plain">{plain}</span>
+              <span class="layers-poetic">{poetic}</span>
+            </dt>
+            <dd class="layers-desc">{desc}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="onboarding-section">
+      <h3 class="onboarding-sub">{tr.onboarding_tiers_head}</h3>
+      <p class="onboarding-body">{tr.onboarding_tiers_desc}</p>
+    </div>
+
+    <button id="onboarding-dismiss-btn" class="onboarding-dismiss" type="button">
+      {tr.onboarding_dismiss}
+    </button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'mnem_onboarding_dismissed';
+  const panel = document.getElementById('how-to-read-panel');
+  if (panel && !localStorage.getItem(STORAGE_KEY)) {
+    panel.hidden = false;
+  }
+  document.getElementById('onboarding-dismiss-btn')?.addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, '1');
+    if (panel) panel.hidden = true;
+  });
+</script>
+
+<style>
+  .onboarding-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    max-width: var(--col);
+  }
+  .onboarding-title {
+    font: 500 16px/1.3 var(--serif);
+    margin-bottom: 20px;
+  }
+  .onboarding-section {
+    margin-bottom: 20px;
+  }
+  .onboarding-sub {
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 12px;
+  }
+  .layers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .layers-row {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .layers-label {
+    flex-shrink: 0;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .layers-plain {
+    font: 500 12px/1.3 var(--mono);
+    color: var(--text);
+  }
+  .layers-poetic {
+    font: 400 10px/1.3 var(--mono);
+    color: var(--text-3);
+  }
+  .layers-desc {
+    font: 400 14px/1.5 var(--serif);
+    color: var(--text-2);
+  }
+  .onboarding-body {
+    font: 400 14px/1.5 var(--serif);
+    color: var(--text-2);
+  }
+  .onboarding-dismiss {
+    background: none;
+    border: 1px solid var(--border-2);
+    cursor: pointer;
+    font: 500 12px/1.4 var(--mono);
+    color: var(--text-2);
+    padding: 6px 16px;
+    letter-spacing: 0.04em;
+  }
+  .onboarding-dismiss:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .onboarding-dismiss:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .onboarding-panel { padding: 18px 16px; }
+    .layers-row { flex-direction: column; gap: 4px; }
+    .layers-label { width: auto; flex-direction: row; gap: 6px; align-items: center; }
+  }
+</style>

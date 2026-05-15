@@ -1,0 +1,84 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+---
+
+<BaseLayout title={tr.footer_about} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home, href: `/${locale}/` },
+      { label: tr.footer_about },
+    ]} />
+
+    <h1 class="page-title">{tr.footer_about}</h1>
+
+    <section class="content-section">
+      <h2 class="section-head">{tr.about_mission_head}</h2>
+      <p class="body-p">{tr.about_mission_p1}</p>
+      <p class="body-p">{tr.about_mission_p2}</p>
+    </section>
+
+    <section class="content-section">
+      <h2 class="section-head">{tr.about_phase1_head}</h2>
+      <p class="body-p">{tr.about_phase1_p}</p>
+    </section>
+
+    <section class="content-section">
+      <h2 class="section-head">{tr.about_editorial_head}</h2>
+      <p class="body-p">{tr.about_editorial_p1}</p>
+      <p class="body-p">{tr.about_editorial_p2}</p>
+    </section>
+
+    <section class="content-section">
+      <h2 class="section-head">{tr.about_imagery_head}</h2>
+      <p class="body-p">{tr.about_imagery_p}</p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-inline: var(--mx);
+    padding-block: 40px 64px;
+    max-width: calc(var(--col) + var(--mx) * 2);
+    margin-inline: auto;
+  }
+  .page-title {
+    font: 500 24px/1.3 var(--serif);
+    margin-bottom: 32px;
+  }
+  .content-section {
+    margin-bottom: 40px;
+  }
+  .section-head {
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-2);
+  }
+  .content-section:first-of-type .section-head {
+    padding-top: 0;
+    border-top: none;
+  }
+  .body-p {
+    font: 400 16px/1.7 var(--serif);
+    margin-bottom: 16px;
+    max-width: var(--col);
+  }
+
+  @media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+  @media (max-width: 767px)  { .page-body { padding-inline: var(--mx-m); } }
+</style>

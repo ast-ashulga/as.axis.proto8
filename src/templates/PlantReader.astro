@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
+import TraditionDivider from '~/components/TraditionDivider.astro';
+import DropCap from '~/components/DropCap.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -31,6 +34,8 @@ const tabletHubFwdHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
       <span class="copied-confirm" id="copied-confirm">{tr.copied_confirm}</span>
     </div>
 
+    <TraditionDivider tradition="mesopotamian" />
+
     <div class="ep-heading">
       <h1 class="ep-title">{tr.frag_ep_plant_title}</h1>
       <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
@@ -44,16 +49,33 @@ const tabletHubFwdHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
     </div>
     <p class="ep-sub">{tr.frag_flood_subtitle}</p>
 
+    <HowToReadThisPage locale={locale} />
+
     <div class="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
-      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">{tr.layer_surface}</button>
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+        <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
+      </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">{tr.layer_narrated}</button>
+      <button class="layer-tab layer-tab--disabled" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated" data-disabled="true" aria-disabled="true" tabindex="-1">
+        <span class="layer-tab__plain">{tr.layer_narrated_plain}</span>
+        <span class="layer-tab__poetic layer-tab__unavail">{tr.layer_unavailable}</span>
+      </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">{tr.layer_translated}</button>
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+        <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
+      </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original">{tr.layer_original}</button>
+      <button class="layer-tab layer-tab--disabled" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original" data-disabled="true" aria-disabled="true" tabindex="-1">
+        <span class="layer-tab__plain">{tr.layer_original_plain}</span>
+        <span class="layer-tab__poetic layer-tab__unavail">{tr.layer_unavailable}</span>
+      </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">{tr.layer_scholaria}</button>
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+        <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
+      </button>
     </div>
 
     <div class="content-area" id="content-area" tabindex="-1">
@@ -66,7 +88,7 @@ const tabletHubFwdHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
             <ul><li>{nas}{tr.frag_nas_tag_doc}</li></ul>
           </div>
         </div>
-        <p class="body-p">{tr.frag_surf_plant_p1}</p>
+        <DropCap tradition="mesopotamian">{tr.frag_surf_plant_p1}</DropCap>
         <p class="body-p">{tr.frag_surf_plant_p2}</p>
         <p class="body-p">{tr.frag_surf_plant_p3}</p>
         <p class="body-p">{tr.frag_surf_plant_p4}</p>
@@ -196,10 +218,16 @@ const tabletHubFwdHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
   .badge-pop li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 3px; }
   .badge-pop li::before { content: "· "; }
   .layer-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 24px; padding: 10px 0; border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); margin-top: 20px; }
-  .layer-tab { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 4px 0; }
-  .layer-tab[aria-selected="true"] { color: var(--text); font-weight: 500; }
+  .layer-tab { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 4px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+  .layer-tab__plain { font: 500 12px/1.3 var(--mono); }
+  .layer-tab__poetic { font: 400 10px/1.3 var(--mono); color: var(--text-3); }
+  .layer-tab[aria-selected="true"] .layer-tab__plain { color: var(--text); }
+  .layer-tab[aria-selected="true"] .layer-tab__poetic { color: var(--text-2); }
+  .layer-tab--disabled { cursor: default; opacity: 0.65; background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--border-2) 2px, var(--border-2) 3px); background-size: 6px 6px; }
+  .layer-tab--disabled .layer-tab__plain { color: var(--text-dis); }
+  .layer-tab__unavail { color: var(--text-dis); font-style: italic; }
   .layer-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .layer-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 0 12px; user-select: none; }
+  .layer-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 0 12px; user-select: none; align-self: center; }
   .content-area { border: 1px solid var(--border-2); background: var(--surface); padding: 32px 36px; }
   .layer-panel { display: none; }
   .layer-panel.active { display: block; }
@@ -254,6 +282,7 @@ const tabletHubFwdHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
 <script define:vars={{ showStructureLabel: tr.show_structure, hideStructureLabel: tr.hide_structure, seeSources: tr.see_sources, hideSources: tr.hide_sources, nasToCopy: nas, copiedText: tr.copied_confirm }}>
   document.querySelectorAll('.layer-tab').forEach(tab => {
     tab.addEventListener('click', () => {
+      if (tab.dataset.disabled === 'true') return;
       document.querySelectorAll('.layer-tab').forEach(t => t.setAttribute('aria-selected', 'false'));
       document.querySelectorAll('.layer-panel').forEach(p => p.classList.remove('active'));
       tab.setAttribute('aria-selected', 'true');

@@ -436,4 +436,69 @@ export interface Translations {
   iliad_parallel_cite_schein_html: string;
   iliad_parallel_cite_george_iliad_html: string;
   iliad_parallel_cite_shay_html: string;
+
+  /* ── Phase B: Layer labels (plain + poetic + unavailable) ───────── */
+  layer_surface_plain: string;
+  layer_narrated_plain: string;
+  layer_translated_plain: string;
+  layer_original_plain: string;
+  layer_scholaria_plain: string;
+  layer_surface_poetic: string;
+  layer_narrated_poetic: string;
+  layer_translated_poetic: string;
+  layer_original_poetic: string;
+  layer_scholaria_poetic: string;
+  layer_unavailable: string;
+
+  /* ── Phase B: Epistemic legend (homepage) ───────────────────────── */
+  epistemic_legend_heading: string;
+  epistemic_legend_learn_more: string;
+
+  /* ── Phase B: Onboarding panel ──────────────────────────────────── */
+  onboarding_heading: string;
+  onboarding_layers_head: string;
+  onboarding_surface_desc: string;
+  onboarding_narrated_desc: string;
+  onboarding_translated_desc: string;
+  onboarding_original_desc: string;
+  onboarding_scholaria_desc: string;
+  onboarding_tiers_head: string;
+  onboarding_tiers_desc: string;
+  onboarding_dismiss: string;
+  onboarding_reopen_aria: string;
+
+  /* ── Phase B: Epistemic tiers page ─────────────────────────────── */
+  epistemic_tiers_intro_p1: string;
+  epistemic_tiers_intro_p2: string;
+  epistemic_tiers_section_text_head: string;
+  epistemic_tiers_documented_example: string;
+  epistemic_tiers_reconstructed_example: string;
+  epistemic_tiers_contested_example: string;
+  epistemic_tiers_ai_reviewed_example: string;
+  epistemic_tiers_imagery_head: string;
+  epistemic_tiers_imagery_intro: string;
+  epistemic_tiers_img_documented_desc: string;
+  epistemic_tiers_img_reconstructed_desc: string;
+  epistemic_tiers_img_contested_desc: string;
+  epistemic_tiers_img_ai_reviewed_desc: string;
+  epistemic_tiers_candidates_head: string;
+  epistemic_tiers_candidates_body: string;
+
+  /* ── Phase B: About page ────────────────────────────────────────── */
+  about_mission_head: string;
+  about_mission_p1: string;
+  about_mission_p2: string;
+  about_phase1_head: string;
+  about_phase1_p: string;
+  about_editorial_head: string;
+  about_editorial_p1: string;
+  about_editorial_p2: string;
+  about_imagery_head: string;
+  about_imagery_p: string;
+
+  /* ── Phase B: Contact page ──────────────────────────────────────── */
+  contact_intro: string;
+  contact_email_label: string;
+  contact_email_value: string;
+  contact_scholar_note: string;
 }

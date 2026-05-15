@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import EpistemicLegend from '~/components/epistemic/EpistemicLegend.astro';
 import { t } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -19,6 +20,13 @@ const tr = t(locale);
         {tr.hero_subtitle}
       </p>
     </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);" />
+
+  <!-- Epistemic legend -->
+  <div class="wrap" style="padding-block: 32px 8px;">
+    <EpistemicLegend locale={locale} />
   </div>
 
   <hr class="div" style="margin-inline: var(--mx);" />

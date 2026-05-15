@@ -1,0 +1,83 @@
+---
+import TierBadge from './TierBadge.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+
+const tiers = [
+  { tier: 'documented',    desc: tr.tier_documented_desc    },
+  { tier: 'reconstructed', desc: tr.tier_reconstructed_desc },
+  { tier: 'contested',     desc: tr.tier_contested_desc     },
+  { tier: 'ai-reviewed',   desc: tr.tier_ai_reviewed_desc   },
+] as const;
+---
+
+<div class="epistemic-legend" aria-label={tr.epistemic_legend_heading}>
+  <p class="legend-heading">{tr.epistemic_legend_heading}</p>
+  <div class="legend-grid">
+    {tiers.map(({ tier, desc }) => (
+      <div class="legend-row">
+        <TierBadge tier={tier} locale={locale} />
+        <span class="legend-desc">{desc}</span>
+      </div>
+    ))}
+  </div>
+  <p class="legend-footer">
+    <a href={`/${locale}/epistemic-tiers/`} class="legend-link">{tr.epistemic_legend_learn_more}</a>
+  </p>
+</div>
+
+<style>
+  .epistemic-legend {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    padding: 24px 28px;
+  }
+  .legend-heading {
+    font: 500 11px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .legend-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .legend-row :global(.tier-badge) {
+    flex-shrink: 0;
+    min-width: 140px;
+  }
+  .legend-desc {
+    font: 400 14px/1.5 var(--serif);
+    color: var(--text-2);
+  }
+  .legend-footer {
+    padding-top: 14px;
+    border-top: 1px solid var(--border-2);
+    margin-top: 4px;
+  }
+  .legend-link {
+    font: 400 13px/1.4 var(--serif);
+    color: var(--link);
+  }
+  .legend-link:hover { color: var(--link-h); }
+
+  @media (max-width: 767px) {
+    .epistemic-legend { padding: 20px 18px; }
+    .legend-row { flex-direction: column; gap: 4px; }
+    .legend-row :global(.tier-badge) { min-width: auto; }
+  }
+</style>
