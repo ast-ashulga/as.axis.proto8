@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import TierBadge from '~/components/epistemic/TierBadge.astro';
+import EpicStructureMap from '~/components/visualizations/EpicStructureMap.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -61,9 +62,19 @@ const episodes = [
     </header>
 
     <!-- Intro -->
-    <div style="max-width: var(--col); margin-bottom: 40px;">
+    <div style="max-width: var(--col); margin-bottom: 24px;">
       <p style="font: 400 16px/1.7 var(--serif);">{tr.tablet_hub_intro}</p>
     </div>
+
+    <EpicStructureMap
+      tradition="mesopotamian"
+      locale={locale}
+      panels={[
+        { id: 'flood', label: tr.tab_ep1_name, available: true, hasPar: true, parTier: 'doc', href: `${navBase}/gilgamesh/tablet-xi/flood/` },
+        { id: 'sleep', label: tr.tab_ep2_name, available: true, hasPar: false, href: `${navBase}/gilgamesh/tablet-xi/sleep-challenge/` },
+        { id: 'plant', label: tr.tab_ep3_name, available: true, hasPar: false, href: `${navBase}/gilgamesh/tablet-xi/plant/` },
+      ]}
+    />
 
     <hr class="div" />
 

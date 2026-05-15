@@ -496,4 +496,34 @@ export const ru: Translations = {
   contact_email_label: 'Электронная почта',
   contact_email_value: 'contact@mnemosyne.engine',
   contact_scholar_note: 'Мы приветствуем обращения от исследователей в области эпических традиций, сравнительной мифологии и цифровых гуманитарных наук. Если вы хотите проверить контент, предложить параллель или указать на ошибку — напишите нам.',
+
+  /* ── Phase C: Visualization chrome ─────────────────────────────── */
+  narrative_map_heading:        'Структура нарратива',
+  constellation_heading:        'Межтрадиционные параллели',
+  constellation_aria:           'Сетевая диаграмма, показывающая межтрадиционные параллели между «Гильгамешем», «Илиадой», «Бытием» и грядущими традициями',
+  constellation_fallback_head:  'Подтверждённые параллели',
+  constellation_phase2_label:   'В разработке',
+  structure_map_heading:        'Структура эпизодов',
+  structure_map_aria:           'Горизонтальная последовательность эпизодов в данном разделе',
+  structure_map_unavailable:    'Фаза 2',
+  parallel_diagram_heading:     'Общие нарративные биты',
+  parallel_diagram_caption_flood:  '▲ ПРОВЕРЕНО ИИ · Структурное сравнение проверено М. Ковач (2024)',
+  parallel_diagram_caption_grief:  '▲ ПРОВЕРЕНО ИИ · Структурное сравнение проверено М. Пантелиа (2024)',
+  parallel_diagram_diverges:    'Расходится',
+  motif_anchor_aria:            'Якорь мотива — ссылка на диаграмму структурных битов',
+  layer_pill_aria:              'Текущий слой чтения',
+
+  /* ── Phase C: NextBestAction ────────────────────────────────────── */
+  next_action_heading:           'Продолжить изучение',
+  next_action_deeper_label:      'Углубиться',
+  next_action_parallel_label:    'Смотреть параллель',
+  next_action_next_ep_label:     'Следующий эпизод',
+  next_action_related_label:     'Связанный эпизод',
+  next_action_deeper_desc_flood: 'Прочитать научный анализ нарратива о потопе',
+  next_action_deeper_desc_sleep: 'Изучить историю рукописей и текстуальные варианты',
+  next_action_deeper_desc_plant: 'Прочитать научную интерпретацию этого эпизода',
+  next_action_deeper_desc_ransom: 'Прочитать историю рукописей и научную дискуссию',
+  next_action_parallels_index_label: 'Межтрадиционные параллели',
+  next_action_parallels_index_desc:
+    'Подтверждённые резонансы — карта-созвездие, диаграммы битов и полные сравнительные заметки',
 };

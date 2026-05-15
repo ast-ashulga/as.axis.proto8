@@ -25,6 +25,10 @@ const alternateUrl = pathname.startsWith(localePrefix)
   : withBase(`/${alternateLocale}/`);
 
 const navBase = withBase(`/${locale}`);
+
+const onGilgamesh = Astro.url.pathname.includes('/gilgamesh');
+const onIliad     = Astro.url.pathname.includes('/iliad');
+const onParallels = Astro.url.pathname.includes('/parallels');
 ---
 
 <nav class="site-nav" aria-label={tr.nav_main_aria}>
@@ -36,21 +40,21 @@ const navBase = withBase(`/${locale}`);
     <a
       href={`${navBase}/gilgamesh/`}
       class="nav-l"
-      aria-current={Astro.url.pathname.includes('/gilgamesh') ? 'page' : undefined}
+      aria-current={onGilgamesh ? 'page' : undefined}
     >
       {tr.nav_gilgamesh}
     </a>
     <a
       href={`${navBase}/iliad/`}
       class="nav-l"
-      aria-current={Astro.url.pathname.includes('/iliad') ? 'page' : undefined}
+      aria-current={onIliad ? 'page' : undefined}
     >
       {tr.nav_iliad}
     </a>
     <a
       href={`${navBase}/parallels/`}
       class="nav-l"
-      aria-current={Astro.url.pathname.includes('/parallels') ? 'page' : undefined}
+      aria-current={onParallels ? 'page' : undefined}
     >
       {tr.nav_parallels}
     </a>
@@ -64,6 +68,25 @@ const navBase = withBase(`/${locale}`);
     </a>
   </div>
   <button id="help-btn" class="help-btn" aria-label={tr.onboarding_reopen_aria} hidden>?</button>
+</nav>
+
+<!-- Mobile tradition bar (shown only at ≤767px where nav-center is hidden) -->
+<nav class="mobile-trad-bar" aria-label={tr.nav_main_aria}>
+  <a
+    href={`${navBase}/gilgamesh/`}
+    class="mobile-trad-link"
+    aria-current={onGilgamesh ? 'page' : undefined}
+  >{tr.nav_gilgamesh}</a>
+  <a
+    href={`${navBase}/iliad/`}
+    class="mobile-trad-link"
+    aria-current={onIliad ? 'page' : undefined}
+  >{tr.nav_iliad}</a>
+  <a
+    href={`${navBase}/parallels/`}
+    class="mobile-trad-link"
+    aria-current={onParallels ? 'page' : undefined}
+  >{tr.nav_parallels}</a>
 </nav>
 
 <script>
@@ -109,7 +132,12 @@ nav.site-nav {
   text-decoration: none;
 }
 .nav-l:hover { color: var(--text); }
-.nav-l[aria-current="page"] { color: var(--text); font-weight: 500; }
+.nav-l[aria-current="page"] {
+  color: var(--text);
+  font-weight: 500;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+}
 
 .locale {
   display: flex;
@@ -147,5 +175,38 @@ a.locale-b:hover { color: var(--text); }
 @media (max-width: 767px) {
   nav.site-nav { padding-inline: var(--mx-m); }
   .nav-center { display: none; }
+}
+
+.mobile-trad-bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-trad-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-2);
+    padding-inline: var(--mx-m);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .mobile-trad-bar::-webkit-scrollbar { display: none; }
+}
+
+.mobile-trad-link {
+  font: 400 12px/1.4 var(--serif);
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 8px 14px 8px 0;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.mobile-trad-link:hover { color: var(--text); }
+.mobile-trad-link[aria-current="page"] {
+  color: var(--text);
+  font-weight: 500;
+  border-bottom: 2px solid var(--accent);
 }
 </style>

@@ -1,0 +1,161 @@
+---
+import { t, type Locale } from '~/i18n';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+
+interface BeatRow {
+  id: string;
+  label: string;
+  trad1: string;
+  trad2: string;
+  diverges?: boolean;
+}
+
+interface Props {
+  beats: BeatRow[];
+  trad1Label: string;
+  trad2Label: string;
+  caption: string;
+  locale: Locale;
+}
+
+const { beats, trad1Label, trad2Label, caption, locale } = Astro.props;
+const tr = t(locale);
+---
+
+<div class="psd-wrap">
+  <p class="psd-heading">{tr.parallel_diagram_heading}</p>
+  <div class="psd-grid" role="table" aria-label={tr.parallel_diagram_heading}>
+    <!-- Header row -->
+    <div class="psd-row psd-row--header" role="row">
+      <div class="psd-cell psd-cell--label" role="columnheader"></div>
+      <div class="psd-cell psd-cell--trad" role="columnheader">{trad1Label}</div>
+      <div class="psd-cell psd-cell--trad" role="columnheader">{trad2Label}</div>
+    </div>
+
+    {beats.map(beat => (
+      <div
+        class={`psd-row${beat.diverges ? ' psd-row--diverges' : ''}`}
+        role="row"
+        id={`beat-${beat.id}`}
+      >
+        <div class="psd-cell psd-cell--label" role="rowheader">
+          <span class="beat-name">{beat.label}</span>
+          {beat.diverges && (
+            <span class="diverges-marker" aria-label={tr.parallel_diagram_diverges}>
+              ◈ {tr.parallel_diagram_diverges}
+            </span>
+          )}
+        </div>
+        <div
+          class={`psd-cell psd-cell--content${beat.diverges ? ' psd-cell--div' : ''}`}
+          role="cell"
+        >
+          {beat.trad1}
+        </div>
+        <div
+          class={`psd-cell psd-cell--content${beat.diverges ? ' psd-cell--div' : ''}`}
+          role="cell"
+        >
+          {beat.trad2}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="psd-caption">
+    <TierBadge tier="ai-reviewed" locale={locale} />
+    <span>{caption}</span>
+  </p>
+</div>
+
+<style>
+.psd-wrap {
+  margin-bottom: 32px;
+}
+
+.psd-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.psd-grid {
+  border: 1px solid var(--border-2);
+  overflow-x: auto;
+}
+
+.psd-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  border-bottom: 1px solid var(--border-2);
+}
+.psd-row:last-of-type { border-bottom: none; }
+
+.psd-row--header {
+  background: var(--inset);
+}
+
+.psd-row--diverges > .psd-cell--label {
+  background: rgba(122, 64, 64, 0.04);
+}
+
+.psd-cell {
+  padding: 10px 14px;
+  font: 400 14px/1.5 var(--serif);
+  border-right: 1px solid var(--border-2);
+  vertical-align: top;
+}
+.psd-cell:last-child { border-right: none; }
+
+.psd-cell--label {
+  font: 500 12px/1.4 var(--mono);
+  color: var(--text-2);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.psd-cell--trad {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.psd-cell--content {
+  font: 400 13px/1.5 var(--serif);
+  color: var(--text);
+}
+
+.psd-cell--div {
+  border-left: 2px solid var(--tier-con);
+  background: rgba(122, 64, 64, 0.04);
+}
+
+.beat-name { display: block; }
+
+.diverges-marker {
+  font: 500 10px/1.3 var(--mono);
+  color: var(--tier-con);
+  display: block;
+}
+
+.psd-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+@media (max-width: 767px) {
+  .psd-row {
+    grid-template-columns: 110px 1fr 1fr;
+  }
+  .psd-cell {
+    padding: 8px 10px;
+  }
+}
+</style>

@@ -496,4 +496,34 @@ export const en: Translations = {
   contact_email_label: 'Email',
   contact_email_value: 'contact@mnemosyne.engine',
   contact_scholar_note: 'We welcome correspondence from scholars working in epic traditions, comparative mythology, and digital humanities. If you would like to review content, propose a parallel, or suggest a correction, please write to us.',
+
+  /* ── Phase C: Visualization chrome ─────────────────────────────── */
+  narrative_map_heading:        'Narrative structure',
+  constellation_heading:        'Cross-tradition resonances',
+  constellation_aria:           'Network diagram showing cross-tradition parallels between Gilgamesh, the Iliad, Genesis, and forthcoming traditions',
+  constellation_fallback_head:  'Confirmed parallels',
+  constellation_phase2_label:   'Forthcoming',
+  structure_map_heading:        'Episode structure',
+  structure_map_aria:           'Horizontal sequence of episodes in this division',
+  structure_map_unavailable:    'Phase 2',
+  parallel_diagram_heading:     'Shared narrative beats',
+  parallel_diagram_caption_flood:  '▲ AI-REVIEWED · Structural comparison reviewed by M. Kovacs (2024)',
+  parallel_diagram_caption_grief:  '▲ AI-REVIEWED · Structural comparison reviewed by M. Pantelia (2024)',
+  parallel_diagram_diverges:    'Diverges',
+  motif_anchor_aria:            'Motif anchor — links to structural beat diagram',
+  layer_pill_aria:              'Current reading layer',
+
+  /* ── Phase C: NextBestAction ────────────────────────────────────── */
+  next_action_heading:           'Continue exploring',
+  next_action_deeper_label:      'Go deeper',
+  next_action_parallel_label:    'See the parallel',
+  next_action_next_ep_label:     'Next episode',
+  next_action_related_label:     'Related episode',
+  next_action_deeper_desc_flood: 'Read the scholarly analysis of the flood narrative',
+  next_action_deeper_desc_sleep: 'Explore manuscript history and textual variants',
+  next_action_deeper_desc_plant: 'Read the scholarly interpretation of this episode',
+  next_action_deeper_desc_ransom: 'Read manuscript history and the scholarly debate',
+  next_action_parallels_index_label: 'Cross-tradition parallels',
+  next_action_parallels_index_desc:
+    'Scholar-confirmed resonances — constellation map, beat diagrams, and full comparative notes',
 };

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import ParallelStructureDiagram from '~/components/visualizations/ParallelStructureDiagram.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -44,6 +45,23 @@ const navBase = withBase(`/${locale}`);
 
     <hr class="div" />
 
+    <!-- Structural beat diagram -->
+    <ParallelStructureDiagram
+      locale={locale}
+      trad1Label={tr.iliad_parallel_label_greek}
+      trad2Label={tr.iliad_parallel_label_mesop}
+      caption={tr.parallel_diagram_caption_grief}
+      beats={[
+        { id: 'b1', label: locale === 'ru' ? 'Гибель спутника'      : "Companion's Death",       trad1: locale === 'ru' ? 'Патрокл убит Гектором; Ахилл ранее предупреждён, но отослал его в своих доспехах'      : 'Patroclus slain by Hector; Achilles had warned him but sent him in his armour',          trad2: locale === 'ru' ? 'Энкиду умирает по воле богов, несмотря на заступничество Эа'                         : 'Enkidu dies by divine decree despite Ea\'s plea' },
+        { id: 'b2', label: locale === 'ru' ? 'Отказ и горе'         : 'Refusal and Grief',       trad1: locale === 'ru' ? 'Ахилл отказывается хоронить Патрокла до мести; неутешно рыдает'                         : 'Achilles refuses to bury Patroclus until revenge; weeps inconsolably',                    trad2: locale === 'ru' ? 'Гильгамеш отказывается от погребения семь дней и ночей'                              : 'Gilgamesh refuses burial for seven days and nights',                                   diverges: true },
+        { id: 'b3', label: locale === 'ru' ? 'Путь-противостояние'  : 'Journey / Confrontation', trad1: locale === 'ru' ? 'Приам совершает ночной путь в стан врага, чтобы умолить Ахилла'                        : "Priam makes a night journey through enemy lines to plead with Achilles",                  trad2: locale === 'ru' ? 'Гильгамеш отправляется на край мира в поисках Утнапиштима'                           : 'Gilgamesh journeys to the edge of the world to find Utnapishtim',                     diverges: true },
+        { id: 'b4', label: locale === 'ru' ? 'Неожиданная встреча'  : 'Unexpected Encounter',    trad1: locale === 'ru' ? 'Ахилл плачет с Приамом и возвращает тело Гектора; оба оплакивают своих умерших'         : 'Achilles weeps with Priam and returns Hector\'s body; both mourn their dead',            trad2: locale === 'ru' ? 'Утнапиштим рассказывает о потопе; бессмертие не даровано'                            : 'Utnapishtim recounts the flood; immortality is withheld',                              diverges: true },
+        { id: 'b5', label: locale === 'ru' ? 'Принятие / погребение': 'Acceptance / Burial',     trad1: locale === 'ru' ? 'Гектор погребён; плач; поэма завершается'                                               : 'Hector receives burial; mourning; the poem ends',                                         trad2: locale === 'ru' ? 'Возвращение в Урук без бессмертия; стены города стоят'                              : 'Return to Uruk without immortality; the walls endure' },
+      ]}
+    />
+
+    <hr class="div" />
+
     <!-- Two-column tradition passages -->
     <section aria-label={tr.parallel_passages_section_aria} class="passages-grid">
 
@@ -59,11 +77,11 @@ const navBase = withBase(`/${locale}`);
           <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); display: block; margin-bottom: 16px;">{tr.iliad_parallel_credit_iliad}</span>
           <hr class="panel-div" />
           <blockquote class="passage" lang="en">
-            <p>Priam the old man passed within the house and found Achilles, dear to Zeus, sitting apart, and the heroes were seated apart. And two alone, Automedon and Alkimos, of the stock of Ares, were busy in attendance; for Achilles had but newly ceased from meat and drink, and the table was still standing by him.</p>
+            <p><a href="#beat-b3" class="motif-anchor" id="motif-b3" aria-label={tr.motif_anchor_aria}>◇3</a> Priam the old man passed within the house and found Achilles, dear to Zeus, sitting apart, and the heroes were seated apart. And two alone, Automedon and Alkimos, of the stock of Ares, were busy in attendance; for Achilles had but newly ceased from meat and drink, and the table was still standing by him.</p>
             <p>And great Priam entered unnoticed, and stood near, and clasped the knees of Achilles, and kissed his terrible man-slaying hands that had slain so many of Priam's sons.</p>
             <p>And as when a mighty woe cometh upon a man who in his own country hath slain another, and he cometh to the land of strangers, to a rich man's house, and wonder holdeth them that see him — so Achilles wondered when he saw godlike Priam, and the rest wondered likewise, and looked upon one another.</p>
             <p>Then spake Priam and made his prayer: "Bethink thee of thy father, O Achilles like to gods, whose years are even as mine, on the grievous threshold of old age. Yet truly while he heareth of thee as still alive he rejoiceth in his heart, and hopeth every day that he shall see his dear son returning from Troy-land. But I am all-hapless, since I had the best sons in broad Troy-land, and I deem that not one of them is left."</p>
-            <p>So spake he, and stirred in Achilles desire to make lament for his father; and he took the old man's hand and gently put him from him. And the two bethought them of their dead and wept; and Priam wept sore for Hector the man-slayer, as he lay before Achilles' feet; and Achilles wept for his own father, and now again for Patroclus; and the sound of their mourning rose throughout the house.</p>
+            <p><a href="#beat-b4" class="motif-anchor" id="motif-b4" aria-label={tr.motif_anchor_aria}>◇4</a> So spake he, and stirred in Achilles desire to make lament for his father; and he took the old man's hand and gently put him from him. And the two bethought them of their dead and wept; and Priam wept sore for Hector the man-slayer, as he lay before Achilles' feet; and Achilles wept for his own father, and now again for Patroclus; and the sound of their mourning rose throughout the house.</p>
           </blockquote>
           <p class="attr">{tr.iliad_parallel_attr_iliad}</p>
           <a
@@ -87,8 +105,8 @@ const navBase = withBase(`/${locale}`);
           <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); display: block; margin-bottom: 16px;">{tr.parallel_view_credit_thompson}</span>
           <hr class="panel-div" />
           <blockquote class="passage" lang="en">
-            <p>Gilgamesh bemoaned Enkidu, his friend, weeping bitterly over him:</p>
-            <p>"Enkidu, my friend, whom I loved more than all labours that I did —<br>
+            <p><a href="#beat-b1" class="motif-anchor" id="motif-b1" aria-label={tr.motif_anchor_aria}>◇1</a> Gilgamesh bemoaned Enkidu, his friend, weeping bitterly over him:</p>
+            <p><a href="#beat-b2" class="motif-anchor" id="motif-b2" aria-label={tr.motif_anchor_aria}>◇2</a> "Enkidu, my friend, whom I loved more than all labours that I did —<br>
             he who with me ranged the wilderness and slew the lion,<br>
             he who with me took Humbaba in the Cedar Forest —<br>
             what is the sleep that hath seized thee now?"</p>
@@ -226,6 +244,15 @@ const navBase = withBase(`/${locale}`);
 .passage p:last-child { margin-bottom: 0; }
 
 .attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+
+.motif-anchor {
+  font: 500 10px/1 var(--mono);
+  color: var(--tier-ins);
+  text-decoration: none;
+  margin-right: 4px;
+  vertical-align: super;
+}
+.motif-anchor:hover { text-decoration: underline; }
 
 .scholar-note {
   max-width: var(--col);

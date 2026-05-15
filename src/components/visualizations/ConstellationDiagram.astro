@@ -1,0 +1,177 @@
+---
+import { t, type Locale } from '~/i18n';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import { withBase } from '~/utils/url';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = withBase(`/${locale}`);
+
+const floodHref  = `${navBase}/parallels/flood/`;
+const griefHref  = `${navBase}/parallels/grief/`;
+const gilgHref   = `${navBase}/gilgamesh/`;
+const iliadHref  = `${navBase}/iliad/`;
+
+const diagramTitle = locale === 'ru'
+  ? 'Сетевая диаграмма: межтрадиционные параллели'
+  : 'Network diagram: cross-tradition parallels';
+---
+
+<div class="constellation-wrap">
+  <p class="constel-heading">{tr.constellation_heading}</p>
+
+  <svg
+    viewBox="0 0 560 300"
+    width="100%"
+    style="max-width: 560px; display: block;"
+    role="img"
+    aria-labelledby="constel-title"
+  >
+    <title id="constel-title">{diagramTitle}</title>
+
+    <!-- Phase 2 faded connections (purely decorative) -->
+    <line x1="280" y1="150" x2="440" y2="230" stroke="var(--border-2)" stroke-width="1" stroke-dasharray="4 3" opacity="0.5" aria-hidden="true" />
+    <line x1="280" y1="150" x2="280" y2="272" stroke="var(--border-2)" stroke-width="1" stroke-dasharray="4 3" opacity="0.5" aria-hidden="true" />
+    <line x1="280" y1="150" x2="120" y2="230" stroke="var(--border-2)" stroke-width="1" stroke-dasharray="4 3" opacity="0.5" aria-hidden="true" />
+
+    <!-- Active connections -->
+    <!-- Flood: Gilgamesh ↔ Genesis -->
+    <a href={floodHref} aria-label="The Great Flood — Documented parallel">
+      <line x1="280" y1="150" x2="430" y2="88" stroke="var(--tier-doc)" stroke-width="1.5" />
+      <text x="375" y="108" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--tier-doc)" text-anchor="middle">
+        {locale === 'ru' ? 'Великий потоп · ●' : 'The Great Flood · ●'}
+      </text>
+    </a>
+
+    <!-- Grief: Gilgamesh ↔ Iliad -->
+    <a href={griefHref} aria-label="Grief and Acceptance — Reconstructed parallel">
+      <line x1="280" y1="150" x2="130" y2="88" stroke="var(--tier-rec)" stroke-width="1.5" />
+      <text x="186" y="108" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--tier-rec)" text-anchor="middle">
+        {locale === 'ru' ? 'Горе и принятие · ◑' : 'Grief and Acceptance · ◑'}
+      </text>
+    </a>
+
+    <!-- Phase 2 nodes (faded) -->
+    <g opacity="0.35" aria-hidden="true">
+      <!-- Atrahasis -->
+      <circle cx="440" cy="230" r="16" fill="var(--surface)" stroke="var(--mesop)" stroke-width="1" />
+      <text x="440" y="260" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-3)" text-anchor="middle">Atrahasis</text>
+      <text x="440" y="271" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--text-dis)" text-anchor="middle">{tr.constellation_phase2_label}</text>
+
+      <!-- Mahabharata -->
+      <circle cx="280" cy="272" r="16" fill="var(--surface)" stroke="var(--indian)" stroke-width="1" />
+      <text x="280" y="298" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--text-3)" text-anchor="middle">Mahābhārata</text>
+
+      <!-- Odyssey -->
+      <circle cx="120" cy="230" r="16" fill="var(--surface)" stroke="var(--greek)" stroke-width="1" />
+      <text x="120" y="260" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-3)" text-anchor="middle">Odyssey</text>
+      <text x="120" y="271" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--text-dis)" text-anchor="middle">{tr.constellation_phase2_label}</text>
+    </g>
+
+    <!-- Active Phase 1 nodes -->
+    <!-- Genesis/Biblical -->
+    <a href={floodHref}>
+      <circle cx="430" cy="88" r="18" fill="var(--surface)" stroke="var(--tier-doc)" stroke-width="1.5" />
+      <text x="430" y="118" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-2)" text-anchor="middle">
+        {locale === 'ru' ? 'Бытие' : 'Genesis'}
+      </text>
+    </a>
+
+    <!-- Iliad -->
+    <a href={iliadHref}>
+      <circle cx="130" cy="88" r="18" fill="var(--surface)" stroke="var(--greek)" stroke-width="1.5" />
+      <text x="130" y="118" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-2)" text-anchor="middle">
+        {locale === 'ru' ? 'Илиада' : 'Iliad'}
+      </text>
+    </a>
+
+    <!-- Gilgamesh (center) -->
+    <a href={gilgHref}>
+      <circle cx="280" cy="150" r="22" fill="var(--surface)" stroke="var(--mesop)" stroke-width="2" />
+      <text x="280" y="178" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-2)" text-anchor="middle">
+        {locale === 'ru' ? 'Гильгамеш' : 'Gilgamesh'}
+      </text>
+    </a>
+  </svg>
+
+  <!-- Screen-reader fallback -->
+  <div class="constel-fallback" aria-label={tr.constellation_fallback_head}>
+    <p class="fallback-heading" aria-hidden="true">{tr.constellation_fallback_head}</p>
+    <ul class="fallback-list">
+      <li>
+        <a href={floodHref}>
+          {locale === 'ru'
+            ? 'Великий потоп: Гильгамеш ↔ Бытие — Задокументировано'
+            : 'The Great Flood: Gilgamesh ↔ Genesis — Documented'}
+        </a>
+      </li>
+      <li>
+        <a href={griefHref}>
+          {locale === 'ru'
+            ? 'Горе и принятие: Илиада ↔ Гильгамеш — Реконструировано'
+            : 'Grief and Acceptance: Iliad ↔ Gilgamesh — Reconstructed'}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <p class="constel-caption">
+    <TierBadge tier="ai-reviewed" locale={locale} />
+    <span>{tr.constellation_aria}</span>
+  </p>
+</div>
+
+<style>
+.constellation-wrap {
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+.constel-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+.constel-fallback {
+  margin-top: 12px;
+}
+
+.fallback-heading {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+
+.fallback-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fallback-list li {
+  font: 400 12px/1.4 var(--mono);
+}
+
+.fallback-list a {
+  color: var(--link);
+}
+
+.constel-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+</style>

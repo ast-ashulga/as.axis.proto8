@@ -1,0 +1,81 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface Card {
+  href: string;
+  label: string;
+  desc: string;
+}
+
+interface Props {
+  deeper?: Card;
+  parallel?: Card;
+  next?: Card;
+  locale: Locale;
+}
+
+const { deeper, parallel, next, locale } = Astro.props;
+const tr = t(locale);
+
+const cards = [deeper, parallel, next].filter(Boolean) as Card[];
+---
+
+{cards.length > 0 && (
+  <section class="next-action" aria-labelledby="nba-heading">
+    <h2 id="nba-heading" class="nba-heading">{tr.next_action_heading}</h2>
+    <div class="nba-cards">
+      {cards.map(card => (
+        <a href={card.href} class="nba-card">
+          <span class="nba-label">{card.label}</span>
+          <span class="nba-desc">{card.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+.next-action {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-2);
+  margin-bottom: 32px;
+}
+
+.nba-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+.nba-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nba-card {
+  flex: 1 1 180px;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 16px 20px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.1s ease-in-out;
+}
+.nba-card:hover { background: var(--overlay); }
+.nba-card:visited { color: var(--text); }
+
+.nba-label {
+  font: 500 14px/1.4 var(--serif);
+}
+
+.nba-desc {
+  font: 400 13px/1.5 var(--serif);
+  color: var(--text-2);
+}
+</style>

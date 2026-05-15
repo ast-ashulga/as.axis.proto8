@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import ParallelStructureDiagram from '~/components/visualizations/ParallelStructureDiagram.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -50,6 +51,25 @@ const navBase = withBase(`/${locale}`);
 
     <hr class="div" />
 
+    <!-- Structural beat diagram -->
+    <ParallelStructureDiagram
+      locale={locale}
+      trad1Label={tr.parallel_view_label_mesop}
+      trad2Label={tr.parallel_view_label_hebrew_bibl}
+      caption={tr.parallel_diagram_caption_flood}
+      beats={[
+        { id: 'b1', label: locale === 'ru' ? 'Суд богов'        : 'Divine Judgment',  trad1: locale === 'ru' ? 'Великие боги совещаются; Энлиль решает устроить потоп'             : 'The great gods confer; Enlil resolves to bring the flood',           trad2: locale === 'ru' ? 'Бог видит злобу людей и сожалеет, что создал человека'           : 'God sees the wickedness of man and grieves that he made him' },
+        { id: 'b2', label: locale === 'ru' ? 'Предупреждение'   : 'Warning',          trad1: locale === 'ru' ? 'Эа не может нарушить клятву — говорит с тростниковой хижиной косвенно' : 'Ea cannot break his oath; he warns Utnapishtim indirectly via reed-house', trad2: locale === 'ru' ? 'Бог говорит с Ноем напрямую: строй ковчег'                      : 'God addresses Noah directly: build an ark',                    diverges: true },
+        { id: 'b3', label: locale === 'ru' ? 'Строительство'    : 'Construction',     trad1: locale === 'ru' ? 'Утнапиштим строит корабль с точными размерами'                    : 'Utnapishtim builds a ship with precise dimensions',                  trad2: locale === 'ru' ? 'Ной строит ковчег из дерева гофер, 300×50×30 локтей'            : 'Noah builds an ark of gopher wood, 300×50×30 cubits' },
+        { id: 'b4', label: locale === 'ru' ? 'Погрузка'         : 'Loading',          trad1: locale === 'ru' ? 'Живые существа, семья, ремесленники'                              : 'Living things, family, and craftsmen brought aboard',                 trad2: locale === 'ru' ? 'Чистые животные по семи, нечистые по паре'                     : 'Clean animals by sevens, unclean by pairs' },
+        { id: 'b5', label: locale === 'ru' ? 'Длительность'     : 'Duration',         trad1: locale === 'ru' ? 'Семь дней и ночей'                                               : 'Seven days and nights of storm',                                     trad2: locale === 'ru' ? 'Сорок дней и ночей дождя; воды держались 150 дней'              : 'Forty days of rain; waters prevailed for 150 days',            diverges: true },
+        { id: 'b6', label: locale === 'ru' ? 'Птицы'            : 'Birds Test',       trad1: locale === 'ru' ? 'Голубь (вернулся), ласточка (вернулась), ворон (не вернулся)'    : 'Dove (returns), swallow (returns), raven (does not return)',          trad2: locale === 'ru' ? 'Ворон, затем голубь трижды (порядок обратный)'                : 'Raven first, then dove three times (order reversed)',          diverges: true },
+        { id: 'b7', label: locale === 'ru' ? 'Развязка'         : 'Resolution',       trad1: locale === 'ru' ? 'Энлиль дарует Утнапиштиму и его жене бессмертие'                 : 'Enlil grants immortality to Utnapishtim and his wife',               trad2: locale === 'ru' ? 'Бог заключает завет с Ноем; знак — радуга'                    : 'God makes a covenant with Noah; a rainbow as sign',            diverges: true },
+      ]}
+    />
+
+    <hr class="div" />
+
     <!-- Two-column tradition passages -->
     <section aria-label={tr.parallel_passages_section_aria} class="passages-grid">
 
@@ -62,12 +82,12 @@ const navBase = withBase(`/${locale}`);
           <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 20px;">{tr.parallel_view_epi_date_sbv}</p>
           <span class="badge badge--doc" style="display: inline-block; margin-bottom: 16px;">{tr.badge_documented}</span>
           <blockquote class="passage">
-            <p>Ea opened his mouth and spake, and said unto his servant:</p>
+            <p><a href="#beat-b2" class="motif-anchor" id="motif-b2" aria-label={tr.motif_anchor_aria}>◇2</a> Ea opened his mouth and spake, and said unto his servant:</p>
             <p>Man of Shuruppak, son of Ubara-Tutu,</p>
-            <p>Pull down thy house, build a ship;</p>
+            <p><a href="#beat-b3" class="motif-anchor" id="motif-b3" aria-label={tr.motif_anchor_aria}>◇3</a> Pull down thy house, build a ship;</p>
             <p>Leave thy possessions, seek life.</p>
             <p>Abandon thy goods, save thy life,</p>
-            <p>Bring all manner of living things on board the ship.</p>
+            <p><a href="#beat-b4" class="motif-anchor" id="motif-b4" aria-label={tr.motif_anchor_aria}>◇4</a> Bring all manner of living things on board the ship.</p>
             <p>The ship which thou shalt build,</p>
             <p>Let its dimensions be well measured.</p>
           </blockquote>
@@ -91,9 +111,9 @@ const navBase = withBase(`/${locale}`);
           <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 20px;">{tr.parallel_view_genesis_date_kjv}</p>
           <span class="badge badge--doc" style="display: inline-block; margin-bottom: 16px;">{tr.badge_documented}</span>
           <blockquote class="passage">
-            <p>And God saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually. And it repented the LORD that he had made man on the earth, and it grieved him at his heart.</p>
+            <p><a href="#beat-b1" class="motif-anchor" id="motif-b1-gen" aria-label={tr.motif_anchor_aria}>◇1</a> And God saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually. And it repented the LORD that he had made man on the earth, and it grieved him at his heart.</p>
             <p>…</p>
-            <p>And Noah did according unto all that the LORD commanded him.</p>
+            <p><a href="#beat-b2" class="motif-anchor" aria-label={tr.motif_anchor_aria}>◇2</a> And Noah did according unto all that the LORD commanded him.</p>
           </blockquote>
           <p class="attr">{tr.parallel_view_attr_genesis_excerpt}</p>
           <p class="credit">{tr.parallel_view_credit_kjv}</p>
@@ -220,6 +240,15 @@ const navBase = withBase(`/${locale}`);
 
 .attr  { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
 .credit { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+.motif-anchor {
+  font: 500 10px/1 var(--mono);
+  color: var(--tier-ins);
+  text-decoration: none;
+  margin-right: 4px;
+  vertical-align: super;
+}
+.motif-anchor:hover { text-decoration: underline; }
 
 .scholar-note {
   max-width: var(--col);

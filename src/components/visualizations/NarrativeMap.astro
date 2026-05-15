@@ -1,0 +1,80 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  episode: 'flood' | 'sleep' | 'plant' | 'ransom';
+  locale: Locale;
+  tradition?: 'mesopotamian' | 'greek';
+}
+
+const { episode, locale, tradition = 'mesopotamian' } = Astro.props;
+const tr = t(locale);
+
+const beats: Record<string, { en: string[]; ru: string[] }> = {
+  flood: {
+    en: ['Divine Decree', "Ea's Warning", 'Construction', 'Loading', 'The Flood', 'Birds Test', 'Offering', 'Resolution'],
+    ru: ['Решение богов', 'Предупреждение Эа', 'Строительство', 'Погрузка', 'Потоп', 'Птицы', 'Жертва', 'Развязка'],
+  },
+  sleep: {
+    en: ["Utnapishtim's Challenge", 'The Sleep Test', 'Gilgamesh Fails', 'Return Journey'],
+    ru: ['Испытание Утнапиштима', 'Тест на сон', 'Провал Гильгамеша', 'Обратный путь'],
+  },
+  plant: {
+    en: ['The Plant of Life', 'Serpent Steals It', 'Return to Uruk'],
+    ru: ['Растение жизни', 'Змей похищает', 'Возвращение в Урук'],
+  },
+  ransom: {
+    en: ['Gods Debate', "Priam's Journey", 'The Meeting', "Achilles' Grief", "Hector's Return"],
+    ru: ['Совет богов', 'Путь Приама', 'Встреча', 'Горе Ахилла', 'Возвращение Гектора'],
+  },
+};
+
+const labels = beats[episode][locale] ?? beats[episode]['en'];
+const accentVar = tradition === 'greek' ? 'var(--greek)' : 'var(--mesop)';
+---
+
+<div class="narrative-map" aria-label={tr.narrative_map_heading}>
+  <p class="map-heading">{tr.narrative_map_heading}</p>
+  <div class="map-track">
+    {labels.map((label, i) => (
+      <>
+        <span class="beat-box" style={`border-color: ${accentVar};`}>{label}</span>
+        {i < labels.length - 1 && (
+          <span class="beat-sep" aria-hidden="true">›</span>
+        )}
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+.narrative-map {
+  margin-bottom: 24px;
+}
+
+.map-heading {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+
+.map-track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.beat-box {
+  font: 400 11px/1.4 var(--mono);
+  border: 1px solid var(--border-2);
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.beat-sep {
+  font: 400 12px/1 var(--mono);
+  color: var(--text-3);
+}
+</style>

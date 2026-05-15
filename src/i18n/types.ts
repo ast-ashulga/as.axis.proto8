@@ -501,4 +501,33 @@ export interface Translations {
   contact_email_label: string;
   contact_email_value: string;
   contact_scholar_note: string;
+
+  /* ── Phase C: Visualization chrome ─────────────────────────────── */
+  narrative_map_heading: string;
+  constellation_heading: string;
+  constellation_aria: string;
+  constellation_fallback_head: string;
+  constellation_phase2_label: string;
+  structure_map_heading: string;
+  structure_map_aria: string;
+  structure_map_unavailable: string;
+  parallel_diagram_heading: string;
+  parallel_diagram_caption_flood: string;
+  parallel_diagram_caption_grief: string;
+  parallel_diagram_diverges: string;
+  motif_anchor_aria: string;
+  layer_pill_aria: string;
+
+  /* ── Phase C: NextBestAction ────────────────────────────────────── */
+  next_action_heading: string;
+  next_action_deeper_label: string;
+  next_action_parallel_label: string;
+  next_action_next_ep_label: string;
+  next_action_related_label: string;
+  next_action_deeper_desc_flood: string;
+  next_action_deeper_desc_sleep: string;
+  next_action_deeper_desc_plant: string;
+  next_action_deeper_desc_ransom: string;
+  next_action_parallels_index_label: string;
+  next_action_parallels_index_desc: string;
 }

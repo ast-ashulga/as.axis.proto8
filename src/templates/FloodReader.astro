@@ -4,6 +4,8 @@ import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
+import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
+import NextBestAction from '~/components/reader/NextBestAction.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -101,6 +103,7 @@ const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
 
       <!-- ─── SURFACE LAYER ─── -->
       <div id="layer-surface" class="layer-panel active" role="tabpanel" aria-labelledby="tab-surface">
+        <NarrativeMap episode="flood" locale={locale} tradition="mesopotamian" />
         <div class="ai-disclosure" role="note">
           <span>{tr.frag_ai_disclosure_lead}&nbsp;</span>
           <button type="button" class="disc-link" id="see-sources-btn" aria-expanded="false" aria-controls="sources-panel">
@@ -438,6 +441,13 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       </div>
     </div>
 
+    <NextBestAction
+      locale={locale}
+      deeper={{ href: '#tab-narrated', label: tr.next_action_deeper_label, desc: tr.next_action_deeper_desc_flood }}
+      parallel={{ href: parallelHref, label: tr.next_action_parallel_label, desc: tr.parallel_flood_heading }}
+      next={{ href: nextHref, label: tr.next_action_next_ep_label, desc: tr.tab_ep2_name }}
+    />
+
     <!-- Episode navigation -->
     <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
       <a href={tabletHref} rel="prev" aria-label={tr.ep_nav_prev_aria}>{tr.frag_nav_tablet_hub}</a>
@@ -626,7 +636,28 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
   }
 </style>
 
-<script define:vars={{ showStructureLabel: tr.show_structure, hideStructureLabel: tr.hide_structure, seeSources: tr.see_sources, hideSources: tr.hide_sources, nasToCopy: nas, copiedText: tr.copied_confirm }}>
+<script define:vars={{ showStructureLabel: tr.show_structure, hideStructureLabel: tr.hide_structure, seeSources: tr.see_sources, hideSources: tr.hide_sources, nasToCopy: nas, copiedText: tr.copied_confirm, layerPillAria: tr.layer_pill_aria }}>
+  // ── Sticky layer pill ─────────────────────────────────────────────────
+  const pill = document.createElement('div');
+  pill.className = 'layer-pill';
+  pill.setAttribute('aria-live', 'polite');
+  pill.setAttribute('aria-label', layerPillAria);
+  document.body.appendChild(pill);
+
+  const layerIndicator = document.getElementById('layer-indicator');
+  if (layerIndicator) {
+    new IntersectionObserver(([e]) => {
+      pill.classList.toggle('visible', !e.isIntersecting);
+    }, { threshold: 0 }).observe(layerIndicator);
+  }
+
+  function updatePill(labelEl) {
+    const plain = labelEl?.querySelector('.layer-tab__plain');
+    if (plain) pill.textContent = plain.textContent ?? '';
+  }
+  // Init pill with first active tab
+  updatePill(document.querySelector('.layer-tab[aria-selected="true"]'));
+
   // ── Layer switching ──────────────────────────────────────────────────
   document.querySelectorAll('.layer-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -636,6 +667,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       tab.setAttribute('aria-selected', 'true');
       const panel = document.getElementById('layer-' + layer);
       if (panel) panel.classList.add('active');
+      updatePill(tab);
     });
   });
 

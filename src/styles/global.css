@@ -52,3 +52,51 @@ a:visited { color: var(--link-v); }
 @media (max-width: 767px) {
   .wrap { padding-inline: var(--mx-m); }
 }
+
+/* ── Phase C: Mobile layer navigation ──────────────────────────────── */
+@media (max-width: 480px) {
+  .layer-indicator {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0 !important;
+    padding-bottom: 0;
+    scrollbar-width: none;
+  }
+  .layer-indicator::-webkit-scrollbar { display: none; }
+
+  .layer-tab {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 10px 16px !important;
+    border-right: 1px solid var(--border-2);
+    white-space: nowrap;
+    border-radius: 0 !important;
+  }
+
+  .layer-sep { display: none !important; }
+
+  .layer-tab[aria-selected="true"] {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+  }
+}
+
+/* ── Phase C: Sticky layer pill ─────────────────────────────────────── */
+.layer-pill {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: #fff;
+  font: 500 11px/1.4 var(--mono);
+  padding: 5px 11px;
+  border-radius: 2px;
+  z-index: 50;
+  display: none;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+.layer-pill.visible { display: block; }

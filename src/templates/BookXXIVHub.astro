@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import TierBadge from '~/components/epistemic/TierBadge.astro';
+import EpicStructureMap from '~/components/visualizations/EpicStructureMap.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -36,9 +37,19 @@ const navBase = withBase(`/${locale}`);
     </header>
 
     <!-- Intro -->
-    <div style="max-width: var(--col); margin-bottom: 40px;">
+    <div style="max-width: var(--col); margin-bottom: 24px;">
       <p style="font: 400 16px/1.7 var(--serif);">{tr.iliad_book24_hub_intro}</p>
     </div>
+
+    <EpicStructureMap
+      tradition="greek"
+      locale={locale}
+      panels={[
+        { id: 'ep1', label: tr.iliad_book24_ep1_title, available: false },
+        { id: 'ep2', label: tr.iliad_book24_ep2_title, available: false },
+        { id: 'ep3', label: tr.iliad_frag_ransom_crumb, available: true, hasPar: true, parTier: 'rec', href: `${navBase}/iliad/book-xxiv/ransom-of-hector/` },
+      ]}
+    />
 
     <hr class="div" />
 

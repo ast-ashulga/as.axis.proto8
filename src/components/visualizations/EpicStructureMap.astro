@@ -1,0 +1,134 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface EpisodePanel {
+  id: string;
+  label: string;
+  available: boolean;
+  hasPar?: boolean;
+  parTier?: 'doc' | 'rec';
+  href?: string;
+}
+
+interface Props {
+  panels: EpisodePanel[];
+  tradition: 'mesopotamian' | 'greek';
+  locale: Locale;
+}
+
+const { panels, tradition, locale } = Astro.props;
+const tr = t(locale);
+
+const accentVar = tradition === 'greek' ? 'var(--greek)' : 'var(--mesop)';
+const tierColors: Record<string, string> = {
+  doc: 'var(--tier-doc)',
+  rec: 'var(--tier-rec)',
+};
+const tierSymbols: Record<string, string> = { doc: '●', rec: '◑' };
+---
+
+<div class="structure-map" aria-label={tr.structure_map_aria}>
+  <p class="map-heading">{tr.structure_map_heading}</p>
+  <div class="panels-row" role="list">
+    {panels.map(panel => (
+      panel.available && panel.href ? (
+        <a
+          href={panel.href}
+          class="ep-panel ep-panel--available"
+          role="listitem"
+          style={`border-left-color: ${accentVar};`}
+          aria-label={panel.label}
+        >
+          {panel.hasPar && panel.parTier && (
+            <span
+              class="par-indicator"
+              style={`color: ${tierColors[panel.parTier]};`}
+              aria-hidden="true"
+            >
+              {tierSymbols[panel.parTier]}
+            </span>
+          )}
+          <span class="panel-label">{panel.label}</span>
+        </a>
+      ) : (
+        <div
+          class="ep-panel ep-panel--unavailable"
+          role="listitem"
+          aria-disabled="true"
+          aria-label={panel.label}
+        >
+          <span class="panel-label">{panel.label}</span>
+          <span class="panel-phase">{tr.structure_map_unavailable}</span>
+        </div>
+      )
+    ))}
+  </div>
+</div>
+
+<style>
+.structure-map {
+  margin-bottom: 24px;
+}
+
+.map-heading {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+
+.panels-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.ep-panel {
+  flex: 0 0 auto;
+  width: 120px;
+  min-height: 56px;
+  border: 1px solid var(--border-2);
+  border-left: 3px solid var(--border);
+  padding: 8px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.ep-panel--available {
+  background: var(--surface);
+  transition: background 0.1s ease-in-out;
+}
+.ep-panel--available:hover { background: var(--overlay); }
+.ep-panel--available:visited { color: var(--text); }
+
+.ep-panel--unavailable {
+  opacity: 0.5;
+  border-style: dashed;
+  cursor: default;
+}
+
+.par-indicator {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.panel-label {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-2);
+}
+
+.panel-phase {
+  font: 400 10px/1.3 var(--mono);
+  color: var(--text-dis);
+  margin-top: 3px;
+}
+</style>
