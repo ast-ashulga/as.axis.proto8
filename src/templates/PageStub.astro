@@ -1,0 +1,39 @@
+---
+/**
+ * Generic page stub for pages pending full port to Astro.
+ * Preserves routing while templates are being built out.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Crumb { label: string; href?: string; }
+
+interface Props {
+  locale: Locale;
+  title: string;
+  crumbs: Crumb[];
+  nas?: string;
+}
+
+const { locale, title, crumbs, nas } = Astro.props;
+const tr = t(locale);
+---
+
+<BaseLayout title={title} locale={locale}>
+  <div style="padding-inline: var(--mx); padding-block: 40px 0;">
+    <Breadcrumb crumbs={crumbs} />
+    {nas && (
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 32px;">{nas}</p>
+    )}
+    <h1 style="font: 500 24px/1.3 var(--serif); margin-bottom: 16px;">{title}</h1>
+    <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: var(--col);">
+      {locale === 'ru' ? 'Страница в разработке.' : 'Page in development.'}
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  @media (max-width: 1279px) { div { padding-inline: var(--mx-t) !important; } }
+  @media (max-width: 767px)  { div { padding-inline: var(--mx-m) !important; } }
+</style>
