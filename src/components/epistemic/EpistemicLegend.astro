@@ -1,6 +1,7 @@
 ---
 import TierBadge from './TierBadge.astro';
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props {
   locale: Locale;
@@ -28,7 +29,7 @@ const tiers = [
     ))}
   </div>
   <p class="legend-footer">
-    <a href={`/${locale}/epistemic-tiers/`} class="legend-link">{tr.epistemic_legend_learn_more}</a>
+    <a href={withBase(`/${locale}/epistemic-tiers/`)} class="legend-link">{tr.epistemic_legend_learn_more}</a>
   </p>
 </div>
 
