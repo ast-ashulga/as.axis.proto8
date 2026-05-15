@@ -1,0 +1,103 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { t } from '~/i18n';
+
+const locale = 'ru' as const;
+const tr = t(locale);
+---
+
+<BaseLayout title="Исследуйте эпосы мира" locale={locale}>
+
+  <!-- Hero -->
+  <div class="wrap" style="padding-block: 64px 48px;">
+    <div style="max-width: 640px; margin-inline: auto; text-align: center;">
+      <h1 style="font: 500 32px/1.2 var(--serif); margin-bottom: 16px;" lang="ru">
+        {tr.hero_title}
+      </h1>
+      <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2);" lang="ru">
+        {tr.hero_subtitle}
+      </p>
+    </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);" />
+
+  <!-- Active traditions -->
+  <div class="wrap" style="margin-bottom: 4px;">
+    <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); letter-spacing: 0.08em; margin-bottom: 12px;" lang="ru">
+      {tr.active_traditions}
+    </p>
+  </div>
+
+  <!-- Gilgamesh -->
+  <div class="wrap" style="margin-bottom: 8px;">
+    <div
+      role="region"
+      aria-label="Гильгамеш — активная традиция"
+      style="background: var(--mesop-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--mesop); padding: 32px 40px;"
+    >
+      <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--mesop); margin-bottom: 16px;" lang="ru">
+        {tr.tradition_mesopotamian}
+      </p>
+      <h2 style="font: 500 24px/1.3 var(--serif); margin-bottom: 8px;" lang="ru">
+        {tr.idx_title_gilgamesh}
+      </h2>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 24px;" lang="ru">
+        {tr.idx_gilgamesh_epoch}
+      </p>
+      <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col); margin-bottom: 20px;" lang="ru">
+        {tr.idx_gilgamesh_desc}
+      </p>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px;" lang="ru">
+        {tr.idx_gilgamesh_stats}
+      </p>
+      <a href="/ru/gilgamesh/" style="font: 500 16px/1.7 var(--serif); color: var(--link);" lang="ru">
+        {tr.enter_gilgamesh}
+      </a>
+    </div>
+  </div>
+
+  <!-- Iliad -->
+  <div class="wrap" style="margin-bottom: 8px;">
+    <div
+      role="region"
+      aria-label="Илиада — активная традиция"
+      style="background: var(--greek-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--greek); padding: 32px 40px;"
+    >
+      <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--greek); margin-bottom: 16px;" lang="ru">
+        {tr.tradition_greek}
+      </p>
+      <h2 style="font: 500 24px/1.3 var(--serif); margin-bottom: 8px;" lang="ru">
+        {tr.idx_title_iliad}
+      </h2>
+      <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 24px;" lang="ru">
+        {tr.idx_iliad_epoch}
+      </p>
+      <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col); margin-bottom: 20px;" lang="ru">
+        {tr.idx_iliad_desc}
+      </p>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 24px;" lang="ru">
+        {tr.idx_iliad_stats}
+      </p>
+      <a href="/ru/iliad/" style="font: 500 16px/1.7 var(--serif); color: var(--link);" lang="ru">
+        {tr.enter_iliad}
+      </a>
+    </div>
+  </div>
+
+  <hr class="div" style="margin-inline: var(--mx);" />
+
+  <!-- About -->
+  <div class="wrap" style="max-width: calc(var(--col) + var(--mx) * 2); margin-inline: auto; padding-bottom: 0;">
+    <h2 style="font: 500 20px/1.35 var(--serif); margin-bottom: 20px;" lang="ru">
+      {tr.about_platform}
+    </h2>
+    <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px; max-width: var(--col);" lang="ru">
+      {tr.idx_about_p1}
+    </p>
+    <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col);" lang="ru">
+      {tr.idx_about_p2}
+    </p>
+  </div>
+
+</BaseLayout>

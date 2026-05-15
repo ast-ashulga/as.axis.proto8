@@ -1,0 +1,66 @@
+---
+import type { EpistemicTier } from '~/content/config';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  tier: EpistemicTier;
+  locale?: Locale;
+  showLabel?: boolean;
+}
+
+const { tier, locale = 'en', showLabel = true } = Astro.props;
+
+const CONFIG: Record<EpistemicTier, {
+  icon: string;
+  label: Record<Locale, string>;
+  ariaLabel: Record<Locale, string>;
+  color: string;
+}> = {
+  'documented':    {
+    icon: '●',
+    label:    { en: 'DOCUMENTED',    ru: 'ЗАДОКУМЕНТИРОВАНО' },
+    ariaLabel: { en: 'Documented',   ru: 'Задокументировано' },
+    color: 'var(--tier-doc)',
+  },
+  'reconstructed': {
+    icon: '◑',
+    label:    { en: 'RECONSTRUCTED', ru: 'РЕКОНСТРУИРОВАНО' },
+    ariaLabel: { en: 'Reconstructed', ru: 'Реконструировано' },
+    color: 'var(--tier-rec)',
+  },
+  'contested':     {
+    icon: '◈',
+    label:    { en: 'CONTESTED',     ru: 'ОСПАРИВАЕТСЯ' },
+    ariaLabel: { en: 'Contested',    ru: 'Оспаривается' },
+    color: 'var(--tier-con)',
+  },
+  'ai-reviewed':   {
+    icon: '▲',
+    label:    { en: 'AI-REVIEWED',   ru: 'ПРОВЕРЕНО ИИ' },
+    ariaLabel: { en: 'AI-Reviewed',  ru: 'Проверено ИИ' },
+    color: 'var(--tier-ins)',
+  },
+};
+
+const cfg = CONFIG[tier];
+---
+
+<span
+  class="tier-badge"
+  data-tier={tier}
+  aria-label={cfg.ariaLabel[locale]}
+  style={`color: ${cfg.color};`}
+>
+  <span aria-hidden="true">{cfg.icon}</span>
+  {showLabel && <span class="tier-badge__label">{cfg.label[locale]}</span>}
+</span>
+
+<style>
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+}
+</style>

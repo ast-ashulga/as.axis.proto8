@@ -1,0 +1,55 @@
+/*
+ * Design tokens ported verbatim from doc/wireframes/00-styling.md.
+ * Shorthand aliases preserved from doc/ui-prototype/ for migration parity.
+ * Do not add values here that aren't in 00-styling.md.
+ */
+
+:root {
+  /* ── Backgrounds ────────────────────────────────────────────────── */
+  --bg:      #F7F3EE; /* page background — warm off-white          */
+  --surface: #F0EBE3; /* cards, panels, raised surfaces            */
+  --inset:   #E8E1D6; /* inset areas, inputs                       */
+  --overlay: #EDE7DC; /* hover states on surfaces                  */
+
+  /* ── Text ───────────────────────────────────────────────────────── */
+  --text:     #1A1714; /* body text, headings                       */
+  --text-2:   #5C5650; /* secondary labels, captions                */
+  --text-3:   #9B948C; /* metadata chrome, timestamps               */
+  --text-dis: #C4BCB1; /* disabled states, placeholders             */
+
+  /* ── Borders ────────────────────────────────────────────────────── */
+  --border:   #C4BCB1; /* card borders, dividers                    */
+  --border-2: #D9D2C8; /* subtle separators                         */
+  --border-3: #E5DFDA; /* ghost states (forthcoming content)        */
+
+  /* ── Interactive ────────────────────────────────────────────────── */
+  --accent:   #3D3830; /* focus rings, active states, primary CTA   */
+  --accent-h: #2A2520; /* hover on accent                           */
+  --link:     #5C4B35; /* link default — warm dark brown            */
+  --link-h:   #3D3020; /* link hover                                */
+  --link-v:   #7A6B58; /* visited links                             */
+
+  /* ── Tradition identity ─────────────────────────────────────────── */
+  --mesop:     #9B6B2F; --mesop-bg:  #F5F0E8;
+  --greek:     #B05B3B; --greek-bg:  #F5EDEA;
+  --roman:     #4A6B8A; --roman-bg:  #EBF0F5;
+  --indian:    #B8860B; --indian-bg: #F5F2E0;
+  --casian:    #3D7A5C; --casian-bg: #E8F2EC;
+
+  /* ── Epistemic tiers ────────────────────────────────────────────── */
+  --tier-doc: #4A6B4A; /* documented — green-grey                   */
+  --tier-rec: #6B5A30; /* reconstructed — ochre-grey                */
+  --tier-con: #7A4040; /* contested — muted red                     */
+  --tier-ins: #4A4A6B; /* ai-reviewed — slate-blue                  */
+
+  /* ── Typography ─────────────────────────────────────────────────── */
+  --serif: "EB Garamond", "Garamond", "Georgia", serif;
+  --mono:  "IBM Plex Mono", "Courier New", "Courier", monospace;
+
+  /* ── Layout ─────────────────────────────────────────────────────── */
+  --nav-h: 48px;
+  --mx:    80px;  /* desktop page margin                            */
+  --mx-t:  40px;  /* tablet page margin                             */
+  --mx-m:  20px;  /* mobile page margin                             */
+  --col:   720px; /* max reading column width                       */
+}

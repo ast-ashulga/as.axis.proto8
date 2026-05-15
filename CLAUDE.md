@@ -14,20 +14,29 @@ An explorable interface for humanity's great epic traditions — structured dept
 
 ## Project stage
 
-Early ideation. **There is no runnable code.** Work here is research, analysis, document drafting, and structured thinking. Do not jump to implementation decisions.
+**Early prototype development.** The Astro + TypeScript prototype lives in `src/` (project root). The legacy static HTML prototype in `doc/ui-prototype/` is the reference baseline for visual parity — it remains intact for comparison during migration.
+
+Active work is in `src/`. New features and components go there. Do not add new features to `doc/ui-prototype/`.
 
 ---
 
 ## Repository layout
 
 ```
+src/                  — Astro prototype (active development)
+  components/         — Reusable .astro components
+  content/            — Content Collections (typed episodes, parallels, traditions)
+  i18n/               — Typed EN + RU translation files
+  layouts/            — Base layouts
+  pages/              — Route pages (locale-prefixed: en/, ru/)
+  styles/             — tokens.css + global.css (ported from 00-styling.md)
 doc/
   PRD.md              — Canonical product requirements (authoritative source)
   PRD_ru.md           — Russian translation of PRD.md; keep in sync with PRD.md
   team-roles.md       — Role definitions for the four founding team members
   CLAUDE.md           — Detailed guidance for working within the doc/ directory
   wireframes/         — 11 screen-level design specs; 00-styling.md is the design system
-  ui-prototype/       — Static HTML/JS prototype; open index.html in a browser to navigate
+  ui-prototype/       — Legacy static HTML prototype (visual parity reference only)
 .claude/agents/       — Sub-agent definitions (see §Sub-agents below)
 ```
 
@@ -97,4 +106,5 @@ Terms with precise definitions in `PRD.md §10 Appendix B` — use them consiste
 ## Behavioral constraints
 
 - Do not commit anything without explicit approval.
-- This is an ideation project — avoid jumping to implementation decisions.
+- `astro build` must pass before any commit touching `src/`.
+- TypeScript errors in `src/` are blocking — do not suppress with `// @ts-ignore`.

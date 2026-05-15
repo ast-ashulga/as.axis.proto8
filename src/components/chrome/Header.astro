@@ -1,0 +1,124 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const alternateLocale: Locale = locale === 'en' ? 'ru' : 'en';
+
+/*
+ * Locale switch: replace the leading /en/ or /ru/ segment with the alternate.
+ * Falls back to the alternate-locale root if pathname doesn't match.
+ */
+const pathname = Astro.url.pathname;
+const localePrefix = `/${locale}/`;
+const alternateUrl = pathname.startsWith(localePrefix)
+  ? `/${alternateLocale}/${pathname.slice(localePrefix.length)}`
+  : `/${alternateLocale}/`;
+
+const navBase = `/${locale}`;
+---
+
+<nav class="site-nav" aria-label={tr.nav_main_aria}>
+  <a href={`${navBase}/`} class="wordmark" aria-label={tr.nav_wordmark_aria}>
+    MNEMOSYNE ENGINE
+  </a>
+
+  <div class="nav-center">
+    <a
+      href={`${navBase}/gilgamesh/`}
+      class="nav-l"
+      aria-current={Astro.url.pathname.includes('/gilgamesh') ? 'page' : undefined}
+    >
+      {tr.nav_gilgamesh}
+    </a>
+    <a
+      href={`${navBase}/iliad/`}
+      class="nav-l"
+      aria-current={Astro.url.pathname.includes('/iliad') ? 'page' : undefined}
+    >
+      {tr.nav_iliad}
+    </a>
+    <a
+      href={`${navBase}/parallels/`}
+      class="nav-l"
+      aria-current={Astro.url.pathname.includes('/parallels') ? 'page' : undefined}
+    >
+      {tr.nav_parallels}
+    </a>
+  </div>
+
+  <div class="locale" aria-label={tr.locale_group_aria} role="group">
+    <span class="locale-b on" aria-current="true">{tr[`locale_${locale}`]}</span>
+    <span class="locale-sep">/</span>
+    <a href={alternateUrl} class="locale-b" lang={alternateLocale}>
+      {tr[`locale_${alternateLocale}`]}
+    </a>
+  </div>
+</nav>
+
+<style>
+nav.site-nav {
+  position: sticky;
+  top: 0;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--mx);
+  z-index: 100;
+}
+
+.wordmark {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-decoration: none;
+}
+.wordmark:hover,
+.wordmark:visited { color: var(--text); text-decoration: none; }
+
+.nav-center {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-l {
+  font: 400 13px/1.4 var(--serif);
+  color: var(--text-2);
+  text-decoration: none;
+}
+.nav-l:hover { color: var(--text); }
+.nav-l[aria-current="page"] { color: var(--text); font-weight: 500; }
+
+.locale {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.locale-b {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+  text-decoration: none;
+}
+.locale-b.on {
+  color: var(--text);
+  font-weight: 500;
+}
+a.locale-b { text-decoration: underline; text-underline-offset: 2px; }
+a.locale-b:hover { color: var(--text); }
+.locale-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+@media (max-width: 1279px) {
+  nav.site-nav { padding-inline: var(--mx-t); }
+}
+@media (max-width: 767px) {
+  nav.site-nav { padding-inline: var(--mx-m); }
+  .nav-center { display: none; }
+}
+</style>

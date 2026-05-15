@@ -1,0 +1,113 @@
+---
+/**
+ * ArtifactFigure — tier-marked image component.
+ *
+ * Every field is required. There is no version of this component that
+ * renders without an epistemic tier, institution, accession number,
+ * license, and caption. TypeScript enforces this at build time.
+ *
+ * Usage:
+ *   <ArtifactFigure
+ *     src="/assets/artifacts/tablet-xi.jpg"
+ *     tier="documented"
+ *     institution="British Museum"
+ *     accessionNumber="K.3375"
+ *     license="CC BY-NC-SA 4.0"
+ *     captionEn="Cuneiform tablet, Tablet XI of the Epic of Gilgamesh, Neo-Assyrian period."
+ *     captionRu="Клинописная табличка, Табличка XI Эпоса о Гильгамеше, нео-ассирийский период."
+ *     locale="en"
+ *   />
+ */
+import type { EpistemicTier } from '~/content/config';
+import type { Locale } from '~/i18n';
+import TierBadge from './TierBadge.astro';
+
+interface Props {
+  src: string;
+  tier: EpistemicTier;
+  institution: string;
+  accessionNumber: string;
+  license: string;
+  captionEn: string;
+  captionRu: string;
+  viewInCollectionUrl?: string;
+  locale?: Locale;
+  loading?: 'lazy' | 'eager';
+}
+
+const {
+  src,
+  tier,
+  institution,
+  accessionNumber,
+  license,
+  captionEn,
+  captionRu,
+  viewInCollectionUrl,
+  locale = 'en',
+  loading = 'lazy',
+} = Astro.props;
+
+const caption = locale === 'ru' ? captionRu : captionEn;
+const viewLabel = locale === 'ru' ? 'Смотреть в коллекции →' : 'View in collection →';
+---
+
+<figure class="artifact-figure">
+  <img src={src} alt={caption} loading={loading} />
+  <figcaption>
+    <TierBadge tier={tier} locale={locale} />
+    <span class="caption-text">{caption}</span>
+    <span class="meta">
+      <span class="institution">{institution}</span>
+      <span class="sep" aria-hidden="true"> · </span>
+      <span class="accession">{accessionNumber}</span>
+      <span class="sep" aria-hidden="true"> · </span>
+      <span class="license">{license}</span>
+    </span>
+    {viewInCollectionUrl && (
+      <a
+        class="view-link"
+        href={viewInCollectionUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {viewLabel}
+      </a>
+    )}
+  </figcaption>
+</figure>
+
+<style>
+.artifact-figure {
+  margin-block: 24px;
+}
+
+.artifact-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border-2);
+}
+
+.artifact-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.caption-text {
+  font: 400 14px/1.5 var(--serif);
+  color: var(--text-2);
+}
+
+.meta {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+.view-link {
+  font: 400 11px/1.4 var(--mono);
+  margin-top: 2px;
+}
+</style>

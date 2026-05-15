@@ -1,0 +1,47 @@
+---
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+  variant?: 'main' | 'gilgamesh' | 'iliad';
+}
+
+const { locale, variant = 'main' } = Astro.props;
+const tr = t(locale);
+const navBase = `/${locale}`;
+
+const phaseLabel: Record<typeof variant, string> = {
+  main:      tr.footer_phase_main,
+  gilgamesh: tr.footer_phase_main,
+  iliad:     tr.footer_phase_main,
+};
+---
+
+<footer>
+  <p class="f-name">{tr.footer_name}</p>
+  <p class="f-phase">{phaseLabel[variant]}</p>
+  <p class="f-stmt">{tr.footer_stmt_main}</p>
+  <nav class="f-links" aria-label={tr.footer_nav_aria}>
+    <a href={`${navBase}/about/`}>{tr.footer_about}</a>
+    <a href={`${navBase}/epistemic-tiers/`}>{tr.footer_epistemic}</a>
+    <a href={`${navBase}/contact/`}>{tr.footer_contact}</a>
+  </nav>
+</footer>
+
+<style>
+footer {
+  margin-top: 64px;
+  padding: 32px var(--mx);
+  border-top: 1px solid var(--border-2);
+}
+
+.f-name  { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 4px; }
+.f-phase { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px; }
+.f-stmt  { font: 400 14px/1.5 var(--serif); color: var(--text-2); max-width: 600px; margin-bottom: 16px; }
+
+.f-links { display: flex; gap: 16px; }
+.f-links a { font: 400 11px/1.4 var(--mono); }
+
+@media (max-width: 1279px) { footer { padding-inline: var(--mx-t); } }
+@media (max-width: 767px)  { footer { padding-inline: var(--mx-m); } }
+</style>
