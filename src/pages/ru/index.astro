@@ -10,7 +10,7 @@ const locale = 'ru' as const;
 const tr = t(locale);
 ---
 
-<BaseLayout title="Исследуйте эпосы мира" locale={locale}>
+<BaseLayout title={tr.landing_document_title} locale={locale}>
 
   <!-- Hero -->
   <div class="wrap" style="padding-block: 64px 48px;">
@@ -59,7 +59,7 @@ const tr = t(locale);
   <div class="wrap" style="margin-bottom: 8px;">
     <div
       role="region"
-      aria-label="Гильгамеш — активная традиция"
+      aria-label={tr.idx_region_aria_gilgamesh}
       style="background: var(--mesop-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--mesop); padding: 32px 40px;"
     >
       <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--mesop); margin-bottom: 16px;" lang="ru">
@@ -87,7 +87,7 @@ const tr = t(locale);
   <div class="wrap" style="margin-bottom: 8px;">
     <div
       role="region"
-      aria-label="Илиада — активная традиция"
+      aria-label={tr.idx_region_aria_iliad}
       style="background: var(--greek-bg); border: 1px solid var(--border-2); border-left: 4px solid var(--greek); padding: 32px 40px;"
     >
       <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--greek); margin-bottom: 16px;" lang="ru">

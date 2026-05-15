@@ -11,6 +11,7 @@ import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
 import ArtifactFigure from '~/components/epistemic/ArtifactFigure.astro';
 import { t, type Locale } from '~/i18n';
+import { floodReaderExtras } from '~/i18n/readers/gilgameshTabletReaders';
 import { withBase } from '~/utils/url';
 import { getEntry } from 'astro:content';
 
@@ -20,6 +21,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const tr = t(locale);
+const fc = floodReaderExtras(locale);
 
 const nas = 'nms://gilgamesh/tablet-xi/flood';
 const parallelHref = withBase(`/${locale}/parallels/flood/`);
@@ -135,16 +137,16 @@ const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
       <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated">
         <p class="demo-marker">{tr.demo_content_marker}</p>
         <div class="narr-body">
-          <p>The flood episode in Tablet XI is not what it appears to be at first reading. On the surface, Utnapishtim is answering Gilgamesh's question about immortality. But the narrative logic runs the other way: the flood story is the reason Utnapishtim <em>cannot</em> give Gilgamesh what he came for. The gods granted immortality once, to one man, in unusual circumstances, and they will not do it again. The flood is therefore a theological argument inside a narrative: Utnapishtim's survival was not a reward for righteousness — the text makes no such claim — but an act of divine improvisation by Ea, who was bound by an oath not to warn any human directly and found a technically permissible way around it.</p>
-          <p>The episode opens with a city Gilgamesh already knows: Shuruppak, on the Euphrates. The great gods convened — Anu, Enlil, Ninurta, Ennugi, and Ea — and in their hearts moved to bring the flood. Ea alone could not subscribe. Unable to break his oath by warning Utnapishtim directly, he addressed the reed fence of his house:</p>
+          <p>{fc.narrP1}</p>
+          <p>{fc.narrP2}</p>
           <blockquote class="narr-quote">
-            <span>"O reed fence, reed fence! O wall, wall!<br>Hear, O reed fence; understand, O wall!<br>O man of Shurippak, son of Ubara-tutu,<br>tear down thy house, build a ship;<br>abandon thy possessions, seek thou life;<br>thy goods despise, save thy life;<br>bring up the seed of all living things into the ship."</span>
-            <cite class="narr-cite">— Thompson (1930), Tablet XI, lines 22–29</cite>
+            <span set:html={fc.narrQuoteFenceHtml} />
+            <cite class="narr-cite">{fc.narrQuoteFenceCite}</cite>
           </blockquote>
-          <p>Utnapishtim obeys, builds, and loads. The flood arrives for seven days — a darkness so total the poem says even the gods cowered. When the waters recede, he releases three birds: dove (returns), swallow (returns), raven (does not return). He makes sacrifice; the gods crowd the smoke "like flies," starved from the days without offerings. Enlil is furious to find a survivor. Ea rebukes him: was it just to punish all for the fault of some? In the end Enlil grants immortality to Utnapishtim and his wife — not as policy but as conclusion. Andrew George (2003) argues this episode was shaped specifically for the Standard Babylonian Version: the immortality of Utnapishtim was made theologically singular precisely so that Gilgamesh, standing here, can receive no share of it.</p>
+          <p>{fc.narrP3}</p>
           <blockquote class="narr-quote">
-            <span>"Utnapishtim said unto him, unto Gilgamish:<br>'I will reveal unto thee, O Gilgamish, a secret story,<br>and the decision of the gods I will tell thee.'"</span>
-            <cite class="narr-cite">— Thompson (1930), Tablet XI, lines 1–3</cite>
+            <span set:html={fc.narrQuoteSecretHtml} />
+            <cite class="narr-cite">{fc.narrQuoteSecretCite}</cite>
           </blockquote>
         </div>
       </div>
@@ -152,34 +154,21 @@ const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
       <!-- ─── TRANSLATED LAYER ─── -->
       <div id="layer-translated" class="layer-panel" role="tabpanel" aria-labelledby="tab-translated">
         <div class="trans-header">
-          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Translation: R. Campbell Thompson (1930)</p>
-          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 2px;">Source: Thompson, <em style="font-style: italic;">The Epic of Gilgamish</em> (1930) · Public domain</p>
-          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">CDLI reference: P003793</p>
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">{tr.frag_thompson_trans_credit}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 2px;" set:html={tr.frag_thompson_source_pub_dom_html} />
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">{tr.frag_thompson_cdli_reference}</p>
         </div>
-        <div class="trans-passage" lang="en">
-          <p>Utnapishtim said unto him, unto Gilgamish:</p>
-          <p class="verse">"I will reveal unto thee, O Gilgamish, a secret story,</p>
-          <p class="verse"> and the decision of the gods I will tell thee.</p>
-          <p class="verse"> Shurippak — a city which thou knowest,</p>
-          <p class="verse"> which lieth upon the banks of the Euphrates —</p>
-          <p class="verse"> that city was old, and the gods dwelling therein —</p>
-          <p class="verse"> their hearts moved the great gods to make a flood."</p>
-          <span class="lacuna" role="note" aria-label="Lacuna: approximately 5 lines damaged or missing">[···] &nbsp;(lacuna: approximately 5 lines damaged or missing)</span>
-          <p class="verse">"Ea — wisest of the gods, cunning, knowing all things —</p>
-          <p class="verse"> could not break the oath of the gods.</p>
-          <p class="verse"> But he whispered their word to the reed fence:</p>
-          <p class="verse"> 'O reed fence, reed fence! O wall, wall!</p>
-          <p class="verse">  Hear, O reed fence; understand, O wall!</p>
-          <p class="verse">  O man of Shurippak, son of Ubara-tutu,</p>
-          <p class="verse">  tear down thy house, build a ship;</p>
-          <p class="verse">  abandon thy possessions, seek thou life;</p>
-          <p class="verse">  thy goods despise, save thy life;</p>
-          <p class="verse">  bring up the seed of all living things into the ship.'"</p>
-          <span class="lacuna" role="note" aria-label="Lacuna: extent uncertain, approximately 8–12 lines">[···] &nbsp;(lacuna: extent uncertain; approximately 8–12 lines)</span>
-          <p class="verse">"I understood; I spake to my lord Ea:</p>
-          <p class="verse"> 'Behold, my lord, what thou thus commandest</p>
-          <p class="verse">  I will honour and will carry out.'"</p>
-          <p class="trans-attribution">— Thompson (1930), Tablet XI, lines 1–47 (selected)</p>
+        <div class="trans-passage" lang={locale === 'ru' ? 'ru' : 'en'}>
+          {fc.transSegments.map((seg) =>
+            seg.kind === 'lacuna' ? (
+              <span class="lacuna" role="note" aria-label={seg.aria} set:html={seg.text} />
+            ) : seg.kind === 'verse' ? (
+              <p class="verse">{seg.text}</p>
+            ) : (
+              <p>{seg.text}</p>
+            )
+          )}
+          <p class="trans-attribution">{fc.transAttribution}</p>
         </div>
       </div>
 
@@ -199,9 +188,9 @@ const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
           loading="lazy"
         />
         <div class="orig-header">
-          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Standard Babylonian recension, Tablet XI (selected lines)</p>
-          <p class="orig-attr">Transliteration after George (2003) · The Babylonian Gilgamesh Epic, vol. I–II · Oxford University Press</p>
-          <p class="orig-attr">Nineveh copy (K.3375+), library of Ashurbanipal, 7th century BCE · CDLI P003793</p>
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">{fc.origHeadMain}</p>
+          <p class="orig-attr">{fc.origAttrGeorge}</p>
+          <p class="orig-attr">{fc.origAttrNineveh}</p>
         </div>
         <pre class="orig-passage" lang="akk" dir="ltr">XI.9    ša gimrēti ašakkanam
 XI.10   Šuruppak āla tīde
@@ -226,7 +215,7 @@ XI.70   ūmu ūm abūbi illikam-ma
 XI.96   eli māti kīma qabli tallakt
 XI.97   ūm abūbi šalšat ūm
 XI.98   ikmi tenzâm ana mātim kī illikam</pre>
-        <p class="orig-attr">[demo-line-ref: line numbers approximate; gaps in surviving tablets marked by convention]</p>
+        <p class="orig-attr">{fc.origDemoNote}</p>
       </div>
 
       <!-- ─── SCHOLARIA LAYER ─── -->
@@ -238,7 +227,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
             <button class="badge doc" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button>
           </div>
           <div class="schol-body">
-            <p>Tablet XI survives in multiple copies. The best-preserved is the Nineveh copy from the library of Ashurbanipal (7th century BCE; CDLI P003793). The flood episode (lines 1–196) is the most complete section of the entire Standard Babylonian Version. Approximately 15–20 lines are damaged or missing across all known copies.</p>
+            <p>{fc.scholMs}</p>
           </div>
         </div>
 
@@ -248,17 +237,17 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
             <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
           </div>
           <div class="schol-body">
-            <p>The flood narrative in Tablet XI is closely paralleled by the older Sumerian Flood Story (known from the Nippur tablet, c. 1600 BCE) and by the Atrahasis Epic (also c. 1700–1600 BCE). The scholarly consensus holds that the Gilgamesh flood episode was interpolated from the Atrahasis tradition into the Gilgamesh cycle sometime in the Old Babylonian period.</p>
+            <p>{fc.scholHist}</p>
           </div>
         </div>
 
         <div class="schol-section">
           <div class="schol-head">
-            SCHOLARLY DEBATE: INTERPOLATION QUESTION
+            <span>{fc.scholDebateHead}</span>
             <button class="badge con" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button>
           </div>
           <div class="schol-body">
-            <p>Whether the flood narrative is a late addition or an integral part of the Gilgamesh cycle is actively contested. George (2003) argues the Tablet XI version was composed specifically for the Standard Babylonian Version, with unique modifications not present in Atrahasis. Tigay (1982) argues that interpolation is the more parsimonious explanation. The debate hinges on whether the theological differences between the two accounts indicate separate authorial intent.</p>
+            <p>{fc.scholDebateP}</p>
           </div>
         </div>
 
@@ -266,18 +255,18 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
           <div class="schol-head"><span>{tr.schol_key_variants}</span></div>
           <div class="schol-body">
             <div class="schol-variant">
-              <p>Line 14: Nineveh copy reads "cedar ship"; Sippar fragment reads "great ship." George (2003) prefers Nineveh; Thompson (1930) follows Sippar.</p>
+              <p>{fc.scholVariantLine14}</p>
               <p style="margin-top: 6px;"><button class="badge con" style="cursor: default; font-size: 10px;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button></p>
             </div>
             <div class="schol-variant">
-              <p>Lines 45–55: The Sippar fragment (BM 78941) contains a variant account of the reed-wall warning that differs from the Nineveh copy in approximately 6 words. The divergence does not affect the narrative substance.</p>
+              <p>{fc.scholVariantLines4555}</p>
               <p style="margin-top: 6px;"><button class="badge doc" style="cursor: default; font-size: 10px;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button></p>
             </div>
           </div>
         </div>
 
         <div class="schol-section">
-          <div class="schol-head"><span>Scholaria visualization tools</span></div>
+          <div class="schol-head"><span>{tr.schol_visualization_tools}</span></div>
           <div class="schol-body">
             <MonomythArc stages={campbellStages} tradition="mesopotamian" locale={locale} />
             <ProppMorphology functions={proppFunctions} locale={locale} />
@@ -288,9 +277,9 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         <div class="schol-section">
           <div class="schol-head"><span>{tr.schol_scholarship_cited}</span></div>
           <ul class="schol-cite">
-            <li>Andrew George, <em>The Babylonian Gilgamesh Epic</em> (OUP, 2003), vol. I, pp. 490–537.</li>
-            <li>Jeffrey Tigay, <em>The Evolution of the Gilgamesh Epic</em> (1982), pp. 214–240.</li>
-            <li>R. Campbell Thompson, <em>The Epic of Gilgamish</em> (1930), pp. 59–85.</li>
+            <li><span set:html={fc.scholCite1_html} /></li>
+            <li><span set:html={fc.scholCite2_html} /></li>
+            <li><span set:html={fc.scholCite3_html} /></li>
           </ul>
         </div>
 
@@ -310,55 +299,55 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       <!-- Propp -->
       <div class="track-row">
         <div class="track-label">
-          PROPP
+          {tr.track_framework_label_propp}
           <button class="fw-help" aria-label={tr.help_propp_morphology_aria} data-explainer="exp-propp">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-propp">
-          <div class="fw-exp-head">Propp's Morphology of the Folktale (1928) <button class="fw-exp-close">{tr.close_x}</button></div>
-          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Vladimir Propp identified 31 narrative "functions" — actions that advance the story — recurring in Russian folktales in a consistent sequence. Later scholars applied the framework to myth and epic traditions worldwide.</p>
+          <div class="fw-exp-head">{fc.proppFwTitle} <button class="fw-exp-close">{tr.close_x}</button></div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">{fc.proppFwBody}</p>
         </div>
         <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: Villainy / Lack${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: ${fc.propp8Name}${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-8</p>
-            <p class="annot-name">Villainy / Lack</p>
+            <p class="annot-name">{fc.propp8Name}</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">PROPP-8 · Villainy / Lack <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero's lack of something necessary drives the narrative. Here: Gilgamesh lacks immortality and cannot accept mortality after Enkidu's death.</p>
+              <div class="annot-panel-head">{fc.propp8PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.propp8PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
               <p class="meta-line">{tr.meta_nas_colon} {nas}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-15: Spatial Translocation${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-15: ${fc.propp15Name}${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-15</p>
-            <p class="annot-name">Spatial translocation</p>
+            <p class="annot-name">{fc.propp15Name}</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">PROPP-15 · Spatial Translocation <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero moves to a different location to find or retrieve something. Here: Gilgamesh crossing the Waters of Death to reach Utnapishtim at the ends of the earth.</p>
+              <div class="annot-panel-head">{fc.propp15PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.propp15PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-19: Return${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-19: ${fc.propp19Name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-19</p>
-            <p class="annot-name">Return</p>
+            <p class="annot-name">{fc.propp19Name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">PROPP-19 · Return <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero returns to their starting point. Gilgamesh returns to Uruk, empty-handed and changed. The walls he built at the beginning are what he has to show.</p>
+              <div class="annot-panel-head">{fc.propp19PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.propp19PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-31: Recognition${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-31: ${fc.propp31Name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-31</p>
-            <p class="annot-name">Recognition</p>
+            <p class="annot-name">{fc.propp31Name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">PROPP-31 · Recognition <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero is recognised. Gilgamesh recognises the walls of Uruk as his enduring achievement — the acceptance of mortality through the permanence of what he built.</p>
+              <div class="annot-panel-head">{fc.propp31PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.propp31PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
@@ -369,32 +358,32 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       <!-- Campbell -->
       <div class="track-row">
         <div class="track-label">
-          CAMPBELL
+          {tr.track_framework_label_campbell}
           <button class="fw-help" aria-label={tr.help_campbell_hero_aria} data-explainer="exp-campbell">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-campbell">
-          <div class="fw-exp-head">Campbell's Hero with a Thousand Faces (1949) <button class="fw-exp-close">{tr.close_x}</button></div>
-          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Joseph Campbell identified a common narrative structure — the monomyth or "hero's journey" — across world mythologies: departure, initiation, and return.</p>
+          <div class="fw-exp-head">{fc.campFwTitle} <button class="fw-exp-close">{tr.close_x}</button></div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">{fc.campFwBody}</p>
         </div>
         <div class="annot-row" role="group" aria-label={tr.annot_group_campbell_aria}>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`Crossing the First Threshold${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`${fc.campCrossName}${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">CAMPBELL</p>
-            <p class="annot-name">Crossing the First Threshold</p>
+            <p class="annot-name">{fc.campCrossName}</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">Campbell · Crossing the First Threshold <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero crosses from the known world into the unknown. Gilgamesh crosses the Waters of Death — the threshold separating the mortal world from Utnapishtim's realm beyond time.</p>
+              <div class="annot-panel-head">{fc.campCrossPanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.campCrossPanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`The Road Back${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`${fc.campRoadName}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">CAMPBELL</p>
-            <p class="annot-name">The Road Back</p>
+            <p class="annot-name">{fc.campRoadName}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">Campbell · The Road Back <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>The hero begins the journey back to the ordinary world. Gilgamesh's return to Uruk — without the plant of immortality, without eternal life — completes the arc.</p>
+              <div class="annot-panel-head">{fc.campRoadPanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.campRoadPanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
@@ -409,28 +398,28 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
           <button class="fw-help" aria-label={tr.help_thompson_motif_aria} data-explainer="exp-tmi">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-tmi">
-          <div class="fw-exp-head">Thompson Motif Index (1955–1958) <button class="fw-exp-close">{tr.close_x}</button></div>
-          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Stith Thompson's six-volume index classifies recurring narrative motifs across world folklore and mythology. The A1000s cover cosmogony and world history; A1010 is specifically the Deluge category.</p>
+          <div class="fw-exp-head">{fc.tmiFwTitle} <button class="fw-exp-close">{tr.close_x}</button></div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">{fc.tmiFwBody}</p>
         </div>
         <div class="annot-row" role="group" aria-label={tr.annot_group_tmi_aria}>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1010: Deluge${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1010: ${fc.tmiA1010Name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">A1010</p>
-            <p class="annot-name">Deluge</p>
+            <p class="annot-name">{fc.tmiA1010Name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">TMI A1010 · Deluge <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>Cataclysmic flood sent by divine agency as punishment or reset. Thompson (1955) cites the Gilgamesh flood in the foundational entry.</p>
+              <div class="annot-panel-head">{fc.tmiA1010PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.tmiA1010PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1021: Deluge — escape in boat${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1021: ${fc.tmiA1021Name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">A1021</p>
-            <p class="annot-name">Deluge: escape in boat</p>
+            <p class="annot-name">{fc.tmiA1021Name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
-              <div class="annot-panel-head">TMI A1021 · Deluge: escape in boat <button class="annot-panel-close">{tr.close_x}</button></div>
-              <p>Flood survivor escapes by means of a vessel. The Gilgamesh version is among the earliest recorded instances of this motif.</p>
+              <div class="annot-panel-head">{fc.tmiA1021PanelHead} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{fc.tmiA1021PanelP}</p>
               <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
               <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
@@ -462,7 +451,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
           </button>
         </p>
         <h2 class="parallel-card-title">
-          {locale === 'ru' ? 'Великий потоп' : 'The Great Flood'}&nbsp;·&nbsp;<span style="font-weight: 400; color: var(--text-2);">{locale === 'ru' ? 'Бытие 6–9 (KJV) · Библейская традиция' : 'Genesis 6–9 (KJV) · Biblical tradition'}</span>
+          {tr.reader_parallel_card_flood_title}&nbsp;·&nbsp;<span style="font-weight: 400; color: var(--text-2);">{tr.reader_parallel_card_flood_subtitle}</span>
         </h2>
         <p class="parallel-card-body">{tr.parallel_flood_body}</p>
         <p class="parallel-card-type">{tr.parallel_type_shared}</p>

@@ -57,6 +57,9 @@ export interface Translations {
   about_platform: string;
   idx_about_p1: string;
   idx_about_p2: string;
+  landing_document_title: string;
+  idx_region_aria_gilgamesh: string;
+  idx_region_aria_iliad: string;
 
   /* ── Breadcrumb ─────────────────────────────────────────────────── */
   bc_home: string;
@@ -95,6 +98,9 @@ export interface Translations {
   track_head_tablet_xi_flood: string;
   track_head_tablet_xi_sleep: string;
   track_head_tablet_xi_plant: string;
+  track_head_tablet_viii_grief: string;
+  track_framework_label_propp: string;
+  track_framework_label_campbell: string;
   inactive_track_bakhtin: string;
   inactive_track_levi_strauss: string;
   inactive_track_emotional_valence: string;
@@ -226,6 +232,12 @@ export interface Translations {
   frag_nav_prev_sleep: string;
   frag_nav_tablet_hub_fwd: string;
 
+  frag_thompson_trans_credit: string;
+  frag_thompson_source_pub_dom_html: string;
+  frag_thompson_source_pub_dom_cdli_html: string;
+  frag_thompson_cdli_reference: string;
+  frag_thompson_tablet_viii_reconstructed_note: string;
+
   /* ── Fragment reader — parallel strip ───────────────────────────── */
   parallel_strip_heading: string;
   parallel_flood_body: string;
@@ -238,6 +250,7 @@ export interface Translations {
   schol_textual_history: string;
   schol_key_variants: string;
   schol_scholarship_cited: string;
+  schol_visualization_tools: string;
 
   /* ── Common UI ──────────────────────────────────────────────────── */
   in_preparation: string;
@@ -302,6 +315,24 @@ export interface Translations {
   iliad_frag_ransom_surf_p2: string;
   iliad_frag_ransom_surf_p3: string;
   iliad_frag_ransom_surf_p4: string;
+  iliad_frag_ransom_narr_p1: string;
+  iliad_frag_ransom_narr_p2: string;
+  iliad_frag_ransom_narr_quote_p: string;
+  iliad_frag_ransom_narr_quote_cite: string;
+  iliad_frag_ransom_narr_p3: string;
+  iliad_frag_ransom_trans_heading_credit: string;
+  iliad_frag_ransom_trans_heading_source_html: string;
+  iliad_frag_ransom_trans_heading_lines: string;
+  iliad_frag_ransom_trans_p1: string;
+  iliad_frag_ransom_trans_p2: string;
+  iliad_frag_ransom_trans_p3: string;
+  iliad_frag_ransom_trans_p4: string;
+  iliad_frag_ransom_trans_p5: string;
+  iliad_frag_ransom_trans_p6: string;
+  iliad_frag_ransom_trans_p7: string;
+  iliad_frag_ransom_trans_attribution: string;
+  iliad_frag_ransom_orig_heading_lang: string;
+  iliad_frag_ransom_orig_heading_lines: string;
   iliad_frag_badge_narr_pop_p1: string;
   iliad_frag_badge_orig_pop_p1: string;
   iliad_frag_ransom_schol_ms_p: string;
@@ -361,6 +392,10 @@ export interface Translations {
   parallel_grief_body: string;
   parallel_grief_trad_lines: string;
   parallel_grief_onboarded_note: string;
+  reader_parallel_card_flood_title: string;
+  reader_parallel_card_flood_subtitle: string;
+  reader_parallel_card_grief_subtitle: string;
+  reader_parallel_card_grief_title: string;
   parallel_types_section_heading: string;
   parallel_type_card_human_title: string;
   parallel_type_card_human_desc: string;
@@ -532,6 +567,15 @@ export interface Translations {
   next_action_parallels_index_desc: string;
 
   /* ── Phase D: Episode index page ────────────────────────────────── */
+  episode_trad_label_gilgamesh: string;
+  episode_trad_label_iliad: string;
+  episode_trad_label_mahabharata: string;
+  episode_trad_label_ramayana: string;
+  episode_trad_label_aeneid: string;
+  episode_trad_label_shahnameh: string;
+  episode_trad_label_atrahasis: string;
+  episode_trad_label_genesis: string;
+
   episodes_index_heading: string;
   episodes_index_intro: string;
   episodes_index_nav_aria: string;

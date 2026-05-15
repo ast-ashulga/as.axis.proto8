@@ -65,7 +65,7 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
 
     <HowToReadThisPage locale={locale} />
 
-    <div class="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
+    <div class="layer-indicator" id="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
       <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
         <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
@@ -128,13 +128,13 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
           </button>
           <span style="font: 400 12px/1.4 var(--mono); color: var(--text-3); margin-left: 8px;">{tr.demo_content_marker}</span>
         </div>
-        <p class="body-p">Book XXIV is the moral culmination of the Iliad. Everything the poem has built toward — Achilles' wrath, Patroclus' death, Hector's fall, the continued defilement of the body — converges in a single hut, at night, between two men who are enemies.</p>
-        <p class="body-p">Priam's arrival is staged as a miracle. He is an old man who has crossed enemy lines alone. He has kissed the hands of the man who killed his son. Homer presents this without sentimentality: the gesture is precise, appalling, and it works. Achilles is moved. What moves him is recognition — he sees in Priam's grief the grief of his own father Peleus, who will not see his son return either. The mourning is parallel, not identical. Each man weeps for his own dead.</p>
+        <p class="body-p">{tr.iliad_frag_ransom_narr_p1}</p>
+        <p class="body-p">{tr.iliad_frag_ransom_narr_p2}</p>
         <blockquote class="narr-quote">
-          <p>"So spake he, and stirred in Achilles desire to make lament for his father; and he touched the old man's hand and gently put him from him. And the twain bethought them of their dead and wept."</p>
-          <cite>— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 507–511</cite>
+          <p>{tr.iliad_frag_ransom_narr_quote_p}</p>
+          <cite>{tr.iliad_frag_ransom_narr_quote_cite}</cite>
         </blockquote>
-        <p class="body-p">The scene has attracted more scholarly attention than almost any other in the poem, because it does something the war logic cannot account for: it makes grief transferable across the enemy line. Achilles does not forgive Priam — there is nothing to forgive. He recognizes him. The distinction matters for what the poem argues about heroic identity and its limits.</p>
+        <p class="body-p">{tr.iliad_frag_ransom_narr_p3}</p>
       </div>
 
       <!-- Translated layer -->
@@ -142,8 +142,8 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
         <div class="trans-header">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
             <div>
-              <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Translation: Andrew Lang, Walter Leaf, and Ernest Myers (1882)</p>
-              <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">Source: Lang, Leaf &amp; Myers, <em>The Iliad of Homer</em> (1882) · Public domain</p>
+              <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">{tr.iliad_frag_ransom_trans_heading_credit}</p>
+              <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);" set:html={tr.iliad_frag_ransom_trans_heading_source_html} />
             </div>
             <button class="badge doc" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`} aria-expanded="false">
               <span>{tr.badge_documented}</span>
@@ -153,17 +153,17 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
               </div>
             </button>
           </div>
-          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 8px;">Book XXIV, lines 477–551 (selected)</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 8px;">{tr.iliad_frag_ransom_trans_heading_lines}</p>
         </div>
-        <div class="trans-passage" lang="en">
-          <p>Priam the old man passed within the house and found Achilles, dear to Zeus, sitting apart, and the heroes were seated apart. And two alone, Automedon and Alkimos, of the stock of Ares, were busy in attendance; for Achilles had but newly ceased from meat and drink, and the table was still standing by him.</p>
-          <p>And great Priam entered unnoticed, and stood near, and clasped the knees of Achilles, and kissed his terrible man-slaying hands that had slain so many of Priam's sons.</p>
-          <p>And as when a mighty woe cometh upon a man who in his own country hath slain another, and he cometh to the land of strangers, to a rich man's house, and wonder holdeth them that see him — so Achilles wondered when he saw godlike Priam, and the rest wondered likewise, and looked upon one another.</p>
-          <p>Then spake Priam and made his prayer to him: "Bethink thee of thy father, O Achilles like to gods, whose years are even as mine, on the grievous threshold of old age. Him haply are the dwellers round about entreating evilly, nor is there any to ward from him ruin and bane. Yet truly while he heareth of thee as still alive he rejoiceth in his heart, and hopeth every day that he shall see his dear son returning from Troy-land. But I am all-hapless, since I had the best sons in broad Troy-land, and of them I deem not one is left."</p>
-          <p>So spake he, and stirred in Achilles desire to make lament for his father; and he touched the old man's hand and gently put him from him. And the twain bethought them of their dead and wept; and Priam wept sore for Hector the man-slayer, as he lay before Achilles' feet; and Achilles wept for his own father, and now again for Patroklos; and the sound of their mourning rose throughout the house.</p>
-          <p>But when noble Achilles was satisfied with lament, and the desire thereof had gone from his heart and limbs, straightway he sprang from his seat and raised the old man by his hand, pitying his grey head and grey beard, and spake unto him winged words: "Ah, hapless! Many ill things verily thou hast endured in thy heart. How hadst thou daring to come alone to the ships of the Achaeans, and meet the eyes of the man who hath slain full many of thy brave sons?"</p>
-          <p>"Nay sit thou down upon this seat, and we will let our sorrows lie quiet in our hearts for all our grief; for there is no profit in chill lament. For thus have the gods spun the thread for miserable men, that they should live in pain; yet themselves are sorrowless."</p>
-          <p class="trans-attribution">— Lang, Leaf &amp; Myers (1882), Book XXIV, ll. 477–526 (selected)</p>
+        <div class="trans-passage" lang={locale === 'ru' ? 'ru' : 'en'}>
+          <p>{tr.iliad_frag_ransom_trans_p1}</p>
+          <p>{tr.iliad_frag_ransom_trans_p2}</p>
+          <p>{tr.iliad_frag_ransom_trans_p3}</p>
+          <p>{tr.iliad_frag_ransom_trans_p4}</p>
+          <p>{tr.iliad_frag_ransom_trans_p5}</p>
+          <p>{tr.iliad_frag_ransom_trans_p6}</p>
+          <p>{tr.iliad_frag_ransom_trans_p7}</p>
+          <p class="trans-attribution">{tr.iliad_frag_ransom_trans_attribution}</p>
         </div>
       </div>
 
@@ -185,8 +185,8 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
           loading="lazy"
         />
         <div class="trans-header">
-          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Ancient Greek — after Monro &amp; Allen OCT</p>
-          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">Iliad XXIV.477–551 (selected lines)</p>
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">{tr.iliad_frag_ransom_orig_heading_lang}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">{tr.iliad_frag_ransom_orig_heading_lines}</p>
         </div>
         <pre class="original-text" lang="el">
 Πρίαμος δὲ μέγας εἰσῆλθε λαθών, στῆ δ᾽ ἄγχι καὶ ἔλλαβε γούνων
@@ -243,7 +243,7 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
         </div>
 
         <div class="schol-section">
-          <div class="schol-head"><span>Scholaria visualization tools</span></div>
+          <div class="schol-head"><span>{tr.schol_visualization_tools}</span></div>
           <div class="schol-body">
             <MonomythArc stages={campbellStages} tradition="greek" locale={locale} />
             <ProppMorphology functions={proppFunctions} locale={locale} />

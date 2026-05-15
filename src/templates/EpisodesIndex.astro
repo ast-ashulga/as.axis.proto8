@@ -52,6 +52,20 @@ const TRAD_BG: Record<TraditionKey, string> = {
 function tradColor(trad: string) { return TRAD_COLOR[trad as TraditionKey] ?? 'var(--text-3)'; }
 function tradBg(trad: string)    { return TRAD_BG[trad as TraditionKey] ?? 'var(--inset)'; }
 
+function episodeTradLabel(tradition: string): string {
+  switch (tradition) {
+    case 'gilgamesh': return tr.episode_trad_label_gilgamesh;
+    case 'iliad': return tr.episode_trad_label_iliad;
+    case 'mahabharata': return tr.episode_trad_label_mahabharata;
+    case 'ramayana': return tr.episode_trad_label_ramayana;
+    case 'aeneid': return tr.episode_trad_label_aeneid;
+    case 'shahnameh': return tr.episode_trad_label_shahnameh;
+    case 'atrahasis': return tr.episode_trad_label_atrahasis;
+    case 'genesis': return tr.episode_trad_label_genesis;
+    default: return tradition.toUpperCase();
+  }
+}
+
 const availableLabel  = tr.episodes_available_badge;
 const phase2Label     = tr.episodes_phase2_badge;
 ---
@@ -81,7 +95,7 @@ const phase2Label     = tr.episodes_phase2_badge;
             <div class="ep-card" style={`border-left: 3px solid ${color}; background: ${bg};`}>
               <div class="ep-card-head">
                 <span class="ep-trad" style={`color: ${color};`}>
-                  {ep.data.tradition.toUpperCase()} · {ep.data.tablet}
+                  {episodeTradLabel(ep.data.tradition)} · {ep.data.tablet}
                 </span>
                 <span class="ep-avail avail">{availableLabel}</span>
               </div>
@@ -119,7 +133,7 @@ const phase2Label     = tr.episodes_phase2_badge;
                 >
                   <div class="ep-card-head">
                     <span class="ep-trad" style={`color: ${color};`}>
-                      {ep.data.tradition.toUpperCase()}
+                      {episodeTradLabel(ep.data.tradition)}
                     </span>
                     <span class="ep-avail phase2">{phase2Label}</span>
                   </div>
