@@ -111,6 +111,67 @@ export interface Translations {
   tab_ep3_desc: string;
   episodes_label: string;
 
+  /* ── Fragment reader — layer tabs ──────────────────────────────── */
+  layer_surface: string;
+  layer_narrated: string;
+  layer_translated: string;
+  layer_original: string;
+  layer_scholaria: string;
+
+  /* ── Fragment reader — NAS + copy ───────────────────────────────── */
+  copy_btn: string;
+  copied_confirm: string;
+  sources_region_label: string;
+  see_sources: string;
+  hide_sources: string;
+
+  /* ── Fragment reader — structure toggle ─────────────────────────── */
+  show_structure: string;
+  hide_structure: string;
+
+  /* ── Fragment reader — AI disclosure + demo marker ──────────────── */
+  frag_ai_disclosure_lead: string;
+  frag_nas_tag_doc: string;
+  demo_content_marker: string;
+  honest_absence_narrated: string;
+  honest_absence_original: string;
+
+  /* ── Fragment reader — badge popup bodies ───────────────────────── */
+  frag_badge_ai_pop_p1: string;
+  frag_badge_ai_pop_p2: string;
+  frag_badge_trans_pop_p1: string;
+  frag_badge_schol_pop_p1: string;
+  frag_badge_narr_pop_p1: string;
+  frag_badge_orig_pop_p1: string;
+
+  /* ── Fragment reader — tier badge labels ────────────────────────── */
+  badge_documented: string;
+  badge_reconstructed: string;
+  badge_contested: string;
+  badge_ai_reviewed: string;
+
+  /* ── Fragment reader — Flood episode ────────────────────────────── */
+  frag_flood_title: string;
+  frag_flood_subtitle: string;
+  frag_surf_flood_p1: string;
+  frag_surf_flood_p2: string;
+  frag_surf_flood_p3: string;
+  frag_surf_flood_p4: string;
+  frag_nav_tablet_hub: string;
+  frag_nav_next_sleep: string;
+
+  /* ── Fragment reader — parallel strip ───────────────────────────── */
+  parallel_strip_heading: string;
+  parallel_flood_body: string;
+  parallel_type_shared: string;
+  read_this_parallel: string;
+
+  /* ── Fragment reader — Scholaria headings ───────────────────────── */
+  schol_manuscript_status: string;
+  schol_textual_history: string;
+  schol_key_variants: string;
+  schol_scholarship_cited: string;
+
   /* ── Common UI ──────────────────────────────────────────────────── */
   in_preparation: string;
   phase2_badge: string;
