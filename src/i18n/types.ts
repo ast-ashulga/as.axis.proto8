@@ -160,10 +160,29 @@ export interface Translations {
   frag_nav_tablet_hub: string;
   frag_nav_next_sleep: string;
 
+  /* ── Fragment reader — Sleep-Challenge episode ───────────────────── */
+  frag_ep_sleep_title: string;
+  frag_surf_sleep_p1: string;
+  frag_surf_sleep_p2: string;
+  frag_surf_sleep_p3: string;
+  frag_surf_sleep_p4: string;
+  frag_nav_prev_flood: string;
+  frag_nav_next_plant: string;
+
+  /* ── Fragment reader — Plant episode ────────────────────────────── */
+  frag_ep_plant_title: string;
+  frag_surf_plant_p1: string;
+  frag_surf_plant_p2: string;
+  frag_surf_plant_p3: string;
+  frag_surf_plant_p4: string;
+  frag_nav_prev_sleep: string;
+  frag_nav_tablet_hub_fwd: string;
+
   /* ── Fragment reader — parallel strip ───────────────────────────── */
   parallel_strip_heading: string;
   parallel_flood_body: string;
   parallel_type_shared: string;
+  parallel_type_structural: string;
   read_this_parallel: string;
 
   /* ── Fragment reader — Scholaria headings ───────────────────────── */
@@ -176,4 +195,197 @@ export interface Translations {
   in_preparation: string;
   phase2_badge: string;
   close_x: string;
+  layer_static_2_translated: string;
+
+  /* ── Iliad tradition overview ────────────────────────────────────── */
+  trad_iliad_epoch_full: string;
+  trad_iliad_desc_p1: string;
+  trad_iliad_desc_p2: string;
+  trad_iliad_cross_tradition_sub: string;
+  books_label: string;
+  iliad_book1_label: string;
+  iliad_book1_name: string;
+  iliad_book1_desc: string;
+  iliad_book1_ep: string;
+  iliad_book6_label: string;
+  iliad_book6_name: string;
+  iliad_book6_desc: string;
+  iliad_book6_ep: string;
+  iliad_book9_label: string;
+  iliad_book9_name: string;
+  iliad_book9_desc: string;
+  iliad_book9_ep: string;
+  iliad_book16_label: string;
+  iliad_book16_name: string;
+  iliad_book16_desc: string;
+  iliad_book16_ep: string;
+  iliad_book22_label: string;
+  iliad_book22_name: string;
+  iliad_book22_desc: string;
+  iliad_book22_ep: string;
+  iliad_book24_label: string;
+  iliad_book24_name: string;
+  iliad_book24_desc: string;
+  iliad_book24_ep_parallel: string;
+  iliad_book24_ep_count: string;
+
+  /* ── Book XXIV hub ───────────────────────────────────────────────── */
+  iliad_book24_hub_intro: string;
+  iliad_book24_rec_pop_detail: string;
+  iliad_book24_ep_coming: string;
+  iliad_book24_ep1_title: string;
+  iliad_book24_ep1_desc: string;
+  iliad_book24_ep2_title: string;
+  iliad_book24_ep2_desc: string;
+  iliad_book24_ep3_desc: string;
+  iliad_book24_nav_prev: string;
+  iliad_book24_nav_return_overview: string;
+
+  /* ── Ransom of Hector reader ─────────────────────────────────────── */
+  iliad_frag_book24_bc: string;
+  iliad_frag_ransom_crumb: string;
+  iliad_frag_ransom_title: string;
+  iliad_frag_ransom_subtitle: string;
+  iliad_frag_badge_ai_pop_p2: string;
+  iliad_frag_badge_trans_pop_p1: string;
+  iliad_frag_badge_schol_pop_p1: string;
+  iliad_frag_badge_scholaria_head: string;
+  iliad_frag_ransom_surf_p1: string;
+  iliad_frag_ransom_surf_p2: string;
+  iliad_frag_ransom_surf_p3: string;
+  iliad_frag_ransom_surf_p4: string;
+  iliad_frag_badge_narr_pop_p1: string;
+  iliad_frag_badge_orig_pop_p1: string;
+  iliad_frag_ransom_schol_ms_p: string;
+  iliad_frag_ransom_schol_hist_p: string;
+  iliad_frag_ransom_schol_debate_head: string;
+  iliad_frag_ransom_schol_debate_p: string;
+  iliad_frag_ransom_cite_nagy_html: string;
+  iliad_frag_ransom_cite_whitman_html: string;
+  iliad_frag_ransom_cite_west_html: string;
+  iliad_frag_ransom_cite_kirk_html: string;
+  iliad_frag_parallel_card_body: string;
+  iliad_frag_track_head: string;
+  iliad_frag_propp_exp_title: string;
+  iliad_frag_propp_exp_body: string;
+  iliad_frag_propp8_name: string;
+  iliad_frag_propp8_panel_head: string;
+  iliad_frag_propp8_panel_p: string;
+  iliad_frag_propp19_name: string;
+  iliad_frag_propp19_panel_head: string;
+  iliad_frag_propp19_panel_p: string;
+  iliad_frag_propp31_name: string;
+  iliad_frag_propp31_panel_head: string;
+  iliad_frag_propp31_panel_p: string;
+  iliad_frag_campbell_exp_title: string;
+  iliad_frag_campbell_exp_body: string;
+  iliad_frag_campbell_return_name: string;
+  iliad_frag_campbell_return_panel_head: string;
+  iliad_frag_campbell_return_panel_p: string;
+  iliad_frag_campbell_atone_name: string;
+  iliad_frag_campbell_atone_panel_head: string;
+  iliad_frag_campbell_atone_panel_p: string;
+  iliad_frag_tmi_exp_title: string;
+  iliad_frag_tmi_exp_body: string;
+  iliad_frag_tmi_p325_name: string;
+  iliad_frag_tmi325_panel_head: string;
+  iliad_frag_tmi_p325_panel_p: string;
+  iliad_frag_tmi_t211_name: string;
+  iliad_frag_tmi211_panel_head: string;
+  iliad_frag_tmi_t211_panel_p: string;
+  iliad_frag_badge_annot_documented: string;
+  iliad_frag_badge_annot_reconstructed: string;
+
+  /* ── Parallels index ─────────────────────────────────────────────── */
+  bc_cross_resonances: string;
+  parallels_page_heading: string;
+  parallels_page_intro: string;
+  parallels_confirmed_count: string;
+  parallels_about_heading: string;
+  parallels_about_p1: string;
+  parallels_about_p2: string;
+  parallel_flood_heading: string;
+  parallel_flood_subtitle_refs: string;
+  parallel_flood_trad_lines: string;
+  parallel_flood_onboarded_note: string;
+  parallel_grief_heading: string;
+  parallel_grief_subtitle_refs: string;
+  parallel_grief_body: string;
+  parallel_grief_trad_lines: string;
+  parallel_grief_onboarded_note: string;
+  parallel_types_section_heading: string;
+  parallel_type_card_human_title: string;
+  parallel_type_card_human_desc: string;
+  parallel_type_card_narr_title: string;
+  parallel_type_card_narr_desc: string;
+  parallel_type_card_social_title: string;
+  parallel_type_card_social_desc: string;
+  parallels_badge_doc_body: string;
+  parallels_badge_rec_body: string;
+
+  /* ── Flood parallel view ─────────────────────────────────────────── */
+  parallel_view_back: string;
+  parallel_view_attributed_kovacs: string;
+  parallel_view_label_mesop: string;
+  parallel_view_label_hebrew_bibl: string;
+  parallel_view_epi_title: string;
+  parallel_view_epi_sub_flood: string;
+  parallel_view_epi_date_sbv: string;
+  parallel_view_credit_thompson: string;
+  parallel_view_attr_thompson_excerpt: string;
+  parallel_view_fragment_link: string;
+  parallel_view_genesis_title: string;
+  parallel_view_genesis_sub_flood: string;
+  parallel_view_genesis_date_kjv: string;
+  parallel_view_credit_kjv: string;
+  parallel_view_attr_genesis_excerpt: string;
+  parallel_view_genesis_phase_note: string;
+  parallel_view_note_what_head: string;
+  parallel_view_note_what_p: string;
+  parallel_view_note_why_head: string;
+  parallel_view_note_why_p1: string;
+  parallel_view_note_why_p2: string;
+  parallel_view_note_diverge_head: string;
+  parallel_view_note_diverge_p1: string;
+  parallel_view_note_diverge_p2: string;
+  parallel_view_note_reveals_head: string;
+  parallel_view_note_reveals_p1: string;
+  parallel_view_note_reveals_p2: string;
+  parallel_view_note_scholarship_head: string;
+  parallel_view_cite_george_html: string;
+  parallel_view_cite_speiser_html: string;
+  parallel_view_cite_tigay_html: string;
+  parallel_view_cite_heidel_html: string;
+
+  /* ── Grief parallel view ─────────────────────────────────────────── */
+  iliad_parallel_heading: string;
+  iliad_parallel_attributed_pantelia: string;
+  iliad_parallel_view_back: string;
+  iliad_parallel_label_greek: string;
+  iliad_parallel_label_mesop: string;
+  iliad_parallel_iliad_sub: string;
+  iliad_parallel_iliad_date: string;
+  iliad_parallel_credit_iliad: string;
+  iliad_parallel_attr_iliad: string;
+  iliad_parallel_epi_sub_enkidu: string;
+  iliad_parallel_attr_gilgamesh: string;
+  iliad_parallel_fragment_link: string;
+  iliad_parallel_gilgamesh_phase_note: string;
+  iliad_parallel_note_what_head: string;
+  iliad_parallel_note_what_p1: string;
+  iliad_parallel_note_what_p2: string;
+  iliad_parallel_note_why_head: string;
+  iliad_parallel_note_why_p1: string;
+  iliad_parallel_note_why_p2: string;
+  iliad_parallel_note_diverge_head: string;
+  iliad_parallel_note_diverge_p1: string;
+  iliad_parallel_note_diverge_p2: string;
+  iliad_parallel_note_reveals_head: string;
+  iliad_parallel_note_reveals_p1: string;
+  iliad_parallel_note_reveals_p2: string;
+  iliad_parallel_note_reveals_p3: string;
+  iliad_parallel_cite_nagy_html: string;
+  iliad_parallel_cite_schein_html: string;
+  iliad_parallel_cite_george_iliad_html: string;
+  iliad_parallel_cite_shay_html: string;
 }

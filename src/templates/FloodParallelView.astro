@@ -1,0 +1,258 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = `/${locale}`;
+---
+
+<BaseLayout title={tr.parallel_flood_heading} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb crumbs={[
+      { label: tr.bc_home,                href: `${navBase}/` },
+      { label: tr.bc_cross_resonances,    href: `${navBase}/parallels/` },
+      { label: tr.parallel_flood_heading },
+    ]} />
+
+    <!-- Back link -->
+    <a
+      href={`${navBase}/gilgamesh/`}
+      style="font: 400 14px/1.5 var(--serif); display: block; margin-bottom: 24px;"
+    >
+      {tr.parallel_view_back}
+    </a>
+
+    <!-- Parallel header -->
+    <header class="par-header" aria-label={tr.parallel_flood_heading}>
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
+        <h1 style="font: 500 26px/1.3 var(--serif);">{tr.parallel_flood_heading}</h1>
+        <span class="badge badge--doc">{tr.badge_documented}</span>
+      </div>
+      <p style="font: 400 13px/1.4 var(--mono); color: var(--text-2); margin-bottom: 8px;">
+        {tr.parallel_flood_subtitle_refs}
+      </p>
+      <p style="font: 400 16px/1.7 var(--serif); max-width: var(--col); margin-bottom: 8px;">
+        {tr.parallel_flood_body}
+      </p>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 4px;">
+        {tr.parallel_type_shared}
+      </p>
+      <p style="font: 400 12px/1.4 var(--mono); color: var(--text-3);">
+        {tr.parallel_view_attributed_kovacs}
+      </p>
+    </header>
+
+    <hr class="div" />
+
+    <!-- Two-column tradition passages -->
+    <section aria-label="Tradition passages" class="passages-grid">
+
+      <!-- Mesopotamian panel -->
+      <div class="tradition-panel" aria-label="Mesopotamian tradition passage">
+        <p class="trad-label">{tr.parallel_view_label_mesop}</p>
+        <div class="panel-body">
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.parallel_view_epi_title}</h2>
+          <p style="font: 400 13px/1.4 var(--mono); color: var(--text-2); margin-bottom: 2px;">{tr.parallel_view_epi_sub_flood}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 20px;">{tr.parallel_view_epi_date_sbv}</p>
+          <span class="badge badge--doc" style="display: inline-block; margin-bottom: 16px;">{tr.badge_documented}</span>
+          <blockquote class="passage">
+            <p>Ea opened his mouth and spake, and said unto his servant:</p>
+            <p>Man of Shuruppak, son of Ubara-Tutu,</p>
+            <p>Pull down thy house, build a ship;</p>
+            <p>Leave thy possessions, seek life.</p>
+            <p>Abandon thy goods, save thy life,</p>
+            <p>Bring all manner of living things on board the ship.</p>
+            <p>The ship which thou shalt build,</p>
+            <p>Let its dimensions be well measured.</p>
+          </blockquote>
+          <p class="attr">{tr.parallel_view_attr_thompson_excerpt}</p>
+          <p class="credit">{tr.parallel_view_credit_thompson}</p>
+          <a
+            href={`${navBase}/gilgamesh/tablet-xi/flood/`}
+            style="font: 500 13px/1.4 var(--serif); display: inline-block; margin-top: 12px;"
+          >
+            {tr.parallel_view_fragment_link}
+          </a>
+        </div>
+      </div>
+
+      <!-- Biblical panel -->
+      <div class="tradition-panel" aria-label="Hebrew and Biblical tradition passage">
+        <p class="trad-label">{tr.parallel_view_label_hebrew_bibl}</p>
+        <div class="panel-body">
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.parallel_view_genesis_title}</h2>
+          <p style="font: 400 13px/1.4 var(--mono); color: var(--text-2); margin-bottom: 2px;">{tr.parallel_view_genesis_sub_flood}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 20px;">{tr.parallel_view_genesis_date_kjv}</p>
+          <span class="badge badge--doc" style="display: inline-block; margin-bottom: 16px;">{tr.badge_documented}</span>
+          <blockquote class="passage">
+            <p>And God saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually. And it repented the LORD that he had made man on the earth, and it grieved him at his heart.</p>
+            <p>…</p>
+            <p>And Noah did according unto all that the LORD commanded him.</p>
+          </blockquote>
+          <p class="attr">{tr.parallel_view_attr_genesis_excerpt}</p>
+          <p class="credit">{tr.parallel_view_credit_kjv}</p>
+          <p style="font: 400 12px/1.5 var(--serif); color: var(--text-3); margin-top: 12px;">
+            {tr.parallel_view_genesis_phase_note}
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="div" />
+
+    <!-- Scholarly note -->
+    <section aria-labelledby="note-heading" class="scholar-note">
+      <h2 id="note-heading" style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 24px;">
+        Scholarly note
+      </h2>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_what_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.parallel_view_note_what_p}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_why_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.parallel_view_note_why_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.parallel_view_note_why_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_diverge_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.parallel_view_note_diverge_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.parallel_view_note_diverge_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_reveals_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.parallel_view_note_reveals_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.parallel_view_note_reveals_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_scholarship_head}
+        </h3>
+        <ul class="cite-list">
+          <li><span set:html={tr.parallel_view_cite_george_html} /></li>
+          <li><span set:html={tr.parallel_view_cite_speiser_html} /></li>
+          <li><span set:html={tr.parallel_view_cite_tigay_html} /></li>
+          <li><span set:html={tr.parallel_view_cite_heidel_html} /></li>
+        </ul>
+      </div>
+
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.par-header {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-left: 3px solid var(--tier-doc);
+  padding: 28px;
+  margin-bottom: 40px;
+  max-width: var(--col-wide, 900px);
+}
+
+.badge {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+}
+.badge--doc { color: var(--tier-doc); }
+
+.passages-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.tradition-panel { display: flex; flex-direction: column; }
+
+.trad-label {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.panel-body {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  flex: 1;
+}
+
+.passage {
+  font: 400 15px/1.7 var(--serif);
+  border-left: 2px solid var(--border-2);
+  padding-left: 16px;
+  margin: 0 0 12px 0;
+}
+.passage p { margin-bottom: 6px; }
+.passage p:last-child { margin-bottom: 0; }
+
+.attr  { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+.credit { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+.scholar-note {
+  max-width: var(--col);
+  margin-bottom: 40px;
+}
+
+.note-section {
+  border-top: 1px solid var(--border-2);
+  padding: 24px 0;
+}
+.note-section:last-child { border-bottom: 1px solid var(--border-2); }
+
+.cite-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cite-list li {
+  font: 400 14px/1.6 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 8px;
+  padding-left: 16px;
+  position: relative;
+}
+.cite-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-3);
+}
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  .page-body { padding-inline: var(--mx-m); }
+  .passages-grid { grid-template-columns: 1fr; }
+}
+</style>

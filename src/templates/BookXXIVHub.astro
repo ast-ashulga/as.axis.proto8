@@ -1,0 +1,154 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = `/${locale}`;
+---
+
+<BaseLayout title={`BOOK XXIV — ${tr.idx_title_iliad}`} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb crumbs={[
+      { label: tr.bc_home,        href: `${navBase}/` },
+      { label: tr.idx_title_iliad, href: `${navBase}/iliad/` },
+      { label: tr.iliad_book24_label },
+    ]} />
+
+    <!-- Book header -->
+    <header>
+      <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 8px;">
+        {tr.tradition_greek}
+      </p>
+      <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px;">
+        <h1 style="font: 500 24px/1.3 var(--serif);">{tr.iliad_book24_label}</h1>
+        <TierBadge tier="reconstructed" locale={locale} />
+      </div>
+      <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 24px;">
+        {tr.iliad_book24_name}
+      </p>
+    </header>
+
+    <!-- Intro -->
+    <div style="max-width: var(--col); margin-bottom: 40px;">
+      <p style="font: 400 16px/1.7 var(--serif);">{tr.iliad_book24_hub_intro}</p>
+    </div>
+
+    <hr class="div" />
+
+    <!-- Episodes -->
+    <section aria-label={tr.episodes_label}>
+      <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 20px;">
+        {tr.episodes_label}
+      </p>
+
+      <div role="list">
+
+        <!-- Episode 1: Gods Decide — disabled -->
+        <div
+          class="ep-card ep-card--disabled"
+          role="group"
+          aria-disabled="true"
+          aria-label={tr.iliad_book24_ep1_title}
+        >
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 10px; color: var(--text-2);">
+            {tr.iliad_book24_ep1_title}
+          </h2>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;">
+            {tr.iliad_book24_ep1_desc}
+          </p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-dis);">
+            {tr.iliad_book24_ep_coming}
+          </p>
+        </div>
+
+        <!-- Episode 2: Priam's Night Journey — disabled -->
+        <div
+          class="ep-card ep-card--disabled"
+          role="group"
+          aria-disabled="true"
+          aria-label={tr.iliad_book24_ep2_title}
+        >
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 10px; color: var(--text-2);">
+            {tr.iliad_book24_ep2_title}
+          </h2>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;">
+            {tr.iliad_book24_ep2_desc}
+          </p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-dis);">
+            {tr.iliad_book24_ep_coming}
+          </p>
+        </div>
+
+        <!-- Episode 3: Ransom of Hector — active, has parallel -->
+        <a
+          href={`${navBase}/iliad/book-xxiv/ransom-of-hector/`}
+          class="ep-card ep-card--active"
+          role="listitem"
+          style="border-left: 3px solid var(--tier-rec);"
+        >
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+            <h2 style="font: 400 18px/1.4 var(--serif);">
+              <span style="color: var(--tier-rec); margin-inline-end: 6px;" aria-label="Has cross-tradition parallel">◑</span>
+              {tr.iliad_frag_ransom_crumb}
+            </h2>
+          </div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;">
+            {tr.iliad_book24_ep3_desc}
+          </p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">
+            nms://iliad/book-xxiv/ransom-of-hector
+          </p>
+          <p style="font: 500 11px/1.4 var(--mono); color: var(--tier-rec); margin-top: 6px;">
+            {tr.iliad_book24_ep_parallel}
+          </p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Nav -->
+    <nav aria-label="Book navigation" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
+      <a href={`${navBase}/iliad/`} style="font: 400 14px/1.5 var(--serif);">{tr.iliad_book24_nav_prev}</a>
+      <a href={`${navBase}/iliad/`} style="font: 400 14px/1.5 var(--serif);">{tr.iliad_book24_nav_return_overview}</a>
+    </nav>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.ep-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.ep-card--disabled {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ep-card--active {
+  transition: background 0.1s ease-in-out;
+}
+.ep-card--active:hover { background: var(--overlay); }
+.ep-card--active:visited { color: var(--text); }
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) { .page-body { padding-inline: var(--mx-m); } }
+</style>
