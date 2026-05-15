@@ -1,4 +1,6 @@
 ---
+import { t, type Locale } from '~/i18n';
+
 interface Crumb {
   label: string;
   href?: string;
@@ -6,12 +8,14 @@ interface Crumb {
 
 interface Props {
   crumbs: Crumb[];
+  locale: Locale;
 }
 
-const { crumbs } = Astro.props;
+const { crumbs, locale } = Astro.props;
+const tr = t(locale);
 ---
 
-<nav class="bc" aria-label="Breadcrumb">
+<nav class="bc" aria-label={tr.bc_nav_aria}>
   {crumbs.map((crumb, i) => (
     i < crumbs.length - 1
       ? <>

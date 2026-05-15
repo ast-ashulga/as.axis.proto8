@@ -13,7 +13,7 @@ const navBase = `/${locale}`;
 <BaseLayout title={tr.iliad_parallel_heading} locale={locale}>
   <div class="page-body">
 
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home,             href: `${navBase}/` },
       { label: tr.bc_cross_resonances, href: `${navBase}/parallels/` },
       { label: tr.iliad_parallel_heading },
@@ -44,10 +44,10 @@ const navBase = `/${locale}`;
     <hr class="div" />
 
     <!-- Two-column tradition passages -->
-    <section aria-label="Tradition passages" class="passages-grid">
+    <section aria-label={tr.parallel_passages_section_aria} class="passages-grid">
 
       <!-- Greek / Iliad panel -->
-      <div class="tradition-panel" aria-label="Greek tradition passage">
+      <div class="tradition-panel" aria-label={tr.parallel_panel_greek_passage_aria}>
         <p class="trad-label" style="color: var(--greek);">{tr.iliad_parallel_label_greek}</p>
         <div class="panel-body">
           <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.idx_title_iliad}</h2>
@@ -75,7 +75,7 @@ const navBase = `/${locale}`;
       </div>
 
       <!-- Mesopotamian / Gilgamesh panel -->
-      <div class="tradition-panel" aria-label="Mesopotamian tradition passage">
+      <div class="tradition-panel" aria-label={tr.parallel_panel_mesop_passage_aria}>
         <p class="trad-label" style="color: var(--mesop);">{tr.iliad_parallel_label_mesop}</p>
         <div class="panel-body">
           <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.parallel_view_epi_title}</h2>
@@ -107,7 +107,7 @@ const navBase = `/${locale}`;
     <!-- Scholarly note -->
     <section aria-labelledby="note-heading" class="scholar-note">
       <h2 id="note-heading" style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 24px;">
-        Scholarly note
+        {tr.schol_note_heading}
       </h2>
 
       <div class="note-section">

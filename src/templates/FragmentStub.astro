@@ -23,7 +23,7 @@ const navBase = `/${locale}`;
 
 <BaseLayout title={episodeName} locale={locale}>
   <div style="padding-inline: var(--mx); padding-block: 40px 0;">
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home,             href: `${navBase}/` },
       { label: tr.idx_title_gilgamesh, href: `${navBase}/gilgamesh/` },
       { label: tabletName,             href: tabletHref },
@@ -33,7 +33,7 @@ const navBase = `/${locale}`;
       {episodeNas}
     </p>
     <p style="font: 400 16px/1.7 var(--serif); color: var(--text-2); max-width: var(--col);">
-      Fragment reader — in progress.
+      {tr.fragment_stub_progress}
     </p>
   </div>
 </BaseLayout>

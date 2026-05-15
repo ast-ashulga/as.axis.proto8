@@ -17,22 +17,22 @@ const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
 const gilgameshHref = `/${locale}/gilgamesh/`;
 ---
 
-<BaseLayout title={tr.frag_flood_title + ' — Tablet XI — Gilgamesh'} locale={locale}>
+<BaseLayout title={tr.frag_flood_title + tr.doc_title_suffix_tablet_xi_gilgamesh} locale={locale}>
 
   <div class="page-body">
 
     <!-- Breadcrumb -->
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home, href: `/${locale}/` },
       { label: tr.nav_gilgamesh, href: gilgameshHref },
       { label: tr.tablet_hub_breadcrumb, href: tabletHref },
-      { label: locale === 'ru' ? 'Потоп' : 'The Flood' },
+      { label: tr.tab_ep1_name },
     ]} />
 
     <!-- NAS row -->
     <div class="nas-row" role="status" aria-live="polite">
-      <span class="nas-addr" aria-label={`NAS address: ${nas}`}>{nas}</span>
-      <button class="nas-copy" id="nas-copy-btn" aria-label="Copy NAS address to clipboard">
+      <span class="nas-addr" aria-label={`${tr.nas_address_aria_prefix}${nas}`}>{nas}</span>
+      <button class="nas-copy" id="nas-copy-btn" aria-label={tr.copy_nas_aria}>
         {tr.copy_btn}
       </button>
       <span class="copied-confirm" id="copied-confirm" role="status" aria-live="polite">
@@ -43,7 +43,7 @@ const gilgameshHref = `/${locale}/gilgamesh/`;
     <!-- Episode heading -->
     <div class="ep-heading">
       <h1 class="ep-title">{tr.frag_flood_title}</h1>
-      <button class="badge ins" id="episode-badge" aria-label={`Confidence tier: ${tr.badge_ai_reviewed}`} aria-expanded="false">
+      <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
         <span>{tr.badge_ai_reviewed}</span>
         <div class="badge-pop" id="episode-badge-pop">
           <div class="pop-head">
@@ -61,7 +61,7 @@ const gilgameshHref = `/${locale}/gilgamesh/`;
     <p class="ep-sub">{tr.frag_flood_subtitle}</p>
 
     <!-- Layer indicator -->
-    <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label="Content depth layers">
+    <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label={tr.layer_depth_tablist_aria}>
       <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">{tr.layer_surface}</button>
       <span class="layer-sep" aria-hidden="true">·</span>
       <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">{tr.layer_narrated}</button>
@@ -187,7 +187,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         <div class="schol-section">
           <div class="schol-head">
             <span>{tr.schol_manuscript_status}</span>
-            <button class="badge doc" style="cursor: default;" aria-label={`Confidence tier: ${tr.badge_documented}`}>{tr.badge_documented}</button>
+            <button class="badge doc" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button>
           </div>
           <div class="schol-body">
             <p>Tablet XI survives in multiple copies. The best-preserved is the Nineveh copy from the library of Ashurbanipal (7th century BCE; CDLI P003793). The flood episode (lines 1–196) is the most complete section of the entire Standard Babylonian Version. Approximately 15–20 lines are damaged or missing across all known copies.</p>
@@ -197,7 +197,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         <div class="schol-section">
           <div class="schol-head">
             <span>{tr.schol_textual_history}</span>
-            <button class="badge rec" style="cursor: default;" aria-label={`Confidence tier: ${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
+            <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
           </div>
           <div class="schol-body">
             <p>The flood narrative in Tablet XI is closely paralleled by the older Sumerian Flood Story (known from the Nippur tablet, c. 1600 BCE) and by the Atrahasis Epic (also c. 1700–1600 BCE). The scholarly consensus holds that the Gilgamesh flood episode was interpolated from the Atrahasis tradition into the Gilgamesh cycle sometime in the Old Babylonian period.</p>
@@ -207,7 +207,7 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         <div class="schol-section">
           <div class="schol-head">
             SCHOLARLY DEBATE: INTERPOLATION QUESTION
-            <button class="badge con" style="cursor: default;" aria-label={`Confidence tier: ${tr.badge_contested}`}>{tr.badge_contested}</button>
+            <button class="badge con" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button>
           </div>
           <div class="schol-body">
             <p>Whether the flood narrative is a late addition or an integral part of the Gilgamesh cycle is actively contested. George (2003) argues the Tablet XI version was composed specifically for the Standard Babylonian Version, with unique modifications not present in Atrahasis. Tigay (1982) argues that interpolation is the more parsimonious explanation. The debate hinges on whether the theological differences between the two accounts indicate separate authorial intent.</p>
@@ -219,11 +219,11 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
           <div class="schol-body">
             <div class="schol-variant">
               <p>Line 14: Nineveh copy reads "cedar ship"; Sippar fragment reads "great ship." George (2003) prefers Nineveh; Thompson (1930) follows Sippar.</p>
-              <p style="margin-top: 6px;"><button class="badge con" style="cursor: default; font-size: 10px;" aria-label={`Confidence tier: ${tr.badge_contested}`}>{tr.badge_contested}</button></p>
+              <p style="margin-top: 6px;"><button class="badge con" style="cursor: default; font-size: 10px;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button></p>
             </div>
             <div class="schol-variant">
               <p>Lines 45–55: The Sippar fragment (BM 78941) contains a variant account of the reed-wall warning that differs from the Nineveh copy in approximately 6 words. The divergence does not affect the narrative substance.</p>
-              <p style="margin-top: 6px;"><button class="badge doc" style="cursor: default; font-size: 10px;" aria-label={`Confidence tier: ${tr.badge_documented}`}>{tr.badge_documented}</button></p>
+              <p style="margin-top: 6px;"><button class="badge doc" style="cursor: default; font-size: 10px;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button></p>
             </div>
           </div>
         </div>
@@ -247,63 +247,63 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
     </div><!-- /content-area -->
 
     <!-- Track View -->
-    <div class="track-view" id="track-view" role="region" aria-label="Structural annotation tracks" hidden aria-hidden="true">
-      <p class="track-view-head">ANNOTATION TRACKS &nbsp;·&nbsp; Tablet XI · The Flood Episode</p>
+    <div class="track-view" id="track-view" role="region" aria-label={tr.track_region_aria} hidden aria-hidden="true">
+      <p class="track-view-head">{tr.track_head_tablet_xi_flood}</p>
 
       <!-- Propp -->
       <div class="track-row">
         <div class="track-label">
           PROPP
-          <button class="fw-help" aria-label="About Propp's Morphology" data-explainer="exp-propp">[?]</button>
+          <button class="fw-help" aria-label={tr.help_propp_morphology_aria} data-explainer="exp-propp">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-propp">
           <div class="fw-exp-head">Propp's Morphology of the Folktale (1928) <button class="fw-exp-close">{tr.close_x}</button></div>
           <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Vladimir Propp identified 31 narrative "functions" — actions that advance the story — recurring in Russian folktales in a consistent sequence. Later scholars applied the framework to myth and epic traditions worldwide.</p>
         </div>
-        <div class="annot-row" role="group" aria-label="Propp annotations">
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="PROPP-8: Villainy / Lack, confidence Reconstructed" tabindex="0">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: Villainy / Lack${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-8</p>
             <p class="annot-name">Villainy / Lack</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">PROPP-8 · Villainy / Lack <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero's lack of something necessary drives the narrative. Here: Gilgamesh lacks immortality and cannot accept mortality after Enkidu's death.</p>
-              <p class="meta-line">Confidence: {tr.badge_reconstructed}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
-              <p class="meta-line">NAS: {nas}</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
+              <p class="meta-line">{tr.meta_nas_colon} {nas}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="PROPP-15: Spatial Translocation, confidence Reconstructed" tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-15: Spatial Translocation${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-15</p>
             <p class="annot-name">Spatial translocation</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">PROPP-15 · Spatial Translocation <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero moves to a different location to find or retrieve something. Here: Gilgamesh crossing the Waters of Death to reach Utnapishtim at the ends of the earth.</p>
-              <p class="meta-line">Confidence: {tr.badge_reconstructed}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="PROPP-19: Return, confidence Documented" tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-19: Return${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-19</p>
             <p class="annot-name">Return</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">PROPP-19 · Return <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero returns to their starting point. Gilgamesh returns to Uruk, empty-handed and changed. The walls he built at the beginning are what he has to show.</p>
-              <p class="meta-line">Confidence: {tr.badge_documented}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="PROPP-31: Recognition, confidence Documented" tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-31: Recognition${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-31</p>
             <p class="annot-name">Recognition</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">PROPP-31 · Recognition <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero is recognised. Gilgamesh recognises the walls of Uruk as his enduring achievement — the acceptance of mortality through the permanence of what he built.</p>
-              <p class="meta-line">Confidence: {tr.badge_documented}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
         </div>
@@ -313,33 +313,33 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       <div class="track-row">
         <div class="track-label">
           CAMPBELL
-          <button class="fw-help" aria-label="About Campbell's Hero's Journey" data-explainer="exp-campbell">[?]</button>
+          <button class="fw-help" aria-label={tr.help_campbell_hero_aria} data-explainer="exp-campbell">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-campbell">
           <div class="fw-exp-head">Campbell's Hero with a Thousand Faces (1949) <button class="fw-exp-close">{tr.close_x}</button></div>
           <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Joseph Campbell identified a common narrative structure — the monomyth or "hero's journey" — across world mythologies: departure, initiation, and return.</p>
         </div>
-        <div class="annot-row" role="group" aria-label="Campbell annotations">
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="Crossing the First Threshold, confidence Reconstructed" tabindex="0">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_campbell_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`Crossing the First Threshold${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">CAMPBELL</p>
             <p class="annot-name">Crossing the First Threshold</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">Campbell · Crossing the First Threshold <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero crosses from the known world into the unknown. Gilgamesh crosses the Waters of Death — the threshold separating the mortal world from Utnapishtim's realm beyond time.</p>
-              <p class="meta-line">Confidence: {tr.badge_reconstructed}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="The Road Back, confidence Documented" tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`The Road Back${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">CAMPBELL</p>
             <p class="annot-name">The Road Back</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">Campbell · The Road Back <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>The hero begins the journey back to the ordinary world. Gilgamesh's return to Uruk — without the plant of immortality, without eternal life — completes the arc.</p>
-              <p class="meta-line">Confidence: {tr.badge_documented}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
         </div>
@@ -348,34 +348,34 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
       <!-- TMI -->
       <div class="track-row">
         <div class="track-label">
-          TMI (Thompson Motif Index)
-          <button class="fw-help" aria-label="About the Thompson Motif Index" data-explainer="exp-tmi">[?]</button>
+          {tr.track_label_tmi_paren}
+          <button class="fw-help" aria-label={tr.help_thompson_motif_aria} data-explainer="exp-tmi">[?]</button>
         </div>
         <div class="fw-explainer" id="exp-tmi">
           <div class="fw-exp-head">Thompson Motif Index (1955–1958) <button class="fw-exp-close">{tr.close_x}</button></div>
           <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">Stith Thompson's six-volume index classifies recurring narrative motifs across world folklore and mythology. The A1000s cover cosmogony and world history; A1010 is specifically the Deluge category.</p>
         </div>
-        <div class="annot-row" role="group" aria-label="TMI annotations">
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="A1010: Deluge, confidence Documented" tabindex="0">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_tmi_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1010: Deluge${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">A1010</p>
             <p class="annot-name">Deluge</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">TMI A1010 · Deluge <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>Cataclysmic flood sent by divine agency as punishment or reset. Thompson (1955) cites the Gilgamesh flood in the foundational entry.</p>
-              <p class="meta-line">Confidence: {tr.badge_documented}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="A1021: Deluge — escape in boat, confidence Documented" tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`A1021: Deluge — escape in boat${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">A1021</p>
             <p class="annot-name">Deluge: escape in boat</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">TMI A1021 · Deluge: escape in boat <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>Flood survivor escapes by means of a vessel. The Gilgamesh version is among the earliest recorded instances of this motif.</p>
-              <p class="meta-line">Confidence: {tr.badge_documented}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
         </div>
@@ -383,24 +383,24 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
 
       <!-- Inactive tracks -->
       <div class="inactive-tracks">
-        <button class="add-track" aria-pressed="false">[+ Bakhtin chronotopes]</button>
-        <button class="add-track" aria-pressed="false">[+ Lévi-Strauss mythemes]</button>
-        <button class="add-track" aria-pressed="false">[+ Emotional valence]</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_bakhtin}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_levi_strauss}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_emotional_valence}</button>
       </div>
     </div><!-- /track-view -->
 
     <!-- Parallel strip -->
-    <div class="parallel-strip" role="complementary" aria-label="Cross-tradition parallels">
+    <div class="parallel-strip" role="complementary" aria-label={tr.parallel_strip_region_aria}>
       <div class="parallel-strip-head">
         <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">{tr.parallel_strip_heading}</p>
       </div>
       <div class="parallel-card">
         <p style="margin-bottom: 10px;">
-          <button class="badge doc" aria-label={`Confidence tier: ${tr.badge_documented}`} aria-expanded="false">
+          <button class="badge doc" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`} aria-expanded="false">
             <span>{tr.badge_documented}</span>
             <div class="badge-pop">
               <div class="pop-head"><span>{tr.badge_documented}</span> <button type="button" class="pop-close">{tr.close_x}</button></div>
-              <p>Primary source; strong scholarly consensus. This parallel has been confirmed and annotated by a named scholar.</p>
+              <p>{tr.parallels_badge_doc_body}</p>
             </div>
           </button>
         </p>
@@ -409,16 +409,16 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         </h2>
         <p class="parallel-card-body">{tr.parallel_flood_body}</p>
         <p class="parallel-card-type">{tr.parallel_type_shared}</p>
-        <a href={parallelHref} aria-label={locale === 'ru' ? 'Читать параллель: Великий потоп' : 'Read parallel: The Great Flood — Gilgamesh and Genesis 6–9'} style="font: 500 16px/1.7 var(--serif);">
+        <a href={parallelHref} aria-label={tr.parallel_read_flood_aria} style="font: 500 16px/1.7 var(--serif);">
           {tr.read_this_parallel}
         </a>
       </div>
     </div>
 
     <!-- Episode navigation -->
-    <nav class="ep-nav" aria-label="Adjacent episodes">
-      <a href={tabletHref} rel="prev" aria-label="Previous episode">{tr.frag_nav_tablet_hub}</a>
-      <a href={nextHref} rel="next" aria-label="Next episode">{tr.frag_nav_next_sleep}</a>
+    <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
+      <a href={tabletHref} rel="prev" aria-label={tr.ep_nav_prev_aria}>{tr.frag_nav_tablet_hub}</a>
+      <a href={nextHref} rel="next" aria-label={tr.ep_nav_next_aria}>{tr.frag_nav_next_sleep}</a>
     </nav>
 
   </div><!-- /page-body -->

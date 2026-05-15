@@ -39,7 +39,7 @@ const episodes = [
 <BaseLayout title={`${tr.tablet_hub_subtitle} — ${tr.idx_title_gilgamesh}`} locale={locale}>
   <div class="page-body">
 
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home,             href: `${navBase}/` },
       { label: tr.idx_title_gilgamesh, href: `${navBase}/gilgamesh/` },
       { label: tr.tablet_hub_breadcrumb },
@@ -86,7 +86,7 @@ const episodes = [
             <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
               <h2 style="font: 400 18px/1.4 var(--serif);">
                 {ep.hasPar && (
-                  <span style="color: var(--tier-doc); margin-inline-end: 6px;" aria-label="Has confirmed cross-tradition parallel">●</span>
+                  <span style="color: var(--tier-doc); margin-inline-end: 6px;" aria-label={tr.hub_marker_parallel_doc_aria}>●</span>
                 )}
                 {ep.name}
               </h2>
@@ -102,7 +102,7 @@ const episodes = [
     </section>
 
     <!-- Nav prev/next -->
-    <nav class="hub-nav" aria-label="Tablet navigation" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
+    <nav class="hub-nav" aria-label={tr.hub_nav_tablet_aria} style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
       <a href={`${navBase}/gilgamesh/`} style="font: 400 14px/1.5 var(--serif);">{tr.tablet_hub_nav_prev}</a>
       <span style="font: 400 14px/1.5 var(--serif); color: var(--text-3);" aria-hidden="true">{tr.tablet_hub_nav_next}</span>
     </nav>

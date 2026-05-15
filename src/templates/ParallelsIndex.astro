@@ -13,7 +13,7 @@ const navBase = `/${locale}`;
 <BaseLayout title={tr.parallels_page_heading} locale={locale}>
   <div class="page-body">
 
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home, href: `${navBase}/` },
       { label: tr.bc_cross_resonances },
     ]} />

@@ -60,6 +60,54 @@ export interface Translations {
 
   /* ── Breadcrumb ─────────────────────────────────────────────────── */
   bc_home: string;
+  bc_nav_aria: string;
+
+  /* ── Accessibility + reader chrome (NAS, layers, tracks, parallels) ─ */
+  nas_address_aria_prefix: string;
+  copy_nas_aria: string;
+  layer_depth_tablist_aria: string;
+  tier_button_aria_prefix: string;
+  parallel_strip_region_aria: string;
+  track_region_aria: string;
+  annot_group_propp_aria: string;
+  annot_group_campbell_aria: string;
+  annot_group_tmi_aria: string;
+  ep_nav_adjacent_aria: string;
+  ep_nav_prev_aria: string;
+  ep_nav_next_aria: string;
+  hub_marker_parallel_doc_aria: string;
+  hub_marker_parallel_rec_aria: string;
+  hub_nav_tablet_aria: string;
+  hub_nav_book_aria: string;
+  doc_title_suffix_tablet_xi_gilgamesh: string;
+  doc_title_suffix_book_xxiv_iliad: string;
+  hub_page_title_book24_prefix: string;
+  schol_note_heading: string;
+  parallel_passages_section_aria: string;
+  parallel_panel_mesop_passage_aria: string;
+  parallel_panel_hebrew_passage_aria: string;
+  parallel_panel_greek_passage_aria: string;
+  help_propp_morphology_aria: string;
+  help_campbell_hero_aria: string;
+  help_thompson_motif_aria: string;
+  annot_aria_comma_tier_documented: string;
+  annot_aria_comma_tier_reconstructed: string;
+  track_head_tablet_xi_flood: string;
+  track_head_tablet_xi_sleep: string;
+  track_head_tablet_xi_plant: string;
+  inactive_track_bakhtin: string;
+  inactive_track_levi_strauss: string;
+  inactive_track_emotional_valence: string;
+  inactive_track_campbell_stages: string;
+  page_stub_body: string;
+  fragment_stub_progress: string;
+  parallel_read_flood_aria: string;
+  meta_confidence_colon: string;
+  meta_annotated_by_kovacs: string;
+  meta_annotated_by_pantelia: string;
+  meta_nas_colon: string;
+  track_label_tmi_paren: string;
+  iliad_frag_ai_disclosure_lead: string;
 
   /* ── Tradition overview — Gilgamesh ─────────────────────────────── */
   trad_gilgamesh_epoch_full: string;

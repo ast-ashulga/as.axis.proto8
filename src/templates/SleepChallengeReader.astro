@@ -14,25 +14,25 @@ const nextHref = `/${locale}/gilgamesh/tablet-xi/plant/`;
 const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
 ---
 
-<BaseLayout title={tr.frag_ep_sleep_title + ' — Tablet XI — Gilgamesh'} locale={locale}>
+<BaseLayout title={tr.frag_ep_sleep_title + tr.doc_title_suffix_tablet_xi_gilgamesh} locale={locale}>
   <div class="page-body">
 
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home, href: `/${locale}/` },
       { label: tr.nav_gilgamesh, href: `/${locale}/gilgamesh/` },
       { label: tr.tablet_hub_breadcrumb, href: tabletHref },
-      { label: locale === 'ru' ? 'Испытание Утнапиштима' : "Utnapishtim's Challenge" },
+      { label: tr.tab_ep2_name },
     ]} />
 
     <div class="nas-row">
-      <span class="nas-addr" aria-label={`NAS address: ${nas}`}>{nas}</span>
-      <button class="nas-copy" id="nas-copy-btn" aria-label="Copy NAS address to clipboard">{tr.copy_btn}</button>
+      <span class="nas-addr" aria-label={`${tr.nas_address_aria_prefix}${nas}`}>{nas}</span>
+      <button class="nas-copy" id="nas-copy-btn" aria-label={tr.copy_nas_aria}>{tr.copy_btn}</button>
       <span class="copied-confirm" id="copied-confirm">{tr.copied_confirm}</span>
     </div>
 
     <div class="ep-heading">
       <h1 class="ep-title">{tr.frag_ep_sleep_title}</h1>
-      <button class="badge ins" id="episode-badge" aria-label={`Confidence tier: ${tr.badge_ai_reviewed}`} aria-expanded="false">
+      <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
         <span>{tr.badge_ai_reviewed}</span>
         <div class="badge-pop" id="episode-badge-pop">
           <div class="pop-head"><span>{tr.badge_ai_reviewed}</span><button type="button" class="pop-close">{tr.close_x}</button></div>
@@ -41,9 +41,9 @@ const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
         </div>
       </button>
     </div>
-    <p class="ep-sub">{locale === 'ru' ? 'Табличка XI Эпоса о Гильгамеше' : 'Tablet XI of the Epic of Gilgamesh'}</p>
+    <p class="ep-sub">{tr.frag_flood_subtitle}</p>
 
-    <div class="layer-indicator" role="tablist" aria-label="Content depth layers">
+    <div class="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
       <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">{tr.layer_surface}</button>
       <span class="layer-sep" aria-hidden="true">·</span>
       <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">{tr.layer_narrated}</button>
@@ -99,7 +99,7 @@ const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
         <div class="schol-section">
           <div class="schol-head">
             <span>{tr.schol_manuscript_status}</span>
-            <button class="badge rec" style="cursor: default;" aria-label={`Confidence tier: ${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
+            <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
           </div>
           <div class="schol-body">
             <p>The sleep-challenge passage survives in the Nineveh copy (CDLI P003793), Tablet XI, lines approximately 197–230. Some lines are damaged. The episode is attested across multiple copies with minor variations in the number of days specified.</p>
@@ -119,31 +119,31 @@ const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
       </button>
     </div>
 
-    <div class="track-view" id="track-view" role="region" aria-label="Structural annotation tracks" hidden aria-hidden="true">
-      <p class="track-view-head">ANNOTATION TRACKS &nbsp;·&nbsp; Tablet XI · Utnapishtim's Challenge</p>
+    <div class="track-view" id="track-view" role="region" aria-label={tr.track_region_aria} hidden aria-hidden="true">
+      <p class="track-view-head">{tr.track_head_tablet_xi_sleep}</p>
       <div class="track-row">
         <div class="track-label">PROPP</div>
-        <div class="annot-row" role="group" aria-label="Propp annotations">
-          <div class="annot-block" role="button" aria-expanded="false" aria-label="PROPP-8: Villainy / Lack, confidence Reconstructed" tabindex="0">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: Villainy / Lack${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-8</p>
             <p class="annot-name">Villainy / Lack</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">PROPP-8 · Villainy / Lack <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>Gilgamesh's lack: he cannot remain awake, cannot escape mortality. The loaves of bread mark the days of his failure.</p>
-              <p class="meta-line">Confidence: {tr.badge_reconstructed}</p>
-              <p class="meta-line">Annotated by: Dr. A. Kovacs · 2026-04-22</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="inactive-tracks">
-        <button class="add-track" aria-pressed="false">[+ Campbell stages]</button>
-        <button class="add-track" aria-pressed="false">[+ Bakhtin chronotopes]</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_campbell_stages}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_bakhtin}</button>
       </div>
     </div>
 
-    <nav class="ep-nav" aria-label="Adjacent episodes">
+    <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
       <a href={prevHref} rel="prev">{tr.frag_nav_prev_flood}</a>
       <a href={nextHref} rel="next">{tr.frag_nav_next_plant}</a>
     </nav>

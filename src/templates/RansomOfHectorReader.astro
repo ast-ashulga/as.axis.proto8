@@ -14,10 +14,10 @@ const nextHref = `/${locale}/iliad/book-xxiv/`;
 const bookHref = `/${locale}/iliad/book-xxiv/`;
 ---
 
-<BaseLayout title={tr.iliad_frag_ransom_title + ' — Book XXIV — Iliad'} locale={locale}>
+<BaseLayout title={tr.iliad_frag_ransom_title + tr.doc_title_suffix_book_xxiv_iliad} locale={locale}>
   <div class="page-body">
 
-    <Breadcrumb crumbs={[
+    <Breadcrumb locale={locale} crumbs={[
       { label: tr.bc_home,                href: `/${locale}/` },
       { label: tr.idx_title_iliad,        href: `/${locale}/iliad/` },
       { label: tr.iliad_frag_book24_bc,   href: bookHref },
@@ -25,14 +25,14 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
     ]} />
 
     <div class="nas-row">
-      <span class="nas-addr" aria-label={`NAS address: ${nas}`}>{nas}</span>
-      <button class="nas-copy" id="nas-copy-btn" aria-label="Copy NAS address to clipboard">{tr.copy_btn}</button>
+      <span class="nas-addr" aria-label={`${tr.nas_address_aria_prefix}${nas}`}>{nas}</span>
+      <button class="nas-copy" id="nas-copy-btn" aria-label={tr.copy_nas_aria}>{tr.copy_btn}</button>
       <span class="copied-confirm" id="copied-confirm">{tr.copied_confirm}</span>
     </div>
 
     <div class="ep-heading">
       <h1 class="ep-title">{tr.iliad_frag_ransom_title}</h1>
-      <button class="badge ins" id="episode-badge" aria-label={`Confidence tier: ${tr.badge_ai_reviewed}`} aria-expanded="false">
+      <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
         <span>{tr.badge_ai_reviewed}</span>
         <div class="badge-pop" id="episode-badge-pop">
           <div class="pop-head"><span>{tr.badge_ai_reviewed}</span><button type="button" class="pop-close">{tr.close_x}</button></div>
@@ -43,11 +43,9 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       </button>
     </div>
     <p class="ep-sub">{tr.iliad_frag_ransom_subtitle}</p>
-    <p class="ai-lead">{locale === 'ru'
-      ? '▲ Краткое изложение сгенерировано ИИ · Проверено д-ром Э. Пантелией · 2026-05-10'
-      : '▲ AI-generated summary · Reviewed by Dr. E. Pantelia · 2026-05-10'}</p>
+    <p class="ai-lead">{tr.iliad_frag_ai_disclosure_lead}</p>
 
-    <div class="layer-indicator" role="tablist" aria-label="Content depth layers">
+    <div class="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
       <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">{tr.layer_surface}</button>
       <span class="layer-sep" aria-hidden="true">·</span>
       <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">{tr.layer_narrated}</button>
@@ -64,9 +62,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       <!-- Surface layer -->
       <div id="layer-surface" class="layer-panel active" role="tabpanel" aria-labelledby="tab-surface">
         <div class="ai-disclosure" role="note">
-          <span>{locale === 'ru'
-            ? '▲ Краткое изложение сгенерировано ИИ · Проверено д-ром Э. Пантелией · 2026-05-10'
-            : '▲ AI-generated summary · Reviewed by Dr. E. Pantelia · 2026-05-10'}&nbsp;</span>
+          <span>{tr.iliad_frag_ai_disclosure_lead}&nbsp;</span>
           <button type="button" class="disc-link" id="see-sources-btn" aria-expanded="false" aria-controls="sources-panel">{tr.see_sources}</button>
           <div class="sources-panel" id="sources-panel" role="region" aria-label={tr.sources_region_label}>
             <ul><li>{nas}</li></ul>
@@ -78,7 +74,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
         <p class="body-p">{tr.iliad_frag_ransom_surf_p4}</p>
 
         <!-- Parallel strip -->
-        <aside class="parallel-strip" aria-label="Cross-tradition parallels">
+        <aside class="parallel-strip" aria-label={tr.parallel_strip_region_aria}>
           <p class="par-strip-head">{tr.parallel_strip_heading}</p>
           <div class="par-card">
             <p style="font: 500 14px/1.4 var(--serif); margin-bottom: 6px; color: var(--tier-rec);">◑</p>
@@ -91,7 +87,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       <!-- Narrated layer -->
       <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated">
         <div class="layer-demo-banner">
-          <button class="badge ins" aria-label={`Confidence tier: ${tr.badge_ai_reviewed}`} style="cursor: default; pointer-events: none;">
+          <button class="badge ins" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} style="cursor: default; pointer-events: none;">
             <span>{tr.badge_ai_reviewed}</span>
           </button>
           <span style="font: 400 12px/1.4 var(--mono); color: var(--text-3); margin-left: 8px;">{tr.demo_content_marker}</span>
@@ -113,7 +109,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
               <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Translation: Andrew Lang, Walter Leaf, and Ernest Myers (1882)</p>
               <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">Source: Lang, Leaf &amp; Myers, <em>The Iliad of Homer</em> (1882) · Public domain</p>
             </div>
-            <button class="badge doc" aria-label={`Confidence tier: ${tr.badge_documented}`} aria-expanded="false">
+            <button class="badge doc" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`} aria-expanded="false">
               <span>{tr.badge_documented}</span>
               <div class="badge-pop">
                 <div class="pop-head"><span>{tr.badge_documented}</span><button type="button" class="pop-close">{tr.close_x}</button></div>
@@ -163,7 +159,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       <!-- Scholaria layer -->
       <div id="layer-scholaria" class="layer-panel" role="tabpanel" aria-labelledby="tab-scholaria">
         <div class="schol-header-badge">
-          <button class="badge con" aria-label={`Confidence tier: ${tr.iliad_frag_badge_scholaria_head}`} aria-expanded="false" style="cursor: default; pointer-events: none;">
+          <button class="badge con" aria-label={`${tr.tier_button_aria_prefix}${tr.iliad_frag_badge_scholaria_head}`} aria-expanded="false" style="cursor: default; pointer-events: none;">
             <span>{tr.iliad_frag_badge_scholaria_head}</span>
           </button>
         </div>
@@ -215,47 +211,47 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
     </div>
 
     <!-- Annotation tracks -->
-    <div class="track-view" id="track-view" role="region" aria-label="Structural annotation tracks" hidden aria-hidden="true">
+    <div class="track-view" id="track-view" role="region" aria-label={tr.track_region_aria} hidden aria-hidden="true">
       <p class="track-view-head">{tr.iliad_frag_track_head}</p>
 
       <!-- Propp track -->
       <div class="track-row">
         <div class="track-label">{tr.iliad_frag_track_head.split('·')[0].trim()} PROPP</div>
-        <div class="annot-row" role="group" aria-label="Propp annotations">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
 
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: ${tr.iliad_frag_propp8_name}, confidence Reconstructed`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: ${tr.iliad_frag_propp8_name}${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
             <p class="annot-code">PROPP-8</p>
             <p class="annot-name">{tr.iliad_frag_propp8_name}</p>
             <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.iliad_frag_badge_annot_reconstructed}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">{tr.iliad_frag_propp8_panel_head} <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>{tr.iliad_frag_propp8_panel_p}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Уверенность: ◑ РЕКОНСТРУИРОВАНО' : 'Confidence: ◑ RECONSTRUCTED'}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Аннотация: д-р Э. Пантелия · 2026-05-10' : 'Annotated by: Dr. E. Pantelia · 2026-05-10'}</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_pantelia}</p>
             </div>
           </div>
 
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-19: ${tr.iliad_frag_propp19_name}, confidence Documented`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-19: ${tr.iliad_frag_propp19_name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-19</p>
             <p class="annot-name">{tr.iliad_frag_propp19_name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.iliad_frag_badge_annot_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">{tr.iliad_frag_propp19_panel_head} <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>{tr.iliad_frag_propp19_panel_p}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Уверенность: ● ЗАДОКУМЕНТИРОВАНО' : 'Confidence: ● DOCUMENTED'}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Аннотация: д-р Э. Пантелия · 2026-05-10' : 'Annotated by: Dr. E. Pantelia · 2026-05-10'}</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_pantelia}</p>
             </div>
           </div>
 
-          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-31: ${tr.iliad_frag_propp31_name}, confidence Documented`} tabindex="0">
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-31: ${tr.iliad_frag_propp31_name}${tr.annot_aria_comma_tier_documented}`} tabindex="0">
             <p class="annot-code">PROPP-31</p>
             <p class="annot-name">{tr.iliad_frag_propp31_name}</p>
             <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.iliad_frag_badge_annot_documented}</button>
             <div class="annot-panel">
               <div class="annot-panel-head">{tr.iliad_frag_propp31_panel_head} <button class="annot-panel-close">{tr.close_x}</button></div>
               <p>{tr.iliad_frag_propp31_panel_p}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Уверенность: ● ЗАДОКУМЕНТИРОВАНО' : 'Confidence: ● DOCUMENTED'}</p>
-              <p class="meta-line">{locale === 'ru' ? 'Аннотация: д-р Э. Пантелия · 2026-05-10' : 'Annotated by: Dr. E. Pantelia · 2026-05-10'}</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_pantelia}</p>
             </div>
           </div>
 
@@ -265,7 +261,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       <!-- Campbell track -->
       <div class="track-row">
         <div class="track-label">CAMPBELL</div>
-        <div class="annot-row" role="group" aria-label="Campbell annotations">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_campbell_aria}>
 
           <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
             <p class="annot-code">Campbell</p>
@@ -293,7 +289,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       <!-- TMI track -->
       <div class="track-row">
         <div class="track-label">TMI</div>
-        <div class="annot-row" role="group" aria-label="TMI annotations">
+        <div class="annot-row" role="group" aria-label={tr.annot_group_tmi_aria}>
 
           <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
             <p class="annot-code">P325</p>
@@ -319,12 +315,12 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
       </div>
 
       <div class="inactive-tracks">
-        <button class="add-track" aria-pressed="false">[+ Bakhtin chronotopes]</button>
-        <button class="add-track" aria-pressed="false">[+ Lévi-Strauss mythemes]</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_bakhtin}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_levi_strauss}</button>
       </div>
     </div>
 
-    <nav class="ep-nav" aria-label="Adjacent episodes">
+    <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
       <a href={prevHref} rel="prev">{tr.iliad_book24_nav_prev}</a>
       <a href={nextHref} rel="next">{tr.iliad_book24_nav_return_overview}</a>
     </nav>
