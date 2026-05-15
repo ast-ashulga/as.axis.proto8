@@ -418,7 +418,6 @@ export interface Translations {
   iliad_parallel_epi_sub_enkidu: string;
   iliad_parallel_attr_gilgamesh: string;
   iliad_parallel_fragment_link: string;
-  iliad_parallel_gilgamesh_phase_note: string;
   iliad_parallel_note_what_head: string;
   iliad_parallel_note_what_p1: string;
   iliad_parallel_note_what_p2: string;
@@ -528,6 +527,34 @@ export interface Translations {
   next_action_deeper_desc_sleep: string;
   next_action_deeper_desc_plant: string;
   next_action_deeper_desc_ransom: string;
+  next_action_deeper_desc_grief: string;
   next_action_parallels_index_label: string;
   next_action_parallels_index_desc: string;
+
+  /* ── Phase D: Episode index page ────────────────────────────────── */
+  episodes_index_heading: string;
+  episodes_index_intro: string;
+  episodes_index_nav_aria: string;
+  episodes_available_badge: string;
+  episodes_phase2_badge: string;
+  bc_episodes: string;
+  footer_episodes: string;
+
+  /* ── Phase D: Homepage hero artifact ───────────────────────────── */
+  hero_artifact_alt: string;
+  hero_artifact_caption_en: string;
+  hero_artifact_caption_ru: string;
+
+  /* ── Phase D: Tablet VIII — Grief episode ───────────────────────── */
+  doc_title_suffix_tablet_viii_gilgamesh: string;
+  tablet_viii_hub_breadcrumb: string;
+  frag_grief_title: string;
+  frag_grief_subtitle: string;
+  frag_surf_grief_p1: string;
+  frag_surf_grief_p2: string;
+  frag_surf_grief_p3: string;
+  frag_surf_grief_p4: string;
+  frag_nav_grief_back: string;
+  frag_nav_grief_parallel: string;
+  iliad_parallel_gilgamesh_fragment_link: string;
 }

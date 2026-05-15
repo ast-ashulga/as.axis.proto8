@@ -5,9 +5,14 @@ import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
 import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
+import MonomythArc from '~/components/visualizations/MonomythArc.astro';
+import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
+import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
+import ArtifactFigure from '~/components/epistemic/ArtifactFigure.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
+import { getEntry } from 'astro:content';
 
 interface Props {
   locale: Locale;
@@ -18,6 +23,11 @@ const tr = t(locale);
 
 const nas = 'nms://gilgamesh/tablet-xi/flood';
 const parallelHref = withBase(`/${locale}/parallels/flood/`);
+
+const episode = await getEntry('episodes', 'flood');
+const proppFunctions = episode?.data.proppFunctions;
+const campbellStages = episode?.data.campbellStages;
+const tmiMotifs = episode?.data.tmiMotifs;
 const nextHref = withBase(`/${locale}/gilgamesh/tablet-xi/sleep-challenge/`);
 const tabletHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
 const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
@@ -176,6 +186,18 @@ const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
       <!-- ─── ORIGINAL LAYER ─── -->
       <div id="layer-original" class="layer-panel" role="tabpanel" aria-labelledby="tab-original">
         <p class="demo-marker">{tr.demo_content_marker}</p>
+        <ArtifactFigure
+          src="/assets/artifacts/tablet-xi-k3375.jpg"
+          tier="documented"
+          institution="British Museum"
+          accessionNumber="K.3375"
+          license="CC BY-NC-SA 4.0"
+          captionEn="Cuneiform tablet, Tablet XI of the Epic of Gilgamesh (Standard Babylonian Version). Neo-Assyrian period, 7th century BCE. Library of Ashurbanipal, Nineveh. The flood narrative occupies lines 1–196."
+          captionRu="Клинописная табличка, Табличка XI Эпоса о Гильгамеше (Стандартная вавилонская версия). Нео-ассирийский период, VII в. до н.э. Библиотека Ашшурбанипала, Ниневия. Рассказ о потопе занимает строки 1–196."
+          viewInCollectionUrl="https://www.britishmuseum.org/collection/object/W_K-3375"
+          locale={locale}
+          loading="lazy"
+        />
         <div class="orig-header">
           <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Standard Babylonian recension, Tablet XI (selected lines)</p>
           <p class="orig-attr">Transliteration after George (2003) · The Babylonian Gilgamesh Epic, vol. I–II · Oxford University Press</p>
@@ -251,6 +273,15 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
               <p>Lines 45–55: The Sippar fragment (BM 78941) contains a variant account of the reed-wall warning that differs from the Nineveh copy in approximately 6 words. The divergence does not affect the narrative substance.</p>
               <p style="margin-top: 6px;"><button class="badge doc" style="cursor: default; font-size: 10px;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button></p>
             </div>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head"><span>Scholaria visualization tools</span></div>
+          <div class="schol-body">
+            <MonomythArc stages={campbellStages} tradition="mesopotamian" locale={locale} />
+            <ProppMorphology functions={proppFunctions} locale={locale} />
+            <MotifTagCloud motifs={tmiMotifs} locale={locale} />
           </div>
         </div>
 

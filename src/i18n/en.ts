@@ -413,7 +413,6 @@ export const en: Translations = {
   iliad_parallel_epi_sub_enkidu:    'Tablet VIII — The Death of Enkidu',
   iliad_parallel_attr_gilgamesh:    '— Thompson (1930), Tablet VIII (reconstructed from multiple fragments)',
   iliad_parallel_fragment_link:     'Open full Fragment View →',
-  iliad_parallel_gilgamesh_phase_note: 'Phase 1: Full fragment view for Tablet VIII is not yet available. Tablet VIII will be fully browsable in the next release.',
   iliad_parallel_note_what_head:    'What resonates',
   iliad_parallel_note_what_p1: 'Both heroes lose their closest companion — Patroclus for Achilles, Enkidu for Gilgamesh. In both traditions the companion is the hero\'s alter-ego: the part of himself uncomplicated by kingship, reputation, or divine inheritance. The structural position of the companion\'s death is identical in both epics: it is the pivot on which the hero\'s understanding of mortality turns.',
   iliad_parallel_note_what_p2: 'The grief gestures are almost identical across traditions separated by centuries and cultures. Both heroes lie prostrate, refuse food, refuse comfort from those around them, and name the dead aloud. The refusal of food — a primal marker of rejection of life\'s rhythms — appears in both Achilles\' withdrawal after Patroclus\' death (Book XVIII) and Gilgamesh\'s prostration over Enkidu (Tablet VIII). Neither hero can be moved by anyone until the narrative\'s deeper structure intervenes.',
@@ -523,7 +522,35 @@ export const en: Translations = {
   next_action_deeper_desc_sleep: 'Explore manuscript history and textual variants',
   next_action_deeper_desc_plant: 'Read the scholarly interpretation of this episode',
   next_action_deeper_desc_ransom: 'Read manuscript history and the scholarly debate',
+  next_action_deeper_desc_grief: 'Read the scholarly analysis of the lament and the seven-day vigil',
   next_action_parallels_index_label: 'Cross-tradition parallels',
   next_action_parallels_index_desc:
     'Scholar-confirmed resonances — constellation map, beat diagrams, and full comparative notes',
+
+  /* ── Phase D: Episode index page ────────────────────────────────── */
+  episodes_index_heading: 'All episodes',
+  episodes_index_intro:   'Every episode across the active traditions, with availability and epistemic tier.',
+  episodes_index_nav_aria: 'Episode index navigation',
+  episodes_available_badge: 'Available',
+  episodes_phase2_badge:    'Phase 2',
+  bc_episodes:              'Episodes',
+  footer_episodes:          'Episodes',
+
+  /* ── Phase D: Homepage hero artifact ───────────────────────────── */
+  hero_artifact_alt:        'Cuneiform tablet K.3375 — Tablet XI of the Epic of Gilgamesh, Flood account. British Museum.',
+  hero_artifact_caption_en: 'Cuneiform tablet, Tablet XI of the Epic of Gilgamesh (Standard Babylonian Version, Neo-Assyrian period, 7th century BCE). The flood account begins at line 1. Library of Ashurbanipal, Nineveh. British Museum K.3375.',
+  hero_artifact_caption_ru: 'Клинописная табличка, Табличка XI Эпоса о Гильгамеше (Стандартная вавилонская версия, нео-ассирийский период, VII в. до н.э.). Рассказ о потопе начинается со строки 1. Библиотека Ашшурбанипала, Ниневия. Британский музей K.3375.',
+
+  /* ── Phase D: Tablet VIII — Grief episode ───────────────────────── */
+  doc_title_suffix_tablet_viii_gilgamesh: ' — Tablet VIII — Gilgamesh',
+  tablet_viii_hub_breadcrumb:             'Tablet VIII',
+  frag_grief_title:    'THE LAMENT FOR ENKIDU',
+  frag_grief_subtitle: 'Tablet VIII of the Epic of Gilgamesh',
+  frag_surf_grief_p1:  'Enkidu is dead. Gilgamesh has watched him die over twelve days of suffering — punishment, it was said, for killing Humbaba and the Bull of Heaven. The first light of dawn finds Gilgamesh beside the body, speaking to a man who cannot hear him.',
+  frag_surf_grief_p2:  'He does not accept it. He addresses Enkidu in the second person, as if the conversation could still happen. He calls on the mountains and the rivers, the forests and the plains, the animals Enkidu once ran with — all of them to mourn. He tears off his finery and puts on the skins of a lion. He will not allow the body to be buried.',
+  frag_surf_grief_p3:  'For seven days and seven nights Gilgamesh sits with Enkidu\'s body. He watches the face. He watches a worm fall from the nostril. Only then — at the worm, at the evidence of decay that cannot be argued with — does he let the body go.',
+  frag_surf_grief_p4:  'The tablets are fragmentary. We do not have all the words of the lament. What survives is enough: Gilgamesh is changed. He sets out from Uruk — not toward another adventure, but away from the city itself, away from the life he had. He will not return the same.',
+  frag_nav_grief_back:     '← Gilgamesh',
+  frag_nav_grief_parallel: 'See parallel: Grief and the Hero →',
+  iliad_parallel_gilgamesh_fragment_link: 'Open full Fragment View →',
 };

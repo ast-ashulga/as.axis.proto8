@@ -1,0 +1,575 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
+import TraditionDivider from '~/components/TraditionDivider.astro';
+import DropCap from '~/components/DropCap.astro';
+import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
+import MonomythArc from '~/components/visualizations/MonomythArc.astro';
+import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
+import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
+import NextBestAction from '~/components/reader/NextBestAction.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+import { getEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+
+const nas = 'nms://gilgamesh/tablet-viii/grief';
+const parallelHref = withBase(`/${locale}/parallels/grief/`);
+const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
+
+const episode = await getEntry('episodes', 'grief-tablet-viii');
+const proppFunctions = episode?.data.proppFunctions;
+const campbellStages = episode?.data.campbellStages;
+const tmiMotifs = episode?.data.tmiMotifs;
+---
+
+<BaseLayout title={tr.frag_grief_title + tr.doc_title_suffix_tablet_viii_gilgamesh} locale={locale}>
+
+  <div class="page-body">
+
+    <!-- Breadcrumb -->
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,     href: withBase(`/${locale}/`) },
+      { label: tr.nav_gilgamesh, href: gilgameshHref },
+      { label: tr.tablet_viii_hub_breadcrumb },
+      { label: tr.frag_grief_title },
+    ]} />
+
+    <!-- NAS row -->
+    <div class="nas-row" role="status" aria-live="polite">
+      <span class="nas-addr" aria-label={`${tr.nas_address_aria_prefix}${nas}`}>{nas}</span>
+      <button class="nas-copy" id="nas-copy-btn" aria-label={tr.copy_nas_aria}>
+        {tr.copy_btn}
+      </button>
+      <span class="copied-confirm" id="copied-confirm" role="status" aria-live="polite">
+        {tr.copied_confirm}
+      </span>
+    </div>
+
+    <TraditionDivider tradition="mesopotamian" />
+
+    <!-- Episode heading -->
+    <div class="ep-heading">
+      <h1 class="ep-title">{tr.frag_grief_title}</h1>
+      <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
+        <span>{tr.badge_ai_reviewed}</span>
+        <div class="badge-pop" id="episode-badge-pop">
+          <div class="pop-head">
+            <span>{tr.badge_ai_reviewed}</span>
+            <button type="button" class="pop-close">{tr.close_x}</button>
+          </div>
+          <p>{tr.frag_badge_ai_pop_p1}</p>
+          <p>{tr.frag_badge_ai_pop_p2}</p>
+          <ul>
+            <li>{nas}{tr.frag_nas_tag_doc}</li>
+          </ul>
+        </div>
+      </button>
+    </div>
+    <p class="ep-sub">{tr.frag_grief_subtitle}</p>
+
+    <HowToReadThisPage locale={locale} />
+
+    <!-- Layer indicator -->
+    <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label={tr.layer_depth_tablist_aria}>
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+        <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated" data-disabled="true" aria-disabled="true" tabindex="-1">
+        <span class="layer-tab__plain">{tr.layer_narrated_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_narrated_poetic}</span>
+        <span class="layer-unavail">{tr.layer_unavailable}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+        <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original" data-disabled="true" aria-disabled="true" tabindex="-1">
+        <span class="layer-tab__plain">{tr.layer_original_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_original_poetic}</span>
+        <span class="layer-unavail">{tr.layer_unavailable}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+        <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
+      </button>
+    </div>
+
+    <!-- Content area -->
+    <div class="content-area" id="content-area" tabindex="-1">
+
+      <!-- ─── SURFACE LAYER ─── -->
+      <div id="layer-surface" class="layer-panel active" role="tabpanel" aria-labelledby="tab-surface">
+        <NarrativeMap episode="grief" locale={locale} tradition="mesopotamian" />
+        <div class="ai-disclosure" role="note">
+          <span>{tr.frag_ai_disclosure_lead}&nbsp;</span>
+          <button type="button" class="disc-link" id="see-sources-btn" aria-expanded="false" aria-controls="sources-panel">
+            {tr.see_sources}
+          </button>
+          <div class="sources-panel" id="sources-panel" role="region" aria-label={tr.sources_region_label}>
+            <ul>
+              <li>{nas}{tr.frag_nas_tag_doc}</li>
+            </ul>
+          </div>
+        </div>
+        <DropCap tradition="mesopotamian">{tr.frag_surf_grief_p1}</DropCap>
+        <p class="body-p">{tr.frag_surf_grief_p2}</p>
+        <p class="body-p">{tr.frag_surf_grief_p3}</p>
+        <p class="body-p">{tr.frag_surf_grief_p4}</p>
+      </div>
+
+      <!-- ─── NARRATED LAYER — unavailable ─── -->
+      <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated" hidden>
+        <p class="honest-absence">{tr.honest_absence_narrated}</p>
+      </div>
+
+      <!-- ─── TRANSLATED LAYER ─── -->
+      <div id="layer-translated" class="layer-panel" role="tabpanel" aria-labelledby="tab-translated">
+        <div class="trans-header">
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Translation: R. Campbell Thompson (1930)</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 2px;">Source: Thompson, <em>The Epic of Gilgamish</em> (1930) · Public domain</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">Tablet VIII (reconstructed from multiple fragments)</p>
+        </div>
+        <div class="trans-passage" lang="en">
+          <p>Gilgamesh bemoaned Enkidu, his friend, weeping bitterly over him:</p>
+          <p class="verse">"Enkidu, my friend, whom I loved more than all labours that I did —</p>
+          <p class="verse"> he who with me ranged the wilderness and slew the lion,</p>
+          <p class="verse"> he who with me took Humbaba in the Cedar Forest —</p>
+          <p class="verse"> what is the sleep that hath seized thee now?"</p>
+          <span class="lacuna" role="note" aria-label="Lacuna: approximately 30–40 lines damaged or missing">[···] &nbsp;(lacuna: approximately 30–40 lines damaged or missing)</span>
+          <p class="verse">"Hear me, O Elders of Uruk, hear me O men!</p>
+          <p class="verse"> I weep for Enkidu, my friend,</p>
+          <p class="verse"> moaning bitterly like a wailing woman.</p>
+          <p class="verse"> The axe at my side, my hand's trust,</p>
+          <p class="verse"> the dirk in my belt, my shield's cover,</p>
+          <p class="verse"> my festal robe, my richest ornament —</p>
+          <p class="verse"> an evil wind hath robbed me of them."</p>
+          <span class="lacuna" role="note" aria-label="Lacuna: extent uncertain">[···] &nbsp;(lacuna: extent uncertain)</span>
+          <p class="trans-attribution">— Thompson (1930), Tablet VIII (selected, reconstructed from the Nineveh and Sippar fragments)</p>
+        </div>
+      </div>
+
+      <!-- ─── ORIGINAL LAYER — unavailable ─── -->
+      <div id="layer-original" class="layer-panel" role="tabpanel" aria-labelledby="tab-original" hidden>
+        <p class="honest-absence">{tr.honest_absence_original}</p>
+      </div>
+
+      <!-- ─── SCHOLARIA LAYER ─── -->
+      <div id="layer-scholaria" class="layer-panel" role="tabpanel" aria-labelledby="tab-scholaria">
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>{tr.schol_manuscript_status}</span>
+            <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
+          </div>
+          <div class="schol-body">
+            <p>Tablet VIII survives only in fragmentary form. The principal witnesses are the Nineveh tablets from Ashurbanipal's library and several Sippar fragments. The lament of Gilgamesh for Enkidu is partially preserved; scholars estimate that approximately 60–70% of the tablet's lines are either damaged or missing. The sequence of events — Enkidu's death, Gilgamesh's refusal of burial, the seven-day vigil, the funeral preparations — is reconstructed from convergent fragments.</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>{tr.schol_textual_history}</span>
+            <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
+          </div>
+          <div class="schol-body">
+            <p>The lament genre in Tablet VIII follows established Mesopotamian conventions: the mourner addresses the dead by name, catalogues their shared deeds, and calls on the natural world to participate in grief. This is the same convention employed in the Sumerian lament texts for Ur and for individual kings. The specific content — Gilgamesh tearing his hair, putting on lion skins, refusing to bury Enkidu — is attested across multiple tablet witnesses despite the lacunae.</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head">
+            SCHOLARLY DEBATE: THE SEVEN-DAY VIGIL
+            <button class="badge con" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button>
+          </div>
+          <div class="schol-body">
+            <p>The exact nature of Gilgamesh's seven-day refusal to bury Enkidu is debated. George (2003) interprets it as a literal seven-day vigil in which Gilgamesh refuses to accept Enkidu's death — waiting for him to wake. Tigay (1982) suggests the vigil reflects a conventional mourning period. The worm detail (a worm falling from Enkidu's nostril) is universally read as the moment Gilgamesh confronts the reality of death; its placement in the tablet is secure across all fragments.</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>Scholaria visualization tools</span>
+          </div>
+          <div class="schol-body">
+            <MonomythArc stages={campbellStages} tradition="mesopotamian" locale={locale} />
+            <ProppMorphology functions={proppFunctions} locale={locale} />
+            <MotifTagCloud motifs={tmiMotifs} locale={locale} />
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head"><span>{tr.schol_scholarship_cited}</span></div>
+          <ul class="schol-cite">
+            <li>Andrew George, <em>The Babylonian Gilgamesh Epic</em> (OUP, 2003), vol. I, pp. 466–490.</li>
+            <li>Jeffrey Tigay, <em>The Evolution of the Gilgamesh Epic</em> (1982), pp. 158–190.</li>
+            <li>R. Campbell Thompson, <em>The Epic of Gilgamish</em> (1930), pp. 49–58.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Structure toggle -->
+      <button type="button" class="structure-toggle" id="structure-toggle" aria-expanded="false" aria-controls="track-view">
+        {tr.show_structure}
+      </button>
+
+    </div><!-- /content-area -->
+
+    <!-- Track View placeholder -->
+    <div class="track-view" id="track-view" role="region" aria-label={tr.track_region_aria} hidden aria-hidden="true">
+      <p class="track-view-head">ANNOTATION TRACKS · Tablet VIII · The Lament for Enkidu</p>
+
+      <!-- Propp track -->
+      <div class="track-row">
+        <div class="track-label">PROPP</div>
+        <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-8: Villainy / Lack${tr.annot_aria_comma_tier_reconstructed}`} tabindex="0">
+            <p class="annot-code">PROPP-8</p>
+            <p class="annot-name">Villainy / Lack</p>
+            <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">PROPP-8 · Villainy / Lack <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>The hero's lack driving the narrative: Gilgamesh lacks the ability to accept mortality after Enkidu's death. This lack is what launches the second half of the epic.</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
+            </div>
+          </div>
+          <div class="annot-block" role="button" aria-expanded="false" aria-label={`PROPP-15: Spatial Translocation${tr.annot_aria_comma_tier_documented}`} tabindex="0">
+            <p class="annot-code">PROPP-15</p>
+            <p class="annot-name">Spatial Translocation</p>
+            <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">PROPP-15 · Spatial Translocation <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>Gilgamesh departs from Uruk in grief, beginning the journey that will take him to the edge of the world. The departure is documented across all Tablet VIII witnesses.</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_kovacs}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inactive tracks -->
+      <div class="inactive-tracks">
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_bakhtin}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_campbell_stages}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_levi_strauss}</button>
+      </div>
+    </div><!-- /track-view -->
+
+    <!-- Parallel strip -->
+    <div class="parallel-strip" id="parallel-strip" role="complementary" aria-label={tr.parallel_strip_region_aria} hidden>
+      <div class="parallel-strip-head">
+        <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">{tr.parallel_strip_heading}</p>
+      </div>
+      <div class="parallel-card">
+        <h2 class="parallel-card-title">
+          {locale === 'ru' ? 'Скорбь и герой' : 'Grief and the Hero'}&nbsp;·&nbsp;<span style="font-weight: 400; color: var(--text-2);">{locale === 'ru' ? 'Книга XXIV · Илиада' : 'Book XXIV · Iliad'}</span>
+        </h2>
+        <p class="parallel-card-body">{tr.iliad_frag_parallel_card_body}</p>
+        <p class="parallel-card-type">{tr.parallel_type_structural}</p>
+        <a href={parallelHref} style="font: 500 16px/1.7 var(--serif);">
+          {tr.read_this_parallel}
+        </a>
+      </div>
+    </div>
+
+    <NextBestAction
+      locale={locale}
+      deeper={{ href: '#tab-translated', label: tr.next_action_deeper_label, desc: tr.next_action_deeper_desc_grief }}
+      parallel={{ href: parallelHref, label: tr.next_action_parallel_label, desc: locale === 'ru' ? 'Скорбь и герой' : 'Grief and the Hero' }}
+      next={{ href: gilgameshHref, label: tr.next_action_related_label, desc: tr.idx_title_gilgamesh }}
+    />
+
+    <!-- Episode navigation -->
+    <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
+      <a href={gilgameshHref} rel="prev" aria-label={tr.ep_nav_prev_aria}>{tr.frag_nav_grief_back}</a>
+      <a href={parallelHref} rel="next" aria-label={tr.ep_nav_next_aria}>{tr.frag_nav_grief_parallel}</a>
+    </nav>
+
+  </div><!-- /page-body -->
+
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-inline: var(--mx);
+    padding-block: 40px 0;
+    max-width: calc(var(--col) + var(--mx) * 2);
+    margin-inline: auto;
+  }
+
+  .nas-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .nas-addr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+  .nas-copy { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+  .nas-copy:hover { color: var(--link-h); }
+  .copied-confirm { font: 400 11px/1.4 var(--mono); color: var(--tier-doc); display: none; }
+
+  .ep-heading { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+  .ep-title { font: 500 24px/1.3 var(--serif); }
+  .ep-sub { font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 0; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+    border: 1px solid currentColor; border-radius: 2px;
+    cursor: pointer; position: relative; user-select: none; background: transparent;
+    vertical-align: middle;
+  }
+  .badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .ins { color: var(--tier-ins); }
+  .doc { color: var(--tier-doc); }
+  .rec { color: var(--tier-rec); }
+  .con { color: var(--tier-con); }
+  .badge-pop {
+    display: none; position: absolute; top: calc(100% + 6px); left: 0;
+    width: min(300px, calc(100vw - 40px));
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 14px 16px; z-index: 200;
+    font: 400 14px/1.5 var(--serif); color: var(--text);
+  }
+  .badge-pop.open { display: block; }
+  .pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; align-items: center; }
+  .pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+  .badge-pop p { margin-bottom: 8px; }
+  .badge-pop ul { list-style: none; margin-top: 6px; }
+  .badge-pop li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 3px; }
+  .badge-pop li::before { content: "· "; }
+
+  .layer-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 24px; padding: 10px 0; border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); margin-top: 20px; overflow-x: auto; }
+  .layer-tab { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 4px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+  .layer-tab[data-disabled="true"] { opacity: 0.45; cursor: default; }
+  .layer-tab__plain { font: 500 12px/1.3 var(--mono); }
+  .layer-tab__poetic { font: 400 10px/1.3 var(--mono); color: var(--text-3); }
+  .layer-tab[aria-selected="true"] .layer-tab__plain { color: var(--text); }
+  .layer-tab[aria-selected="true"] .layer-tab__poetic { color: var(--text-2); }
+  .layer-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .layer-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 0 12px; user-select: none; align-self: center; }
+  .layer-unavail { font: 400 10px/1.2 var(--mono); color: var(--text-3); font-style: italic; }
+
+  .content-area { border: 1px solid var(--border-2); background: var(--surface); padding: 32px 36px; }
+  .layer-panel { display: none; }
+  .layer-panel.active { display: block; }
+
+  .ai-disclosure { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+  .disc-link { background: none; border: none; cursor: pointer; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+  .sources-panel { display: none; margin-top: 12px; background: var(--inset); padding: 12px 16px; }
+  .sources-panel li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; list-style: none; }
+  .sources-panel li::before { content: "· "; }
+
+  .body-p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+  .body-p:last-of-type { margin-bottom: 0; }
+
+  .honest-absence { font: 400 14px/1.5 var(--serif); color: var(--text-3); font-style: italic; }
+
+  .trans-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+  .trans-passage { font: 400 16px/1.7 var(--serif); }
+  .trans-passage p { margin-bottom: 16px; }
+  .trans-passage .verse { margin-inline-start: 20px; margin-bottom: 4px; font-style: italic; }
+  .lacuna { font: 400 italic 14px/1.5 var(--serif); color: var(--text-3); margin-block: 12px; display: block; }
+  .trans-attribution { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+
+  .schol-section { margin-bottom: 28px; }
+  .schol-section:last-child { margin-bottom: 0; }
+  .schol-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-2); display: flex; align-items: center; gap: 12px; }
+  .schol-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 14px; }
+  .schol-body p:last-child { margin-bottom: 0; }
+  .schol-cite li { font: 400 14px/1.5 var(--serif); list-style: none; margin-bottom: 6px; color: var(--text-2); }
+  .schol-cite li::before { content: "· "; }
+
+  .structure-toggle {
+    display: block; background: none; border: none; cursor: pointer;
+    font: 400 14px/1.5 var(--serif); color: var(--accent); padding: 0;
+    margin-top: 24px; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .structure-toggle:hover { color: var(--link-h); }
+  .structure-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .track-view {
+    display: none; background: var(--inset);
+    border: 1px solid var(--border-2); border-top: none;
+    padding: 24px 28px;
+  }
+  .track-view.open { display: block; }
+  .track-view-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 20px; }
+  .track-row { margin-bottom: 24px; }
+  .track-label { font: 500 11px/1.4 var(--mono); color: var(--text-2); margin-bottom: 8px; }
+  .annot-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .annot-block {
+    background: var(--surface); border: 1px solid var(--border-2);
+    padding: 10px 12px; cursor: pointer; position: relative; min-width: 120px;
+  }
+  .annot-block:hover { background: var(--overlay); }
+  .annot-block:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .annot-code { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 3px; }
+  .annot-name { font: 400 13px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px; }
+  .annot-panel {
+    display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 150;
+    width: min(320px, calc(100vw - 32px));
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 14px 16px; font: 400 14px/1.5 var(--serif); color: var(--text);
+  }
+  .annot-panel.open { display: block; }
+  .annot-panel-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+  .annot-panel-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+  .annot-panel p { margin-bottom: 8px; }
+  .annot-panel .meta-line { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+  .inactive-tracks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+  .add-track { background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 3px 10px; }
+  .add-track:hover { color: var(--text); }
+
+  .parallel-strip { border: 1px solid var(--border-2); margin-top: 16px; }
+  .parallel-strip-head { background: var(--surface); padding: 14px 20px; border-bottom: 1px solid var(--border-2); }
+  .parallel-card { padding: 20px; }
+  .parallel-card-title { font: 400 18px/1.4 var(--serif); margin-bottom: 8px; }
+  .parallel-card-body { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px; }
+  .parallel-card-type { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 14px; }
+
+  .ep-nav { margin-top: 40px; display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border-2); padding-bottom: 8px; }
+  .ep-nav a { font: 400 14px/1.5 var(--serif); }
+
+  @media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+  @media (max-width: 767px) {
+    .page-body { padding-inline: var(--mx-m); }
+    .content-area { padding: 20px 18px; }
+    .annot-row { flex-direction: column; }
+    .annot-block { min-width: auto; }
+    .ep-nav { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+
+<script define:vars={{ showStructureLabel: tr.show_structure, hideStructureLabel: tr.hide_structure, seeSources: tr.see_sources, hideSources: tr.hide_sources, nasToCopy: nas, copiedText: tr.copied_confirm, layerPillAria: tr.layer_pill_aria }}>
+  const pill = document.createElement('div');
+  pill.className = 'layer-pill';
+  pill.setAttribute('aria-live', 'polite');
+  pill.setAttribute('aria-label', layerPillAria);
+  document.body.appendChild(pill);
+
+  const layerIndicator = document.getElementById('layer-indicator');
+  if (layerIndicator) {
+    new IntersectionObserver(([e]) => {
+      pill.classList.toggle('visible', !e.isIntersecting);
+    }, { threshold: 0 }).observe(layerIndicator);
+  }
+
+  function updatePill(labelEl) {
+    const plain = labelEl?.querySelector('.layer-tab__plain');
+    if (plain) pill.textContent = plain.textContent ?? '';
+  }
+  updatePill(document.querySelector('.layer-tab[aria-selected="true"]'));
+
+  document.querySelectorAll('.layer-tab').forEach(tab => {
+    if (tab.dataset.disabled === 'true') return;
+    tab.addEventListener('click', () => {
+      const layer = tab.dataset.layer;
+      document.querySelectorAll('.layer-tab').forEach(t => t.setAttribute('aria-selected', 'false'));
+      document.querySelectorAll('.layer-panel').forEach(p => { p.classList.remove('active'); p.hidden = true; });
+      tab.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById('layer-' + layer);
+      if (panel) { panel.classList.add('active'); panel.hidden = false; }
+      updatePill(tab);
+    });
+  });
+
+  const copyBtn = document.getElementById('nas-copy-btn');
+  const copiedEl = document.getElementById('copied-confirm');
+  if (copyBtn && copiedEl) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(nasToCopy).then(() => {
+        copiedEl.style.display = 'inline';
+        setTimeout(() => { copiedEl.style.display = 'none'; }, 2000);
+      });
+    });
+  }
+
+  const seeSrcBtn = document.getElementById('see-sources-btn');
+  const sourcesPanel = document.getElementById('sources-panel');
+  if (seeSrcBtn && sourcesPanel) {
+    seeSrcBtn.addEventListener('click', () => {
+      const open = sourcesPanel.style.display === 'block';
+      sourcesPanel.style.display = open ? 'none' : 'block';
+      seeSrcBtn.setAttribute('aria-expanded', String(!open));
+      seeSrcBtn.textContent = open ? seeSources : hideSources;
+    });
+  }
+
+  const structureToggle = document.getElementById('structure-toggle');
+  const trackView = document.getElementById('track-view');
+  if (structureToggle && trackView) {
+    structureToggle.addEventListener('click', () => {
+      const open = trackView.classList.contains('open');
+      trackView.classList.toggle('open', !open);
+      trackView.hidden = open;
+      trackView.setAttribute('aria-hidden', String(open));
+      structureToggle.setAttribute('aria-expanded', String(!open));
+      structureToggle.textContent = open ? showStructureLabel : hideStructureLabel;
+    });
+  }
+
+  document.querySelectorAll('.badge').forEach(badge => {
+    const pop = badge.querySelector('.badge-pop');
+    if (!pop) return;
+    badge.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = pop.classList.contains('open');
+      document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+      if (!open) pop.classList.add('open');
+      badge.setAttribute('aria-expanded', String(!open));
+    });
+    const closeBtn = pop.querySelector('.pop-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        pop.classList.remove('open');
+        badge.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.querySelectorAll('.annot-block').forEach(block => {
+    const panel = block.querySelector('.annot-panel');
+    if (!panel) return;
+    block.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = panel.classList.contains('open');
+      document.querySelectorAll('.annot-panel').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.annot-block').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!open) {
+        panel.classList.add('open');
+        block.setAttribute('aria-expanded', 'true');
+      }
+    });
+    block.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); block.click(); }
+    });
+    const closeBtn = panel.querySelector('.annot-panel-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        panel.classList.remove('open');
+        block.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.badge-pop.open').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.annot-panel.open').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    document.querySelectorAll('.annot-block[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  });
+
+  document.getElementById('parallel-strip')?.removeAttribute('hidden');
+</script>

@@ -1,0 +1,140 @@
+---
+import type { ProppFunction } from '~/content.config';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  functions?: ProppFunction[];
+  locale?: Locale;
+}
+
+const { functions, locale = 'en' } = Astro.props;
+
+const ALL_FUNCTIONS = [
+  'Absentation','Interdiction','Violation','Reconnaissance','Delivery',
+  'Trickery','Complicity','Villainy/Lack','Mediation','Beginning Counter-action',
+  'Departure','First Function of Donor','Hero\'s Reaction','Receipt of Magical Agent',
+  'Spatial Translocation','Struggle','Branding','Victory','Liquidation',
+  'Return','Pursuit','Rescue','Unrecognized Arrival','Unfounded Claims',
+  'Difficult Task','Solution','Recognition','Exposure','Transfiguration',
+  'Punishment','Wedding',
+];
+
+const activeCodes = new Set((functions ?? []).map(f => f.code));
+const activeMap = new Map((functions ?? []).map(f => [f.code, f]));
+
+const heading = locale === 'ru' ? 'Морфология сказки Проппа' : 'Propp Morphology';
+const caption = locale === 'ru'
+  ? '▲ ПРОВЕРЕНО ИИ · Присутствующие функции выделены · по Проппу (1928)'
+  : '▲ AI-REVIEWED · Present functions highlighted · after Propp (1928)';
+---
+
+<div class="propp-wrap" aria-label={heading}>
+  <p class="viz-heading">{heading}</p>
+  <div class="propp-track" role="list">
+    {ALL_FUNCTIONS.map((name, i) => {
+      const code = `PROPP-${i + 1}`;
+      const active = activeCodes.has(code);
+      const fn = activeMap.get(code);
+      return (
+        <div
+          class={`propp-slot${active ? ' active' : ''}`}
+          role="listitem"
+          aria-label={`${code}: ${name}${active ? '' : (locale === 'ru' ? ' — отсутствует' : ' — absent')}`}
+          title={active ? `${code}: ${name}` : undefined}
+        >
+          <span class="slot-num">{i + 1}</span>
+          {active && fn && (
+            <TierBadge tier={fn.tier} locale={locale} showLabel={false} />
+          )}
+        </div>
+      );
+    })}
+  </div>
+  {functions && functions.length > 0 && (
+    <div class="propp-legend">
+      {functions.map(fn => (
+        <span class="legend-item">
+          <span class="legend-code">{fn.code}</span>
+          <span class="legend-name">{fn.name}</span>
+          <TierBadge tier={fn.tier} locale={locale} />
+        </span>
+      ))}
+    </div>
+  )}
+  <p class="viz-caption" aria-hidden="true">{caption}</p>
+</div>
+
+<style>
+.propp-wrap {
+  margin-block: 24px;
+}
+
+.viz-heading {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.propp-track {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.propp-slot {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 400 9px/1 var(--mono);
+  color: var(--text-3);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.propp-slot.active {
+  background: var(--mesop-bg);
+  border-color: var(--mesop);
+  color: var(--mesop);
+}
+
+.slot-num {
+  font: 500 9px/1 var(--mono);
+}
+
+.propp-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-2);
+}
+
+.legend-code {
+  font: 500 11px/1.4 var(--mono);
+  color: var(--text);
+  min-width: 72px;
+}
+
+.legend-name {
+  color: var(--text-2);
+  flex: 1;
+}
+
+.viz-caption {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+</style>

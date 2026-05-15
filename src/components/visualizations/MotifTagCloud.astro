@@ -1,0 +1,197 @@
+---
+import type { TmiMotif } from '~/content.config';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import type { Locale } from '~/i18n';
+
+interface Props {
+  motifs?: TmiMotif[];
+  locale?: Locale;
+}
+
+const { motifs, locale = 'en' } = Astro.props;
+
+const heading = locale === 'ru' ? 'Индекс мотивов Томпсона' : 'Thompson Motif Index';
+const caption = locale === 'ru'
+  ? '▲ ПРОВЕРЕНО ИИ · по Томпсону (1955–1958)'
+  : '▲ AI-REVIEWED · after Thompson (1955–1958)';
+---
+
+<div class="tmi-wrap" aria-label={heading} aria-hidden={!motifs || motifs.length === 0 ? 'true' : undefined} style={!motifs || motifs.length === 0 ? 'display:none' : undefined}>
+  <p class="viz-heading">{heading}</p>
+
+  {motifs && motifs.length > 0 ? (
+    <>
+      <div class="tmi-tags" role="list">
+        {motifs.map(motif => (
+          <div class="tmi-pill" role="listitem">
+            <button
+              class="tmi-pill-btn"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`tmi-tooltip-${motif.code}`}
+            >
+              <span class="pill-code">{motif.code}</span>
+            </button>
+            <div
+              class="tmi-tooltip"
+              id={`tmi-tooltip-${motif.code}`}
+              role="tooltip"
+              hidden
+            >
+              <div class="tooltip-head">
+                <span>TMI {motif.code}</span>
+                <button type="button" class="tooltip-close" aria-label={locale === 'ru' ? 'Закрыть' : 'Close'}>×</button>
+              </div>
+              <p class="tooltip-name">{motif.name}</p>
+              <TierBadge tier={motif.tier} locale={locale} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="viz-caption" aria-hidden="true">{caption}</p>
+    </>
+  ) : (
+    <p class="tmi-absent">
+      {locale === 'ru'
+        ? 'Данные об индексе мотивов для этого эпизода ещё не подготовлены.'
+        : 'Thompson Motif Index data for this episode is not yet authored.'}
+    </p>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.tmi-pill-btn').forEach(btn => {
+    const id = btn.getAttribute('aria-controls');
+    const tooltip = id ? document.getElementById(id) : null;
+    if (!tooltip) return;
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !tooltip.hidden;
+      document.querySelectorAll<HTMLElement>('.tmi-tooltip').forEach(t => {
+        t.hidden = true;
+      });
+      document.querySelectorAll<HTMLButtonElement>('.tmi-pill-btn').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        tooltip.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    const closeBtn = tooltip.querySelector<HTMLButtonElement>('.tooltip-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        tooltip.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('.tmi-tooltip').forEach(t => {
+      t.hidden = true;
+    });
+    document.querySelectorAll<HTMLButtonElement>('.tmi-pill-btn').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+<style>
+.tmi-wrap {
+  margin-block: 24px;
+}
+
+.viz-heading {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.tmi-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tmi-pill {
+  position: relative;
+}
+
+.tmi-pill-btn {
+  background: var(--inset);
+  border: 1px solid var(--border-2);
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 3px 10px;
+}
+
+.tmi-pill-btn:hover {
+  border-color: var(--border);
+  background: var(--overlay);
+}
+
+.tmi-pill-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pill-code {
+  font: 500 12px/1.4 var(--mono);
+  color: var(--text);
+}
+
+.tmi-tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 200;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  width: min(260px, calc(100vw - 40px));
+}
+
+.tooltip-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 500 11px/1.4 var(--mono);
+  color: var(--text);
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-2);
+}
+
+.tooltip-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: 500 14px/1 var(--mono);
+  color: var(--link);
+  padding: 0;
+  line-height: 1;
+}
+
+.tooltip-name {
+  font: 400 13px/1.5 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+.tmi-absent {
+  font: 400 12px/1.5 var(--serif);
+  color: var(--text-3);
+  font-style: italic;
+}
+
+.viz-caption {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+</style>

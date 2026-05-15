@@ -24,16 +24,43 @@ const artifactSchema = z.object({
 
 export type Artifact = z.infer<typeof artifactSchema>;
 
+const proppFunctionSchema = z.object({
+  code:  z.string(),
+  name:  z.string(),
+  tier:  EpistemicTierSchema,
+});
+
+const campbellStageSchema = z.object({
+  stage: z.string(),
+  tier:  EpistemicTierSchema,
+});
+
+const tmiMotifSchema = z.object({
+  code:  z.string(),
+  name:  z.string(),
+  tier:  EpistemicTierSchema,
+});
+
+export type ProppFunction  = z.infer<typeof proppFunctionSchema>;
+export type CampbellStage  = z.infer<typeof campbellStageSchema>;
+export type TmiMotif       = z.infer<typeof tmiMotifSchema>;
+
 const episodes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/episodes' }),
   schema: z.object({
     nas:       z.string(),
-    tradition: z.enum(['gilgamesh', 'iliad', 'atrahasis']),
+    tradition: z.enum([
+      'gilgamesh', 'iliad', 'atrahasis', 'genesis',
+      'mahabharata', 'ramayana', 'aeneid', 'shahnameh',
+    ]),
     tablet:    z.string(),
     tier:      EpistemicTierSchema,
     layers:    z.array(z.enum(['surface', 'translated', 'scholaria'])),
-    parallelTo: z.string().optional(),
-    artifacts: z.array(artifactSchema).optional(),
+    parallelTo:       z.string().optional(),
+    artifacts:        z.array(artifactSchema).optional(),
+    proppFunctions:   z.array(proppFunctionSchema).optional(),
+    campbellStages:   z.array(campbellStageSchema).optional(),
+    tmiMotifs:        z.array(tmiMotifSchema).optional(),
     title_en:  z.string(),
     title_ru:  z.string(),
     desc_en:   z.string(),

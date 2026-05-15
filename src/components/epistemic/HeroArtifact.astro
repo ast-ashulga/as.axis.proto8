@@ -1,0 +1,135 @@
+---
+import type { EpistemicTier } from '~/content.config';
+import type { Locale } from '~/i18n';
+import TierBadge from './TierBadge.astro';
+
+interface Props {
+  src: string;
+  tier: EpistemicTier;
+  institution: string;
+  accessionNumber: string;
+  license: string;
+  altEn: string;
+  altRu: string;
+  captionEn: string;
+  captionRu: string;
+  viewInCollectionUrl?: string;
+  locale?: Locale;
+}
+
+const {
+  src, tier, institution, accessionNumber, license,
+  altEn, altRu, captionEn, captionRu,
+  viewInCollectionUrl,
+  locale = 'en',
+} = Astro.props;
+
+const alt     = locale === 'ru' ? altRu     : altEn;
+const caption = locale === 'ru' ? captionRu : captionEn;
+const viewLabel = locale === 'ru' ? 'Смотреть в коллекции →' : 'View in collection →';
+---
+
+<div class="hero-artifact">
+  <div class="hero-img-wrap">
+    <img
+      class="hero-img"
+      src={src}
+      alt={alt}
+      loading="eager"
+      onerror="this.onerror=null;this.closest('.hero-img-wrap').classList.add('hero-img-wrap--fallback')"
+    />
+    <div class="hero-overlay" aria-hidden="true"></div>
+  </div>
+  <figcaption class="hero-caption">
+    <TierBadge tier={tier} locale={locale} />
+    <span class="hero-caption-text">{caption}</span>
+    <span class="hero-caption-meta">
+      <span>{institution}</span>
+      <span aria-hidden="true"> · </span>
+      <span>{accessionNumber}</span>
+      <span aria-hidden="true"> · </span>
+      <span>{license}</span>
+    </span>
+    {viewInCollectionUrl && (
+      <a class="hero-view-link" href={viewInCollectionUrl} target="_blank" rel="noopener noreferrer">
+        {viewLabel}
+      </a>
+    )}
+  </figcaption>
+</div>
+
+<style>
+.hero-artifact {
+  margin-block: 0;
+}
+
+.hero-img-wrap {
+  position: relative;
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  background: var(--parchment, var(--surface));
+}
+
+.hero-img-wrap--fallback {
+  min-height: 200px;
+}
+
+.hero-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(242, 235, 220, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px var(--mx);
+  background: var(--inset);
+  border-bottom: 1px solid var(--border-2);
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+.hero-caption-text {
+  font: 400 12px/1.4 var(--serif);
+  color: var(--text-2);
+  flex: 1;
+  min-width: 200px;
+}
+
+.hero-caption-meta {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.hero-view-link {
+  font: 400 11px/1.4 var(--mono);
+  white-space: nowrap;
+}
+
+@media (max-width: 1279px) {
+  .hero-caption { padding-inline: var(--mx-t); }
+}
+
+@media (max-width: 767px) {
+  .hero-caption { padding-inline: var(--mx-m); gap: 4px; }
+  .hero-caption-text { min-width: 100%; }
+}
+</style>

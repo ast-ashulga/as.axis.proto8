@@ -2,7 +2,7 @@
 import { t, type Locale } from '~/i18n';
 
 interface Props {
-  episode: 'flood' | 'sleep' | 'plant' | 'ransom';
+  episode: 'flood' | 'sleep' | 'plant' | 'ransom' | 'grief';
   locale: Locale;
   tradition?: 'mesopotamian' | 'greek';
 }
@@ -26,6 +26,10 @@ const beats: Record<string, { en: string[]; ru: string[] }> = {
   ransom: {
     en: ['Gods Debate', "Priam's Journey", 'The Meeting', "Achilles' Grief", "Hector's Return"],
     ru: ['Совет богов', 'Путь Приама', 'Встреча', 'Горе Ахилла', 'Возвращение Гектора'],
+  },
+  grief: {
+    en: ["Companion Dies", 'Refusal of Burial', 'The Vigil', 'The Worm', 'Departure'],
+    ru: ['Гибель друга', 'Отказ от погребения', 'Бдение', 'Червь', 'Уход'],
   },
 };
 

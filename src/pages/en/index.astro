@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import EpistemicLegend from '~/components/epistemic/EpistemicLegend.astro';
+import HeroArtifact from '~/components/epistemic/HeroArtifact.astro';
+import heroHomeImage from '~/assets/mid_00107404_001.jpg';
 import { t } from '~/i18n';
 import { withBase } from '~/utils/url';
 
@@ -21,6 +23,21 @@ const tr = t(locale);
       </p>
     </div>
   </div>
+
+  <!-- Hero artifact -->
+  <HeroArtifact
+    src={heroHomeImage.src}
+    tier="documented"
+    institution="British Museum"
+    accessionNumber="K.3375"
+    license="CC BY-NC-SA 4.0"
+    altEn={tr.hero_artifact_alt}
+    altRu={tr.hero_artifact_alt}
+    captionEn={tr.hero_artifact_caption_en}
+    captionRu={tr.hero_artifact_caption_ru}
+    viewInCollectionUrl="https://www.britishmuseum.org/collection/object/W_K-3375"
+    locale={locale}
+  />
 
   <hr class="div" style="margin-inline: var(--mx);" />
 

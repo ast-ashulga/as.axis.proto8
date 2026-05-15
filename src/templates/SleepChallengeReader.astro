@@ -5,9 +5,13 @@ import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
 import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
+import MonomythArc from '~/components/visualizations/MonomythArc.astro';
+import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
+import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
+import { getEntry } from 'astro:content';
 
 interface Props { locale: Locale; }
 
@@ -16,6 +20,11 @@ const tr = t(locale);
 
 const nas = 'nms://gilgamesh/tablet-xi/sleep-challenge';
 const prevHref = withBase(`/${locale}/gilgamesh/tablet-xi/flood/`);
+
+const episode = await getEntry('episodes', 'sleep-challenge');
+const proppFunctions = episode?.data.proppFunctions;
+const campbellStages = episode?.data.campbellStages;
+const tmiMotifs = episode?.data.tmiMotifs;
 const nextHref = withBase(`/${locale}/gilgamesh/tablet-xi/plant/`);
 const tabletHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
 const parallelsHref = withBase(`/${locale}/parallels/`);
@@ -132,6 +141,15 @@ const parallelsHref = withBase(`/${locale}/parallels/`);
             <p>The sleep-challenge passage survives in the Nineveh copy (CDLI P003793), Tablet XI, lines approximately 197–230. Some lines are damaged. The episode is attested across multiple copies with minor variations in the number of days specified.</p>
           </div>
         </div>
+        <div class="schol-section">
+          <div class="schol-head"><span>Scholaria visualization tools</span></div>
+          <div class="schol-body">
+            <MonomythArc stages={campbellStages} tradition="mesopotamian" locale={locale} />
+            <ProppMorphology functions={proppFunctions} locale={locale} />
+            <MotifTagCloud motifs={tmiMotifs} locale={locale} />
+          </div>
+        </div>
+
         <div class="schol-section">
           <div class="schol-head"><span>{tr.schol_scholarship_cited}</span></div>
           <ul class="schol-cite">

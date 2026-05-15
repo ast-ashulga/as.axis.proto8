@@ -53,7 +53,13 @@ const viewLabel = locale === 'ru' ? 'Смотреть в коллекции →'
 ---
 
 <figure class="artifact-figure">
-  <img src={src} alt={caption} loading={loading} />
+  <img
+    src={src}
+    alt={caption}
+    loading={loading}
+    onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.removeAttribute('hidden')"
+  />
+  <div class="artifact-fallback" hidden aria-hidden="true"></div>
   <figcaption>
     <TierBadge tier={tier} locale={locale} />
     <span class="caption-text">{caption}</span>
@@ -86,6 +92,13 @@ const viewLabel = locale === 'ru' ? 'Смотреть в коллекции →'
   width: 100%;
   height: auto;
   display: block;
+  border: 1px solid var(--border-2);
+}
+
+.artifact-fallback {
+  width: 100%;
+  min-height: 200px;
+  background: var(--parchment, var(--surface));
   border: 1px solid var(--border-2);
 }
 

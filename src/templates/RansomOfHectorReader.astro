@@ -5,9 +5,14 @@ import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
 import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
+import MonomythArc from '~/components/visualizations/MonomythArc.astro';
+import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
+import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
+import ArtifactFigure from '~/components/epistemic/ArtifactFigure.astro';
 import { t, type Locale } from '~/i18n';
 import { withBase } from '~/utils/url';
+import { getEntry } from 'astro:content';
 
 interface Props { locale: Locale; }
 
@@ -16,6 +21,11 @@ const tr = t(locale);
 
 const nas = 'nms://iliad/book-xxiv/ransom-of-hector';
 const prevHref = withBase(`/${locale}/iliad/book-xxiv/`);
+
+const episode = await getEntry('episodes', 'ransom-of-hector');
+const proppFunctions = episode?.data.proppFunctions;
+const campbellStages = episode?.data.campbellStages;
+const tmiMotifs = episode?.data.tmiMotifs;
 const nextHref = withBase(`/${locale}/iliad/book-xxiv/`);
 const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
 ---
@@ -162,6 +172,18 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
         <div class="layer-demo-banner">
           <span style="font: 400 12px/1.4 var(--mono); color: var(--text-3);">{tr.demo_content_marker}</span>
         </div>
+        <ArtifactFigure
+          src="/assets/artifacts/iliad-priam-achilles-vase.jpg"
+          tier="documented"
+          institution="Museum of Fine Arts, Boston"
+          accessionNumber="63.1246"
+          license="CC0"
+          captionEn="Red-figure calyx-krater: Priam supplicating Achilles for the body of Hector. Attributed to the Eucharides Painter, Attic red-figure, ca. 490–480 BCE."
+          captionRu="Краснофигурный кратер: Приам умоляет Ахилла вернуть тело Гектора. Приписывается Мастеру Эухаридес, аттическая краснофигурная живопись, ок. 490–480 до н.э."
+          viewInCollectionUrl="https://collections.mfa.org/objects/153744"
+          locale={locale}
+          loading="lazy"
+        />
         <div class="trans-header">
           <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">Ancient Greek — after Monro &amp; Allen OCT</p>
           <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">Iliad XXIV.477–551 (selected lines)</p>
@@ -217,6 +239,15 @@ const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
           </div>
           <div class="schol-body">
             <p>{tr.iliad_frag_ransom_schol_debate_p}</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head"><span>Scholaria visualization tools</span></div>
+          <div class="schol-body">
+            <MonomythArc stages={campbellStages} tradition="greek" locale={locale} />
+            <ProppMorphology functions={proppFunctions} locale={locale} />
+            <MotifTagCloud motifs={tmiMotifs} locale={locale} />
           </div>
         </div>
 

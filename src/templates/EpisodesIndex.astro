@@ -1,0 +1,247 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t(locale);
+
+const allEpisodes = await getCollection('episodes');
+const active = allEpisodes.filter(e => !e.data.phase2);
+const phase2 = allEpisodes.filter(e => e.data.phase2);
+
+function nasToPath(nas: string): string | null {
+  const m = nas.match(/^nms:\/\/([^/]+)\/([^/]+)\/([^/]+)$/);
+  if (!m) return null;
+  const [, tradition, division, unit] = m;
+  if (tradition === 'genesis') return null;
+  return `/${locale}/${tradition}/${division}/${unit}/`;
+}
+
+type TraditionKey = 'gilgamesh' | 'iliad' | 'mahabharata' | 'ramayana' | 'aeneid' | 'shahnameh' | 'atrahasis' | 'genesis';
+
+const TRAD_COLOR: Record<TraditionKey, string> = {
+  gilgamesh:   'var(--mesop)',
+  iliad:       'var(--greek)',
+  atrahasis:   'var(--mesop)',
+  genesis:     'var(--text-3)',
+  mahabharata: 'var(--text-3)',
+  ramayana:    'var(--text-3)',
+  aeneid:      'var(--text-3)',
+  shahnameh:   'var(--text-3)',
+};
+
+const TRAD_BG: Record<TraditionKey, string> = {
+  gilgamesh:   'var(--mesop-bg)',
+  iliad:       'var(--greek-bg)',
+  atrahasis:   'var(--mesop-bg)',
+  genesis:     'var(--inset)',
+  mahabharata: 'var(--inset)',
+  ramayana:    'var(--inset)',
+  aeneid:      'var(--inset)',
+  shahnameh:   'var(--inset)',
+};
+
+function tradColor(trad: string) { return TRAD_COLOR[trad as TraditionKey] ?? 'var(--text-3)'; }
+function tradBg(trad: string)    { return TRAD_BG[trad as TraditionKey] ?? 'var(--inset)'; }
+
+const availableLabel  = tr.episodes_available_badge;
+const phase2Label     = tr.episodes_phase2_badge;
+---
+
+<BaseLayout title={tr.episodes_index_heading} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,     href: withBase(`/${locale}/`) },
+      { label: tr.bc_episodes },
+    ]} />
+
+    <h1 class="idx-heading">{tr.episodes_index_heading}</h1>
+    <p class="idx-intro">{tr.episodes_index_intro}</p>
+
+    <nav aria-label={tr.episodes_index_nav_aria}>
+
+      <!-- Active episodes -->
+      <div class="ep-grid">
+        {active.map(ep => {
+          const path = nasToPath(ep.data.nas);
+          const color = tradColor(ep.data.tradition);
+          const bg = tradBg(ep.data.tradition);
+          const title = locale === 'ru' ? ep.data.title_ru : ep.data.title_en;
+          const desc  = locale === 'ru' ? ep.data.desc_ru  : ep.data.desc_en;
+          return (
+            <div class="ep-card" style={`border-left: 3px solid ${color}; background: ${bg};`}>
+              <div class="ep-card-head">
+                <span class="ep-trad" style={`color: ${color};`}>
+                  {ep.data.tradition.toUpperCase()} · {ep.data.tablet}
+                </span>
+                <span class="ep-avail avail">{availableLabel}</span>
+              </div>
+              <p class="ep-title">
+                {path
+                  ? <a href={withBase(path)} class="ep-link">{title}</a>
+                  : title
+                }
+              </p>
+              <p class="ep-desc">{desc}</p>
+              <div class="ep-foot">
+                <TierBadge tier={ep.data.tier} locale={locale} />
+                <span class="ep-nas">{ep.data.nas}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Phase 2 stubs -->
+      {phase2.length > 0 && (
+        <>
+          <p class="phase2-label">{tr.forthcoming_traditions}</p>
+          <div class="ep-grid">
+            {phase2.map(ep => {
+              const color = tradColor(ep.data.tradition);
+              const bg = tradBg(ep.data.tradition);
+              const title = locale === 'ru' ? ep.data.title_ru : ep.data.title_en;
+              const desc  = locale === 'ru' ? ep.data.desc_ru  : ep.data.desc_en;
+              return (
+                <div
+                  class="ep-card ep-card--phase2"
+                  style={`border-left: 3px solid ${color}; background: ${bg}; opacity: 0.55;`}
+                  aria-disabled="true"
+                >
+                  <div class="ep-card-head">
+                    <span class="ep-trad" style={`color: ${color};`}>
+                      {ep.data.tradition.toUpperCase()}
+                    </span>
+                    <span class="ep-avail phase2">{phase2Label}</span>
+                  </div>
+                  <p class="ep-title">{title}</p>
+                  <p class="ep-desc">{desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+    </nav>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 64px;
+  max-width: calc(var(--col) + var(--mx) * 2);
+  margin-inline: auto;
+}
+
+.idx-heading {
+  font: 500 28px/1.25 var(--serif);
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.idx-intro {
+  font: 400 16px/1.6 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 32px;
+  max-width: var(--col);
+}
+
+.ep-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ep-card {
+  padding: 20px 24px;
+  border: 1px solid var(--border-2);
+}
+
+.ep-card--phase2 {
+  cursor: default;
+  pointer-events: none;
+}
+
+.ep-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ep-trad {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+}
+
+.ep-avail {
+  font: 500 10px/1.4 var(--mono);
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+}
+
+.ep-avail.avail    { color: var(--tier-doc); }
+.ep-avail.phase2   { color: var(--text-3); }
+
+.ep-title {
+  font: 500 16px/1.4 var(--serif);
+  margin-bottom: 8px;
+}
+
+.ep-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ep-link:hover { color: var(--link-h); }
+
+.ep-desc {
+  font: 400 13px/1.5 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 14px;
+}
+
+.ep-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-2);
+}
+
+.ep-nas {
+  font: 400 10px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+.phase2-label {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-block: 24px 12px;
+}
+
+@media (max-width: 767px) {
+  .page-body     { padding-inline: var(--mx-m); }
+  .ep-grid       { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1279px) {
+  .page-body { padding-inline: var(--mx-t); }
+}
+</style>
