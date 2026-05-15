@@ -1,0 +1,44 @@
+---
+/**
+ * Temporary stub for fragment-view pages while the full FragmentReader
+ * component is being built. Preserves routing so episode links work.
+ * Replace with FragmentReader once Phase A fragment-view port is complete.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props {
+  locale: Locale;
+  episodeName: string;
+  episodeNas: string;
+  tabletName: string;
+  tabletHref: string;
+}
+
+const { locale, episodeName, episodeNas, tabletName, tabletHref } = Astro.props;
+const tr = t(locale);
+const navBase = `/${locale}`;
+---
+
+<BaseLayout title={episodeName} locale={locale}>
+  <div style="padding-inline: var(--mx); padding-block: 40px 0;">
+    <Breadcrumb crumbs={[
+      { label: tr.bc_home,             href: `${navBase}/` },
+      { label: tr.idx_title_gilgamesh, href: `${navBase}/gilgamesh/` },
+      { label: tabletName,             href: tabletHref },
+      { label: episodeName },
+    ]} />
+    <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 32px;">
+      {episodeNas}
+    </p>
+    <p style="font: 400 16px/1.7 var(--serif); color: var(--text-2); max-width: var(--col);">
+      Fragment reader — in progress.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  @media (max-width: 1279px) { div { padding-inline: var(--mx-t) !important; } }
+  @media (max-width: 767px)  { div { padding-inline: var(--mx-m) !important; } }
+</style>

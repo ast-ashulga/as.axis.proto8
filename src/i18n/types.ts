@@ -58,6 +58,59 @@ export interface Translations {
   idx_about_p1: string;
   idx_about_p2: string;
 
+  /* ── Breadcrumb ─────────────────────────────────────────────────── */
+  bc_home: string;
+
+  /* ── Tradition overview — Gilgamesh ─────────────────────────────── */
+  trad_gilgamesh_epoch_full: string;
+  trad_gilgamesh_desc_p1: string;
+  trad_gilgamesh_desc_p2: string;
+  cross_tradition_link: string;
+  trad_cross_tradition_sub: string;
+  tablets_label: string;
+  trad_tablet1_label: string;
+  trad_tablet1_name: string;
+  trad_tablet1_desc: string;
+  trad_tablet1_ep: string;
+  trad_tablet2_label: string;
+  trad_tablet2_name: string;
+  trad_tablet2_desc: string;
+  trad_tablet2_ep: string;
+  trad_tablet3_label: string;
+  trad_tablet3_name: string;
+  trad_tablet3_desc: string;
+  trad_tablet3_ep: string;
+  trad_tablet4_label: string;
+  trad_tablet4_name: string;
+  trad_tablet4_desc: string;
+  trad_tablet4_ep: string;
+  trad_tablet5_label: string;
+  trad_tablet5_name: string;
+  trad_tablet5_desc: string;
+  trad_tablet5_ep: string;
+  trad_tablet11_label: string;
+  trad_tablet11_name: string;
+  trad_tablet11_desc: string;
+  trad_tablet11_ep_parallel: string;
+  trad_tablet11_ep_count: string;
+
+  /* ── Tablet hub — Tablet XI ──────────────────────────────────────── */
+  tablet_hub_heading: string;
+  tablet_hub_subtitle: string;
+  tablet_hub_intro: string;
+  tablet_hub_breadcrumb: string;
+  tablet_hub_nav_prev: string;
+  tablet_hub_nav_next: string;
+  tablet_ep1_nas_confirm: string;
+  tab_hub_episodes_intro: string;
+  tab_ep1_name: string;
+  tab_ep1_desc: string;
+  tab_ep2_name: string;
+  tab_ep2_desc: string;
+  tab_ep3_name: string;
+  tab_ep3_desc: string;
+  episodes_label: string;
+
   /* ── Common UI ──────────────────────────────────────────────────── */
   in_preparation: string;
   phase2_badge: string;

@@ -1,0 +1,134 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import { t, type Locale } from '~/i18n';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = `/${locale}`;
+
+const episodes = [
+  {
+    nas:    'nms://gilgamesh/tablet-xi/flood',
+    href:   `${navBase}/gilgamesh/tablet-xi/flood/`,
+    name:   tr.tab_ep1_name,
+    desc:   tr.tab_ep1_desc,
+    hasPar: true,
+    parConfirm: tr.tablet_ep1_nas_confirm,
+  },
+  {
+    nas:    'nms://gilgamesh/tablet-xi/sleep-challenge',
+    href:   `${navBase}/gilgamesh/tablet-xi/sleep-challenge/`,
+    name:   tr.tab_ep2_name,
+    desc:   tr.tab_ep2_desc,
+    hasPar: false,
+  },
+  {
+    nas:    'nms://gilgamesh/tablet-xi/plant',
+    href:   `${navBase}/gilgamesh/tablet-xi/plant/`,
+    name:   tr.tab_ep3_name,
+    desc:   tr.tab_ep3_desc,
+    hasPar: false,
+  },
+];
+---
+
+<BaseLayout title={`${tr.tablet_hub_subtitle} — ${tr.idx_title_gilgamesh}`} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb crumbs={[
+      { label: tr.bc_home,             href: `${navBase}/` },
+      { label: tr.idx_title_gilgamesh, href: `${navBase}/gilgamesh/` },
+      { label: tr.tablet_hub_breadcrumb },
+    ]} />
+
+    <!-- Tablet header -->
+    <header>
+      <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 8px;">
+        {tr.tradition_mesopotamian}
+      </p>
+      <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px;">
+        <h1 style="font: 500 24px/1.3 var(--serif);">{tr.tablet_hub_heading}</h1>
+        <TierBadge tier="reconstructed" locale={locale} />
+      </div>
+      <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2); margin-bottom: 24px;">
+        {tr.tablet_hub_subtitle}
+      </p>
+    </header>
+
+    <!-- Intro -->
+    <div style="max-width: var(--col); margin-bottom: 40px;">
+      <p style="font: 400 16px/1.7 var(--serif);">{tr.tablet_hub_intro}</p>
+    </div>
+
+    <hr class="div" />
+
+    <!-- Episodes -->
+    <section aria-label={tr.episodes_label} aria-describedby="ep-intro">
+      <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 8px;">
+        {tr.episodes_label}
+      </p>
+      <p id="ep-intro" style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 20px;">
+        {tr.tab_hub_episodes_intro}
+      </p>
+
+      <div role="list">
+        {episodes.map(ep => (
+          <a
+            href={ep.href}
+            class="ep-card"
+            role="listitem"
+            style={ep.hasPar ? 'border-left: 3px solid var(--tier-doc);' : ''}
+          >
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+              <h2 style="font: 400 18px/1.4 var(--serif);">
+                {ep.hasPar && (
+                  <span style="color: var(--tier-doc); margin-inline-end: 6px;" aria-label="Has confirmed cross-tradition parallel">●</span>
+                )}
+                {ep.name}
+              </h2>
+            </div>
+            <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 12px;">{ep.desc}</p>
+            <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">{ep.nas}</p>
+            {ep.hasPar && ep.parConfirm && (
+              <p style="font: 500 11px/1.4 var(--mono); color: var(--tier-doc); margin-top: 6px;">{ep.parConfirm}</p>
+            )}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Nav prev/next -->
+    <nav class="hub-nav" aria-label="Tablet navigation" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
+      <a href={`${navBase}/gilgamesh/`} style="font: 400 14px/1.5 var(--serif);">{tr.tablet_hub_nav_prev}</a>
+      <span style="font: 400 14px/1.5 var(--serif); color: var(--text-3);" aria-hidden="true">{tr.tablet_hub_nav_next}</span>
+    </nav>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.ep-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.1s ease-in-out;
+}
+.ep-card:hover { background: var(--overlay); }
+.ep-card:visited { color: var(--text); }
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) { .page-body { padding-inline: var(--mx-m); } }
+</style>
