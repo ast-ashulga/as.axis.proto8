@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props {
   locale: Locale;
@@ -8,7 +9,7 @@ interface Props {
 
 const { locale, variant = 'main' } = Astro.props;
 const tr = t(locale);
-const navBase = `/${locale}`;
+const navBase = withBase(`/${locale}`);
 
 const phaseLabel: Record<typeof variant, string> = {
   main:      tr.footer_phase_main,

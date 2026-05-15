@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '~/i18n';
+import { withBase, deploymentBase } from '~/utils/url';
 
 interface Props {
   locale: Locale;
@@ -11,15 +12,19 @@ const alternateLocale: Locale = locale === 'en' ? 'ru' : 'en';
 
 /*
  * Locale switch: replace the leading /en/ or /ru/ segment with the alternate.
+ * Astro.url.pathname includes the base path, so strip it before matching.
  * Falls back to the alternate-locale root if pathname doesn't match.
  */
-const pathname = Astro.url.pathname;
+const rawPathname = Astro.url.pathname;
+const pathname = deploymentBase
+  ? rawPathname.replace(new RegExp(`^${deploymentBase}`), '') || '/'
+  : rawPathname;
 const localePrefix = `/${locale}/`;
 const alternateUrl = pathname.startsWith(localePrefix)
-  ? `/${alternateLocale}/${pathname.slice(localePrefix.length)}`
-  : `/${alternateLocale}/`;
+  ? withBase(`/${alternateLocale}/${pathname.slice(localePrefix.length)}`)
+  : withBase(`/${alternateLocale}/`);
 
-const navBase = `/${locale}`;
+const navBase = withBase(`/${locale}`);
 ---
 
 <nav class="site-nav" aria-label={tr.nav_main_aria}>

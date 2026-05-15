@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props { locale: Locale; }
 
@@ -9,17 +10,17 @@ const { locale } = Astro.props;
 const tr = t(locale);
 
 const nas = 'nms://iliad/book-xxiv/ransom-of-hector';
-const prevHref = `/${locale}/iliad/book-xxiv/`;
-const nextHref = `/${locale}/iliad/book-xxiv/`;
-const bookHref = `/${locale}/iliad/book-xxiv/`;
+const prevHref = withBase(`/${locale}/iliad/book-xxiv/`);
+const nextHref = withBase(`/${locale}/iliad/book-xxiv/`);
+const bookHref = withBase(`/${locale}/iliad/book-xxiv/`);
 ---
 
 <BaseLayout title={tr.iliad_frag_ransom_title + tr.doc_title_suffix_book_xxiv_iliad} locale={locale}>
   <div class="page-body">
 
     <Breadcrumb locale={locale} crumbs={[
-      { label: tr.bc_home,                href: `/${locale}/` },
-      { label: tr.idx_title_iliad,        href: `/${locale}/iliad/` },
+      { label: tr.bc_home,                href: withBase(`/${locale}/`) },
+      { label: tr.idx_title_iliad,        href: withBase(`/${locale}/iliad/`) },
       { label: tr.iliad_frag_book24_bc,   href: bookHref },
       { label: tr.iliad_frag_ransom_crumb },
     ]} />
@@ -79,7 +80,7 @@ const bookHref = `/${locale}/iliad/book-xxiv/`;
           <div class="par-card">
             <p style="font: 500 14px/1.4 var(--serif); margin-bottom: 6px; color: var(--tier-rec);">◑</p>
             <p class="par-card-body">{tr.iliad_frag_parallel_card_body}</p>
-            <a href={`/${locale}/parallels/grief/`} class="par-read-link">{tr.read_this_parallel}</a>
+            <a href={withBase(`/${locale}/parallels/grief/`)} class="par-read-link">{tr.read_this_parallel}</a>
           </div>
         </aside>
       </div>

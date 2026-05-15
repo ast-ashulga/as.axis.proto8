@@ -1,8 +1,9 @@
 ---
 import PageStub from '~/templates/PageStub.astro';
+import { withBase } from '~/utils/url';
 ---
 <PageStub
   locale="ru"
   title="Эпистемические уровни"
-  crumbs={[{ label: 'Главная', href: '/ru/' }, { label: 'Эпистемические уровни' }]}
+  crumbs={[{ label: 'Главная', href: withBase('/ru/') }, { label: 'Эпистемические уровни' }]}
 />

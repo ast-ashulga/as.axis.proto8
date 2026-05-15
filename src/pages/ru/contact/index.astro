@@ -1,8 +1,9 @@
 ---
 import PageStub from '~/templates/PageStub.astro';
+import { withBase } from '~/utils/url';
 ---
 <PageStub
   locale="ru"
   title="Контакты"
-  crumbs={[{ label: 'Главная', href: '/ru/' }, { label: 'Контакты' }]}
+  crumbs={[{ label: 'Главная', href: withBase('/ru/') }, { label: 'Контакты' }]}
 />

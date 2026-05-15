@@ -3,12 +3,13 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import TierBadge from '~/components/epistemic/TierBadge.astro';
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props { locale: Locale; }
 
 const { locale } = Astro.props;
 const tr = t(locale);
-const navBase = `/${locale}`;
+const navBase = withBase(`/${locale}`);
 ---
 
 <BaseLayout title={`${tr.hub_page_title_book24_prefix}${tr.idx_title_iliad}`} locale={locale}>

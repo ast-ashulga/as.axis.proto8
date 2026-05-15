@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props { locale: Locale; }
 
 const { locale } = Astro.props;
 const tr = t(locale);
-const navBase = `/${locale}`;
+const navBase = withBase(`/${locale}`);
 
 const disabledBooks = [
   { label: tr.iliad_book1_label,  name: tr.iliad_book1_name,  desc: tr.iliad_book1_desc,  ep: tr.iliad_book1_ep },

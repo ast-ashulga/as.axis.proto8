@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
 
 interface Props {
   locale: Locale;
@@ -11,10 +12,10 @@ const { locale } = Astro.props;
 const tr = t(locale);
 
 const nas = 'nms://gilgamesh/tablet-xi/flood';
-const parallelHref = `/${locale}/parallels/flood/`;
-const nextHref = `/${locale}/gilgamesh/tablet-xi/sleep-challenge/`;
-const tabletHref = `/${locale}/gilgamesh/tablet-xi/`;
-const gilgameshHref = `/${locale}/gilgamesh/`;
+const parallelHref = withBase(`/${locale}/parallels/flood/`);
+const nextHref = withBase(`/${locale}/gilgamesh/tablet-xi/sleep-challenge/`);
+const tabletHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
+const gilgameshHref = withBase(`/${locale}/gilgamesh/`);
 ---
 
 <BaseLayout title={tr.frag_flood_title + tr.doc_title_suffix_tablet_xi_gilgamesh} locale={locale}>
@@ -23,7 +24,7 @@ const gilgameshHref = `/${locale}/gilgamesh/`;
 
     <!-- Breadcrumb -->
     <Breadcrumb locale={locale} crumbs={[
-      { label: tr.bc_home, href: `/${locale}/` },
+      { label: tr.bc_home, href: withBase(`/${locale}/`) },
       { label: tr.nav_gilgamesh, href: gilgameshHref },
       { label: tr.tablet_hub_breadcrumb, href: tabletHref },
       { label: tr.tab_ep1_name },
