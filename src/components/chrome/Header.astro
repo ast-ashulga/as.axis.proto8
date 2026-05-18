@@ -40,6 +40,7 @@ const onParallels = Astro.url.pathname.includes('/parallels');
     <a
       href={`${navBase}/gilgamesh/`}
       class="nav-l"
+      data-track="nav-gilgamesh"
       aria-current={onGilgamesh ? 'page' : undefined}
     >
       {tr.nav_gilgamesh}
@@ -47,6 +48,7 @@ const onParallels = Astro.url.pathname.includes('/parallels');
     <a
       href={`${navBase}/iliad/`}
       class="nav-l"
+      data-track="nav-iliad"
       aria-current={onIliad ? 'page' : undefined}
     >
       {tr.nav_iliad}
@@ -54,6 +56,7 @@ const onParallels = Astro.url.pathname.includes('/parallels');
     <a
       href={`${navBase}/parallels/`}
       class="nav-l"
+      data-track="nav-parallels"
       aria-current={onParallels ? 'page' : undefined}
     >
       {tr.nav_parallels}
@@ -63,7 +66,7 @@ const onParallels = Astro.url.pathname.includes('/parallels');
   <div class="locale" aria-label={tr.locale_group_aria} role="group">
     <span class="locale-b on" aria-current="true">{tr[`locale_${locale}`]}</span>
     <span class="locale-sep">/</span>
-    <a href={alternateUrl} class="locale-b" lang={alternateLocale}>
+    <a href={alternateUrl} class="locale-b" data-track="locale-switch" lang={alternateLocale}>
       {tr[`locale_${alternateLocale}`]}
     </a>
   </div>

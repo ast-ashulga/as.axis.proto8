@@ -93,6 +93,7 @@ const episodes = [
             href={ep.href}
             class="ep-card"
             role="listitem"
+            data-track={`episode-card-${ep.nas.split('/').pop()}`}
             style={ep.hasPar ? 'border-left: 3px solid var(--tier-doc);' : ''}
           >
             <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">

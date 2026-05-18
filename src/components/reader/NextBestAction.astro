@@ -25,7 +25,7 @@ const cards = [deeper, parallel, next].filter(Boolean) as Card[];
     <h2 id="nba-heading" class="nba-heading">{tr.next_action_heading}</h2>
     <div class="nba-cards">
       {cards.map(card => (
-        <a href={card.href} class="nba-card">
+        <a href={card.href} class="nba-card" data-track={`nba-${card.href.split('/').filter(Boolean).join('-')}`}>
           <span class="nba-label">{card.label}</span>
           <span class="nba-desc">{card.desc}</span>
         </a>
