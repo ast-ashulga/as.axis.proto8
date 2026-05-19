@@ -50,7 +50,7 @@ const disabledBooks = [
 
     <!-- Cross-tradition resonances -->
     <div style="margin-bottom: 40px; max-width: var(--col);">
-      <a href={`${navBase}/parallels/`} style="font: 500 16px/1.7 var(--serif);">
+      <a href={`${navBase}/parallels/`} style="font: 500 16px/1.7 var(--serif);" data-track="parallels-index">
         {tr.cross_tradition_link}
       </a>
       <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-top: 6px;">
@@ -90,6 +90,7 @@ const disabledBooks = [
           role="listitem"
           aria-label={`${tr.iliad_book24_label} — ${tr.iliad_book24_name}`}
           style="border-left: 3px solid var(--tier-rec);"
+          data-track="tablet-book-xxiv"
         >
           <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px;">
             <p style="font: 400 18px/1.4 var(--serif); color: var(--text-2);">{tr.iliad_book24_label}</p>

@@ -81,7 +81,7 @@ const tmiMotifs = episode?.data.tmiMotifs;
 
     <!-- Layer indicator -->
     <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label={tr.layer_depth_tablist_aria}>
-      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-track="layer-surface">
         <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
       </button>
@@ -92,7 +92,7 @@ const tmiMotifs = episode?.data.tmiMotifs;
         <span class="layer-unavail">{tr.layer_unavailable}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-track="layer-translated">
         <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
       </button>
@@ -103,7 +103,7 @@ const tmiMotifs = episode?.data.tmiMotifs;
         <span class="layer-unavail">{tr.layer_unavailable}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-track="layer-scholaria">
         <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
       </button>
@@ -277,7 +277,7 @@ const tmiMotifs = episode?.data.tmiMotifs;
         </h2>
         <p class="parallel-card-body">{tr.iliad_frag_parallel_card_body}</p>
         <p class="parallel-card-type">{tr.parallel_type_structural}</p>
-        <a href={parallelHref} style="font: 500 16px/1.7 var(--serif);">
+        <a href={parallelHref} style="font: 500 16px/1.7 var(--serif);" data-track="parallel-grief">
           {tr.read_this_parallel}
         </a>
       </div>
@@ -293,7 +293,7 @@ const tmiMotifs = episode?.data.tmiMotifs;
     <!-- Episode navigation -->
     <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
       <a href={gilgameshHref} rel="prev" aria-label={tr.ep_nav_prev_aria}>{tr.frag_nav_grief_back}</a>
-      <a href={parallelHref} rel="next" aria-label={tr.ep_nav_next_aria}>{tr.frag_nav_grief_parallel}</a>
+      <a href={parallelHref} rel="next" aria-label={tr.ep_nav_next_aria} data-track="parallel-grief">{tr.frag_nav_grief_parallel}</a>
     </nav>
 
   </div><!-- /page-body -->

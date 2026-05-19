@@ -103,6 +103,7 @@ const navBase = withBase(`/${locale}`);
           class="ep-card ep-card--active"
           role="listitem"
           style="border-left: 3px solid var(--tier-rec);"
+          data-track="episode-ransom-of-hector"
         >
           <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
             <h2 style="font: 400 18px/1.4 var(--serif);">
@@ -125,7 +126,7 @@ const navBase = withBase(`/${locale}`);
     </section>
 
     <!-- Nav -->
-    <nav aria-label={tr.hub_nav_book_aria} style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
+    <nav class="hub-nav" aria-label={tr.hub_nav_book_aria} style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2); display: flex; justify-content: space-between;">
       <a href={`${navBase}/iliad/`} style="font: 400 14px/1.5 var(--serif);">{tr.iliad_book24_nav_prev}</a>
       <a href={`${navBase}/iliad/`} style="font: 400 14px/1.5 var(--serif);">{tr.iliad_book24_nav_return_overview}</a>
     </nav>

@@ -51,7 +51,7 @@ const viewLabel = locale === 'ru' ? 'Смотреть в коллекции →'
       <span>{license}</span>
     </span>
     {viewInCollectionUrl && (
-      <a class="hero-view-link" href={viewInCollectionUrl} target="_blank" rel="noopener noreferrer">
+      <a class="hero-view-link" href={viewInCollectionUrl} target="_blank" rel="noopener noreferrer" data-track="hero-artifact-collection">
         {viewLabel}
       </a>
     )}

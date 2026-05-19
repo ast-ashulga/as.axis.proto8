@@ -64,7 +64,7 @@ const parallelsHref = withBase(`/${locale}/parallels/`);
     <HowToReadThisPage locale={locale} />
 
     <div class="layer-indicator" role="tablist" aria-label={tr.layer_depth_tablist_aria}>
-      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-track="layer-surface">
         <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
       </button>
@@ -74,7 +74,7 @@ const parallelsHref = withBase(`/${locale}/parallels/`);
         <span class="layer-tab__poetic layer-tab__unavail">{tr.layer_unavailable}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-track="layer-translated">
         <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
       </button>
@@ -84,7 +84,7 @@ const parallelsHref = withBase(`/${locale}/parallels/`);
         <span class="layer-tab__poetic layer-tab__unavail">{tr.layer_unavailable}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-track="layer-scholaria">
         <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
       </button>

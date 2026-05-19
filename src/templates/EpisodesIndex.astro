@@ -101,7 +101,7 @@ const phase2Label     = tr.episodes_phase2_badge;
               </div>
               <p class="ep-title">
                 {path
-                  ? <a href={withBase(path)} class="ep-link">{title}</a>
+                  ? <a href={withBase(path)} class="ep-link" data-track={`episode-card-${ep.data.nas.split('/').pop()}`}>{title}</a>
                   : title
                 }
               </p>

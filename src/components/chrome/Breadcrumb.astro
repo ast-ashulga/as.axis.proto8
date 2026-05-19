@@ -13,6 +13,17 @@ interface Props {
 
 const { crumbs, locale } = Astro.props;
 const tr = t(locale);
+
+function breadcrumbTrackId(href: string): string {
+  try {
+    const segments = new URL(href, 'https://mnemosyne.local').pathname.split('/').filter(Boolean);
+    const localeIdx = segments.findIndex((s) => s === 'en' || s === 'ru');
+    const path = localeIdx >= 0 ? segments.slice(localeIdx + 1) : segments;
+    return path.length ? `bc-${path.join('-')}` : 'bc-home';
+  } catch {
+    return 'bc-link';
+  }
+}
 ---
 
 <nav class="bc" aria-label={tr.bc_nav_aria}>
@@ -20,7 +31,7 @@ const tr = t(locale);
     i < crumbs.length - 1
       ? <>
           {crumb.href
-            ? <a href={crumb.href}>{crumb.label}</a>
+            ? <a href={crumb.href} data-track={breadcrumbTrackId(crumb.href)}>{crumb.label}</a>
             : <span>{crumb.label}</span>
           }
           <span class="sep" aria-hidden="true">›</span>

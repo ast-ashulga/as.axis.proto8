@@ -80,27 +80,27 @@ const isRu = locale === 'ru';
 
     <!-- Layer indicator -->
     <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label={tr.layer_depth_tablist_aria}>
-      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface" data-track="layer-surface">
         <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">
+      <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated" data-track="layer-narrated">
         <span class="layer-tab__plain">{tr.layer_narrated_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_narrated_poetic}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated" data-track="layer-translated">
         <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original">
+      <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original" data-track="layer-original">
         <span class="layer-tab__plain">{tr.layer_original_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_original_poetic}</span>
       </button>
       <span class="layer-sep" aria-hidden="true">·</span>
-      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria" data-track="layer-scholaria">
         <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
         <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
       </button>

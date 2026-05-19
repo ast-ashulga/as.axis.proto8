@@ -15,13 +15,52 @@ const posthogHost = 'https://us.posthog.com';
       persistence: 'memory',
     });
 
+    function slugFromHref(href) {
+      if (!href) return null;
+      try {
+        var path = new URL(href, window.location.origin).pathname;
+        var segments = path.split('/').filter(Boolean);
+        if (segments[0] === 'en' || segments[0] === 'ru') segments.shift();
+        return segments.join('-') || 'home';
+      } catch (err) {
+        return null;
+      }
+    }
+
+    function resolveTrackId(target) {
+      if (target.dataset.track) return target.dataset.track;
+      if (target.classList.contains('nas-copy')) return 'nas-copy';
+      if (target.id === 'see-sources-btn') return 'see-sources-toggle';
+      if (target.id === 'episode-badge') return 'episode-badge-toggle';
+      if (target.id === 'onboarding-dismiss-btn') return 'onboarding-dismiss';
+      if (target.classList.contains('badge') && target.querySelector('.badge-pop')) return 'tier-badge-toggle';
+      if (target.classList.contains('annot-block')) return 'annot-toggle';
+      if (target.classList.contains('motif-anchor')) {
+        var hash = target.getAttribute('href');
+        return hash ? 'motif' + hash.replace('#', '-') : 'motif-anchor';
+      }
+      var epNav = target.closest('.ep-nav');
+      if (epNav && target.tagName === 'A') {
+        var epSlug = slugFromHref(target.getAttribute('href'));
+        return epSlug ? 'ep-nav-' + epSlug : 'ep-nav';
+      }
+      var hubNav = target.closest('.hub-nav');
+      if (hubNav && target.tagName === 'A') {
+        var hubSlug = slugFromHref(target.getAttribute('href'));
+        return hubSlug ? 'hub-nav-' + hubSlug : 'hub-nav';
+      }
+      return null;
+    }
+
     document.addEventListener('click', function(e) {
-      var target = e.target.closest('[data-track]');
+      var target = e.target.closest('[data-track], .nas-copy, #see-sources-btn, #episode-badge, #onboarding-dismiss-btn, .badge, .annot-block, .motif-anchor, .ep-nav a, .hub-nav a');
       if (!target) return;
+      var trackId = resolveTrackId(target);
+      if (!trackId) return;
       posthog.capture('cta_click', {
-        track_id:   target.dataset.track,
+        track_id:   trackId,
         track_href: target.getAttribute('href') || null,
-        track_text: (target.textContent || '').trim().slice(0, 80) || null,
+        track_text: (target.textContent || target.getAttribute('aria-label') || '').trim().slice(0, 80) || null,
       });
     });
   </script>
