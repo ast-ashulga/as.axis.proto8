@@ -22,7 +22,10 @@ const tr = t(locale);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} — Mnemosyne Engine</title>
   {description && <meta name="description" content={description} />}
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+  <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
   <Analytics />
 </head>
 <body>
