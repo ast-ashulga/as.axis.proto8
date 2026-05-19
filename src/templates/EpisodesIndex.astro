@@ -25,28 +25,54 @@ function nasToPath(nas: string): string | null {
   return `/${locale}/${tradition}/${division}/${unit}/`;
 }
 
-type TraditionKey = 'gilgamesh' | 'iliad' | 'mahabharata' | 'ramayana' | 'aeneid' | 'shahnameh' | 'atrahasis' | 'genesis';
+type TraditionKey =
+  | 'gilgamesh' | 'iliad' | 'mahabharata' | 'ramayana' | 'aeneid' | 'shahnameh'
+  | 'odyssey' | 'tale-of-genji' | 'beowulf' | 'nibelungenlied' | 'poetic-edda'
+  | 'sundiata' | 'kalevala' | 'journey-to-the-west' | 'naruto' | 'dune' | 'warhammer-40k'
+  | 'atrahasis' | 'genesis';
 
 const TRAD_COLOR: Record<TraditionKey, string> = {
-  gilgamesh:   'var(--mesop)',
-  iliad:       'var(--greek)',
-  atrahasis:   'var(--mesop)',
-  genesis:     'var(--text-3)',
-  mahabharata: 'var(--indian)',
-  ramayana:    'var(--text-3)',
-  aeneid:      'var(--text-3)',
-  shahnameh:   'var(--text-3)',
+  gilgamesh:          'var(--mesop)',
+  iliad:              'var(--greek)',
+  odyssey:            'var(--greek)',
+  atrahasis:          'var(--mesop)',
+  genesis:            'var(--text-3)',
+  mahabharata:        'var(--indian)',
+  ramayana:           'var(--text-3)',
+  aeneid:             'var(--text-3)',
+  shahnameh:          'var(--text-3)',
+  'tale-of-genji':    'var(--text-3)',
+  beowulf:            'var(--text-3)',
+  nibelungenlied:     'var(--text-3)',
+  'poetic-edda':      'var(--text-3)',
+  sundiata:           'var(--text-3)',
+  kalevala:           'var(--text-3)',
+  'journey-to-the-west': 'var(--text-3)',
+  naruto:             'var(--text-3)',
+  dune:               'var(--text-3)',
+  'warhammer-40k':    'var(--text-3)',
 };
 
 const TRAD_BG: Record<TraditionKey, string> = {
-  gilgamesh:   'var(--mesop-bg)',
-  iliad:       'var(--greek-bg)',
-  atrahasis:   'var(--mesop-bg)',
-  genesis:     'var(--inset)',
-  mahabharata: 'var(--indian-bg)',
-  ramayana:    'var(--inset)',
-  aeneid:      'var(--inset)',
-  shahnameh:   'var(--inset)',
+  gilgamesh:          'var(--mesop-bg)',
+  iliad:              'var(--greek-bg)',
+  odyssey:            'var(--greek-bg)',
+  atrahasis:          'var(--mesop-bg)',
+  genesis:            'var(--inset)',
+  mahabharata:        'var(--indian-bg)',
+  ramayana:           'var(--inset)',
+  aeneid:             'var(--inset)',
+  shahnameh:          'var(--inset)',
+  'tale-of-genji':    'var(--inset)',
+  beowulf:            'var(--inset)',
+  nibelungenlied:     'var(--inset)',
+  'poetic-edda':      'var(--inset)',
+  sundiata:           'var(--inset)',
+  kalevala:           'var(--inset)',
+  'journey-to-the-west': 'var(--inset)',
+  naruto:             'var(--inset)',
+  dune:               'var(--inset)',
+  'warhammer-40k':    'var(--inset)',
 };
 
 function tradColor(trad: string) { return TRAD_COLOR[trad as TraditionKey] ?? 'var(--text-3)'; }
@@ -60,6 +86,17 @@ function episodeTradLabel(tradition: string): string {
     case 'ramayana': return tr.episode_trad_label_ramayana;
     case 'aeneid': return tr.episode_trad_label_aeneid;
     case 'shahnameh': return tr.episode_trad_label_shahnameh;
+    case 'odyssey': return tr.episode_trad_label_odyssey;
+    case 'tale-of-genji': return tr.episode_trad_label_tale_of_genji;
+    case 'beowulf': return tr.episode_trad_label_beowulf;
+    case 'nibelungenlied': return tr.episode_trad_label_nibelungenlied;
+    case 'poetic-edda': return tr.episode_trad_label_poetic_edda;
+    case 'sundiata': return tr.episode_trad_label_sundiata;
+    case 'kalevala': return tr.episode_trad_label_kalevala;
+    case 'journey-to-the-west': return tr.episode_trad_label_journey_to_the_west;
+    case 'naruto': return tr.episode_trad_label_naruto;
+    case 'dune': return tr.episode_trad_label_dune;
+    case 'warhammer-40k': return tr.episode_trad_label_warhammer_40k;
     case 'atrahasis': return tr.episode_trad_label_atrahasis;
     case 'genesis': return tr.episode_trad_label_genesis;
     default: return tradition.toUpperCase();

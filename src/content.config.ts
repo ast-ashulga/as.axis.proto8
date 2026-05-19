@@ -52,6 +52,9 @@ const episodes = defineCollection({
     tradition: z.enum([
       'gilgamesh', 'iliad', 'atrahasis', 'genesis',
       'mahabharata', 'ramayana', 'aeneid', 'shahnameh',
+      'odyssey', 'tale-of-genji', 'beowulf', 'nibelungenlied', 'poetic-edda',
+      'sundiata', 'kalevala', 'journey-to-the-west',
+      'naruto', 'dune', 'warhammer-40k',
     ]),
     tablet:    z.string(),
     tier:      EpistemicTierSchema,

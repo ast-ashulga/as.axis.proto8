@@ -573,6 +573,17 @@ export interface Translations {
   episode_trad_label_ramayana: string;
   episode_trad_label_aeneid: string;
   episode_trad_label_shahnameh: string;
+  episode_trad_label_odyssey: string;
+  episode_trad_label_tale_of_genji: string;
+  episode_trad_label_beowulf: string;
+  episode_trad_label_nibelungenlied: string;
+  episode_trad_label_poetic_edda: string;
+  episode_trad_label_sundiata: string;
+  episode_trad_label_kalevala: string;
+  episode_trad_label_journey_to_the_west: string;
+  episode_trad_label_naruto: string;
+  episode_trad_label_dune: string;
+  episode_trad_label_warhammer_40k: string;
   episode_trad_label_atrahasis: string;
   episode_trad_label_genesis: string;
 
