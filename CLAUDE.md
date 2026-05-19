@@ -103,6 +103,34 @@ Terms with precise definitions in `PRD.md §10 Appendix B` — use them consiste
 
 ---
 
+## Analytics
+
+This project uses **PostHog** for product analytics. Every page and meaningful interaction must be instrumented.
+
+**Page views** — each page must fire a `$pageview` event (or call `posthog.capture('$pageview')`) on load, including the locale and page identity as properties.
+
+**Interaction events** — capture user actions that reveal intent or engagement. Required minimum per page:
+
+| Page / component | Events to capture |
+|---|---|
+| Landing | `tradition_selected` (tradition id) |
+| Tradition overview | `tablet_opened` (tablet id) |
+| Fragment view | `layer_changed` (from, to), `parallel_opened` (parallel id) |
+| Track view | `track_toggled` (track name, enabled) |
+| Parallel view | `parallel_viewed` (parallel id, tradition pair) |
+| Parallels index | `parallel_clicked` (parallel id) |
+| Global chrome | `locale_switched` (from, to) |
+
+**Event conventions**:
+- Event names use `snake_case`.
+- Always include `locale` and `tradition` as properties where applicable.
+- Never include personal data (no emails, no user-identifiable strings) in event properties.
+- Use the shared PostHog client from `src/lib/posthog.ts` — do not instantiate a second client.
+
+When adding a new page or interactive component, add PostHog instrumentation in the same change. Do not ship pages without analytics.
+
+---
+
 ## Behavioral constraints
 
 - Do not commit anything without explicit approval.

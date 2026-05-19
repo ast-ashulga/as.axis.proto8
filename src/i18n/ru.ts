@@ -528,7 +528,7 @@ export const ru: Translations = {
   /* ── Phase B: Contact page ──────────────────────────────────────── */
   contact_intro: 'Mnemosyne Engine — научный гуманитарный проект в активной разработке.',
   contact_email_label: 'Электронная почта',
-  contact_email_value: 'contact@mnemosyne.engine',
+  contact_email_value: 'mnemosyne.engine@gmail.com',
   contact_scholar_note: 'Мы приветствуем обращения от исследователей в области эпических традиций, сравнительной мифологии и цифровых гуманитарных наук. Если вы хотите проверить контент, предложить параллель или указать на ошибку — напишите нам.',
 
   /* ── Phase C: Visualization chrome ─────────────────────────────── */

@@ -528,7 +528,7 @@ export const en: Translations = {
   /* ── Phase B: Contact page ──────────────────────────────────────── */
   contact_intro: 'Mnemosyne Engine is a scholarly humanities project in active development.',
   contact_email_label: 'Email',
-  contact_email_value: 'contact@mnemosyne.engine',
+  contact_email_value: 'mnemosyne.engine@gmail.com',
   contact_scholar_note: 'We welcome correspondence from scholars working in epic traditions, comparative mythology, and digital humanities. If you would like to review content, propose a parallel, or suggest a correction, please write to us.',
 
   /* ── Phase C: Visualization chrome ─────────────────────────────── */
