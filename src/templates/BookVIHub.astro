@@ -1,0 +1,139 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = withBase(`/${locale}`);
+
+const mahabharataHref = withBase(`/${locale}/mahabharata/`);
+const ep1Href = withBase(`/${locale}/mahabharata/book-vi/arjunas-grief/`);
+const ep2Href = withBase(`/${locale}/mahabharata/book-vi/krishna-counsel/`);
+---
+
+<BaseLayout title={`${tr.maha_book_vi_hub_heading}${tr.doc_title_suffix_book_vi_mahabharata}`} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,             href: withBase(`/${locale}/`) },
+      { label: tr.nav_mahabharata,     href: mahabharataHref },
+      { label: tr.maha_book_vi_hub_breadcrumb },
+    ]} />
+
+    <!-- Book header -->
+    <header style="border-left: 3px solid var(--indian); padding-left: 16px; margin-bottom: 32px;">
+      <p style="font: 500 11px/1.4 var(--mono); letter-spacing: 0.1em; color: var(--indian); margin-bottom: 12px;">
+        {tr.tradition_indian}
+      </p>
+      <h1 style="font: 500 28px/1.2 var(--serif); margin-bottom: 6px;">
+        {tr.maha_book_vi_hub_heading}
+      </h1>
+      <p style="font: 400 16px/1.5 var(--serif); color: var(--text-2); margin-bottom: 0;">
+        {tr.maha_book_vi_hub_subtitle}
+      </p>
+    </header>
+
+    <hr class="div" />
+
+    <!-- Intro -->
+    <div style="max-width: var(--col); margin-bottom: 40px;">
+      <p style="font: 400 16px/1.7 var(--serif);">
+        {tr.maha_book_vi_hub_intro}
+      </p>
+    </div>
+
+    <hr class="div" />
+
+    <!-- Episodes -->
+    <section aria-label={tr.episodes_label}>
+      <p style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 8px;">
+        {tr.episodes_label}
+      </p>
+      <div class="ep-grid" role="list">
+
+        <!-- Episode 1: Arjuna's Grief — active -->
+        <a
+          href={ep1Href}
+          class="ep-card ep-card--active"
+          role="listitem"
+          aria-label={tr.maha_book_vi_ep1_title}
+          style="border-left: 3px solid var(--tier-rec);"
+          data-track="episode-arjunas-grief"
+        >
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px;">
+            <span style="font: 500 11px/1.4 var(--mono); color: var(--tier-rec);" aria-hidden="true">[◑]</span>
+            <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">BG 1</span>
+          </div>
+          <h2 style="font: 500 18px/1.35 var(--serif); margin-bottom: 10px;">{tr.maha_book_vi_ep1_title}</h2>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;">{tr.maha_book_vi_ep1_desc}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--tier-rec);">◑ 1 {locale === 'ru' ? 'структурная параллель' : 'structural parallel'}</p>
+        </a>
+
+        <!-- Episode 2: Krishna's Counsel — active -->
+        <a
+          href={ep2Href}
+          class="ep-card ep-card--active"
+          role="listitem"
+          aria-label={tr.maha_book_vi_ep2_title}
+          style="border-left: 3px solid var(--tier-ins);"
+          data-track="episode-krishna-counsel"
+        >
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px;">
+            <span style="font: 500 11px/1.4 var(--mono); color: var(--tier-ins);" aria-hidden="true">[▲]</span>
+            <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">BG 2</span>
+          </div>
+          <h2 style="font: 500 18px/1.35 var(--serif); margin-bottom: 10px;">{tr.maha_book_vi_ep2_title}</h2>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 14px;">{tr.maha_book_vi_ep2_desc}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--tier-ins);">▲ {locale === 'ru' ? 'проверено ИИ' : 'AI-reviewed'}</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="hub-nav" aria-label={tr.hub_nav_book_aria} style="margin-top: 48px;">
+      <a href={mahabharataHref}>{tr.maha_book_vi_nav_return}</a>
+    </nav>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.ep-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ep-card {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+}
+
+a.ep-card--active { transition: background 0.1s ease-in-out; }
+a.ep-card--active:hover { background: var(--overlay); color: var(--text); }
+a.ep-card--active:visited { color: var(--text); }
+
+.hub-nav { display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border-2); padding-bottom: 8px; }
+.hub-nav a { font: 400 14px/1.5 var(--serif); }
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  .page-body { padding-inline: var(--mx-m); }
+  .ep-grid { grid-template-columns: 1fr; }
+}
+</style>

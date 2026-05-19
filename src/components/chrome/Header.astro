@@ -26,9 +26,10 @@ const alternateUrl = pathname.startsWith(localePrefix)
 
 const navBase = withBase(`/${locale}`);
 
-const onGilgamesh = Astro.url.pathname.includes('/gilgamesh');
-const onIliad     = Astro.url.pathname.includes('/iliad');
-const onParallels = Astro.url.pathname.includes('/parallels');
+const onGilgamesh    = Astro.url.pathname.includes('/gilgamesh');
+const onIliad        = Astro.url.pathname.includes('/iliad');
+const onMahabharata  = Astro.url.pathname.includes('/mahabharata');
+const onParallels    = Astro.url.pathname.includes('/parallels');
 ---
 
 <nav class="site-nav" aria-label={tr.nav_main_aria}>
@@ -52,6 +53,14 @@ const onParallels = Astro.url.pathname.includes('/parallels');
       aria-current={onIliad ? 'page' : undefined}
     >
       {tr.nav_iliad}
+    </a>
+    <a
+      href={`${navBase}/mahabharata/`}
+      class="nav-l"
+      data-track="nav-mahabharata"
+      aria-current={onMahabharata ? 'page' : undefined}
+    >
+      {tr.nav_mahabharata}
     </a>
     <a
       href={`${navBase}/parallels/`}
@@ -85,6 +94,11 @@ const onParallels = Astro.url.pathname.includes('/parallels');
     class="mobile-trad-link"
     aria-current={onIliad ? 'page' : undefined}
   >{tr.nav_iliad}</a>
+  <a
+    href={`${navBase}/mahabharata/`}
+    class="mobile-trad-link"
+    aria-current={onMahabharata ? 'page' : undefined}
+  >{tr.nav_mahabharata}</a>
   <a
     href={`${navBase}/parallels/`}
     class="mobile-trad-link"

@@ -1,0 +1,354 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import ParallelStructureDiagram from '~/components/visualizations/ParallelStructureDiagram.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const navBase = withBase(`/${locale}`);
+const isRu = locale === 'ru';
+---
+
+<BaseLayout title={tr.maha_parallel_heading} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,             href: `${navBase}/` },
+      { label: tr.bc_cross_resonances, href: `${navBase}/parallels/` },
+      { label: tr.maha_parallel_heading },
+    ]} />
+
+    <!-- Back link -->
+    <a
+      href={`${navBase}/mahabharata/`}
+      style="font: 400 14px/1.5 var(--serif); display: block; margin-bottom: 24px;"
+    >
+      {tr.maha_parallel_view_back}
+    </a>
+
+    <!-- Parallel header -->
+    <header class="par-header" aria-label={tr.maha_parallel_heading}>
+      <h1 style="font: 500 26px/1.3 var(--serif); margin-bottom: 8px;">{tr.maha_parallel_heading}</h1>
+      <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 16px;">
+        {tr.parallel_type_shared}
+      </p>
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <span class="badge badge--rec">{tr.badge_reconstructed}</span>
+        <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">
+          {tr.maha_parallel_attributed}
+        </span>
+      </div>
+    </header>
+
+    <hr class="div" />
+
+    <!-- Structural beat diagram -->
+    <ParallelStructureDiagram
+      locale={locale}
+      trad1Label={tr.maha_parallel_label_indian}
+      trad2Label={tr.parallel_view_label_mesop}
+      caption={tr.parallel_diagram_caption_hero_crisis}
+      beats={[
+        {
+          id: 'b1',
+          label: isRu ? 'Столкновение с потерей' : 'Confrontation with loss',
+          trad1: isRu
+            ? 'Арджуна видит на противоположной стороне учителей, деда, двоюродных братьев — всех, кого любит. Его ужасает то, что он понимает: придётся их убить'
+            : "Arjuna sees his teachers, grandsire, and cousins arrayed on the opposing side. He comprehends what the battle will require: killing everyone he loves",
+          trad2: isRu
+            ? 'Энкиду заболевает и умирает на двенадцатый день болезни. Гильгамеш стоит у постели умирающего'
+            : "Enkidu falls ill and dies on the twelfth day. Gilgamesh watches at the bedside and then stands over the body",
+        },
+        {
+          id: 'b2',
+          label: isRu ? 'Паралич героя' : "Hero's paralysis",
+          trad1: isRu
+            ? 'Арджуна кладёт лук, опускается на сиденье колесницы. «Я не буду сражаться»'
+            : 'Arjuna sets down his bow and sinks onto the chariot-seat. "I will not fight"',
+          trad2: isRu
+            ? 'Гильгамеш семь дней и ночей отказывается хоронить Энкиду. Он рвёт волосы и облачается в шкуру льва'
+            : 'Gilgamesh refuses to allow burial for seven days and nights. He tears out his hair and clothes himself in a lion\'s skin',
+          diverges: true,
+        },
+        {
+          id: 'b3',
+          label: isRu ? 'Встреча с наставником' : 'Meeting with mentor/counsellor',
+          trad1: isRu
+            ? 'Кришна — уже здесь, возничий. Арджуна обращается к нему: «Я твой ученик. Научи меня»'
+            : "Krishna is already present as charioteer. Arjuna addresses him: 'I am your disciple. Teach me what is right'",
+          trad2: isRu
+            ? 'Гильгамеш покидает Урук и встречает Сидури, кабатчицу, у края мира, а затем Утнапиштима'
+            : 'Gilgamesh leaves Uruk and encounters Siduri the tavern-keeper at the edge of the world, then Utnapishtim',
+          diverges: true,
+        },
+        {
+          id: 'b4',
+          label: isRu ? 'Наставление дано' : 'Counsel delivered',
+          trad1: isRu
+            ? 'Кришна преподаёт Бхагавад-гиту: 18 глав о природе самости, долга и действия без привязанности к плодам'
+            : 'Krishna delivers the Bhagavad Gita: 18 chapters on the eternal self, duty, and action without attachment to its fruits',
+          trad2: isRu
+            ? 'Сидури и Утнапиштим дают один и тот же совет: смерть предназначена смертным; бессмертие хранится богами. Радуйся жизни'
+            : 'Siduri and Utnapishtim each offer the same counsel: death is destined for mortals; immortality is kept by the gods. Enjoy what you have',
+          diverges: true,
+        },
+        {
+          id: 'b5',
+          label: isRu ? 'Исход' : 'Outcome',
+          trad1: isRu
+            ? 'Арджуна поднимает лук. Война началась. Паралич преодолён посредством понимания'
+            : 'Arjuna picks up his bow. The war begins. Paralysis overcome through understanding',
+          trad2: isRu
+            ? 'Гильгамеш возвращается в Урук с пустыми руками. Его бессмертие — стены города'
+            : "Gilgamesh returns to Uruk with empty hands. His immortality is the walls of the city",
+          diverges: true,
+        },
+      ]}
+    />
+
+    <hr class="div" />
+
+    <!-- Two-column tradition passages -->
+    <section aria-label={tr.parallel_passages_section_aria} class="passages-grid">
+
+      <!-- Indian / Mahabharata panel -->
+      <div class="tradition-panel" aria-label={isRu ? 'Отрывок: индийская традиция' : 'Indian tradition passage'}>
+        <p class="trad-label" style="color: var(--indian);">{tr.maha_parallel_label_indian}</p>
+        <div class="panel-body">
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.idx_title_mahabharata}</h2>
+          <p style="font: 400 13px/1.4 var(--mono); color: var(--text-2); margin-bottom: 2px;">{tr.maha_parallel_maha_sub}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 6px;">{tr.maha_parallel_maha_date}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px;">{tr.layer_static_2_translated}</p>
+          <span class="badge badge--ins" style="display: inline-block; margin-bottom: 4px;">{tr.badge_ai_reviewed}</span>
+          <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); display: block; margin-bottom: 16px;">{tr.maha_parallel_credit_maha}</span>
+          <hr class="panel-div" />
+          <blockquote class="passage" lang={isRu ? 'ru' : 'en'}>
+            {isRu ? (
+              <>
+                <p><a href="#beat-b1" class="motif-anchor" id="motif-b1" aria-label={tr.motif_anchor_aria}>◇1</a> Там Партха увидел стоящих в обоих войсках отцов и дедов, учителей, дядей по матери, братьев, сыновей, внуков, товарищей, тестей и друзей. Увидев всех этих родственников, выстроенных в боевом порядке, Арджуна был охвачен великой жалостью и с горестью произнёс такие слова:</p>
+                <p><a href="#beat-b2" class="motif-anchor" id="motif-b2" aria-label={tr.motif_anchor_aria}>◇2</a> «О Кришна, видя своих родственников, выстроенных и жаждущих сражения, мои члены слабеют и рот пересыхает; тело дрожит, волосы встают дыбом. Лук выпадает из рук; кожа горит; я не в силах стоять. Я не нахожу блага в убийстве своих родственников в битве. О Кришна, я не желаю ни победы, ни царства, ни наслаждений.»</p>
+                <p>Саньяя сказал: Произнеся эти слова на поле битвы, Арджуна, чей ум был охвачен скорбью, отбросил лук и стрелы и опустился на сиденье своей колесницы.</p>
+              </>
+            ) : (
+              <>
+                <p><a href="#beat-b1" class="motif-anchor" id="motif-b1" aria-label={tr.motif_anchor_aria}>◇1</a> There Partha beheld standing fathers and grandfathers, teachers, maternal uncles, brothers, sons, grandsons, companions, fathers-in-law, and friends, in both armies. Seeing all these kinsmen thus standing arrayed, Arjuna was filled with great compassion, and sorrowfully spake these words:</p>
+                <p><a href="#beat-b2" class="motif-anchor" id="motif-b2" aria-label={tr.motif_anchor_aria}>◇2</a> "O Krishna, seeing my own kinsmen thus arrayed, eager to fight, my limbs fail, and my mouth is parched; my body quivers and my hair stands on end. My bow slips from my hand; my skin burns; I am unable to stand; I see adverse omens, O Kesava. I see no good in killing my kinsmen in battle. O Krishna, I desire neither victory, nor kingdom, nor pleasures."</p>
+                <p>Sanjaya said: Having thus spoken on the field of battle, Arjuna, his mind overwhelmed with grief, cast aside his bow and arrows and sank down on his chariot-seat.</p>
+              </>
+            )}
+          </blockquote>
+          <p class="attr">{tr.maha_parallel_attr_maha}</p>
+          <a
+            href={`${navBase}/mahabharata/book-vi/arjunas-grief/`}
+            style="font: 500 13px/1.4 var(--serif); display: inline-block; margin-top: 12px;"
+          >
+            {tr.maha_parallel_fragment_link}
+          </a>
+        </div>
+      </div>
+
+      <!-- Mesopotamian / Gilgamesh panel -->
+      <div class="tradition-panel" aria-label={tr.parallel_panel_mesop_passage_aria}>
+        <p class="trad-label" style="color: var(--mesop);">{tr.parallel_view_label_mesop}</p>
+        <div class="panel-body">
+          <h2 style="font: 500 18px/1.4 var(--serif); margin-bottom: 4px;">{tr.parallel_view_epi_title}</h2>
+          <p style="font: 400 13px/1.4 var(--mono); color: var(--text-2); margin-bottom: 2px;">{tr.iliad_parallel_epi_sub_enkidu}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 6px;">{tr.parallel_view_epi_date_sbv}</p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 16px;">{tr.layer_static_2_translated}</p>
+          <span class="badge badge--doc" style="display: inline-block; margin-bottom: 4px;">{tr.badge_documented}</span>
+          <span style="font: 400 11px/1.4 var(--mono); color: var(--text-3); display: block; margin-bottom: 16px;">{tr.parallel_view_credit_thompson}</span>
+          <hr class="panel-div" />
+          <blockquote class="passage" lang="en">
+            <p><a href="#beat-b1" class="motif-anchor" aria-label={tr.motif_anchor_aria}>◇1</a> Gilgamesh bemoaned Enkidu, his friend, weeping bitterly over him:</p>
+            <p><a href="#beat-b2" class="motif-anchor" aria-label={tr.motif_anchor_aria}>◇2</a> "Enkidu, my friend, whom I loved more than all labours that I did —
+            he who with me ranged the wilderness and slew the lion,
+            he who with me took Humbaba in the Cedar Forest —
+            what is the sleep that hath seized thee now?"</p>
+            <p>He touched his heart but it did not beat. He covered Enkidu's face as one covers a bride. Like an eagle he circled over him. Like a lioness whose whelps are taken he paced to and fro. He tore out his hair and threw it from him.</p>
+            <p><a href="#beat-b3" class="motif-anchor" aria-label={tr.motif_anchor_aria}>◇3</a> Six days and seven nights he wept over the body of Enkidu, until a worm crawled out of the nose. Then he abandoned it. He could bear to stay no more. He put on the skin of a lion and wandered the steppe.</p>
+          </blockquote>
+          <p class="attr">{tr.maha_parallel_attr_gilgamesh}</p>
+          <a
+            href={`${navBase}/gilgamesh/tablet-viii/grief/`}
+            style="font: 500 13px/1.4 var(--serif); display: inline-block; margin-top: 12px;"
+          >
+            {tr.maha_parallel_gilgamesh_fragment_link}
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="div" />
+
+    <!-- Scholarly note -->
+    <section aria-labelledby="note-heading" class="scholar-note">
+      <h2 id="note-heading" style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--text-2); margin-bottom: 24px;">
+        {tr.schol_note_heading}
+      </h2>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.maha_parallel_note_what_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.maha_parallel_note_what_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.maha_parallel_note_what_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.maha_parallel_note_why_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.maha_parallel_note_why_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.maha_parallel_note_why_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.maha_parallel_note_diverge_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.maha_parallel_note_diverge_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.maha_parallel_note_diverge_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.maha_parallel_note_reveals_head}
+        </h3>
+        <p style="font: 400 16px/1.7 var(--serif); margin-bottom: 16px;">{tr.maha_parallel_note_reveals_p1}</p>
+        <p style="font: 400 16px/1.7 var(--serif);">{tr.maha_parallel_note_reveals_p2}</p>
+      </div>
+
+      <div class="note-section">
+        <h3 style="font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; margin-bottom: 10px;">
+          {tr.parallel_view_note_scholarship_head}
+        </h3>
+        <ul class="cite-list">
+          <li><span set:html={tr.maha_parallel_cite_van_buitenen_html} /></li>
+          <li><span set:html={tr.maha_parallel_cite_doniger_html} /></li>
+          <li><span set:html={tr.maha_parallel_cite_sharma_html} /></li>
+          <li><span set:html={tr.maha_parallel_cite_george_html} /></li>
+        </ul>
+      </div>
+
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.par-header {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-left: 3px solid var(--tier-rec);
+  padding: 28px;
+  margin-bottom: 40px;
+  max-width: var(--col-wide, 900px);
+}
+
+.badge {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+}
+.badge--doc { color: var(--tier-doc); }
+.badge--rec { color: var(--tier-rec); }
+.badge--ins { color: var(--tier-ins); }
+
+.passages-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.tradition-panel { display: flex; flex-direction: column; }
+
+.trad-label {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.panel-body {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  flex: 1;
+}
+
+.panel-div {
+  border: none;
+  border-top: 1px solid var(--border-2);
+  margin-block: 16px;
+}
+
+.passage {
+  font: 400 15px/1.7 var(--serif);
+  border-left: 2px solid var(--border-2);
+  padding-left: 16px;
+  margin: 0 0 12px 0;
+}
+.passage p { margin-bottom: 8px; }
+.passage p:last-child { margin-bottom: 0; }
+
+.attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+
+.motif-anchor {
+  font: 500 10px/1 var(--mono);
+  color: var(--tier-ins);
+  text-decoration: none;
+  margin-right: 4px;
+  vertical-align: super;
+}
+.motif-anchor:hover { text-decoration: underline; }
+
+.scholar-note {
+  max-width: var(--col);
+  margin-bottom: 40px;
+}
+
+.note-section {
+  border-top: 1px solid var(--border-2);
+  padding: 24px 0;
+}
+.note-section:last-child { border-bottom: 1px solid var(--border-2); }
+
+.cite-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cite-list li {
+  font: 400 14px/1.6 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 8px;
+  padding-left: 16px;
+  position: relative;
+}
+.cite-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-3);
+}
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px) {
+  .page-body { padding-inline: var(--mx-m); }
+  .passages-grid { grid-template-columns: 1fr; }
+}
+</style>

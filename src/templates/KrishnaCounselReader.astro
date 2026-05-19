@@ -1,0 +1,735 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
+import TraditionDivider from '~/components/TraditionDivider.astro';
+import DropCap from '~/components/DropCap.astro';
+import MonomythArc from '~/components/visualizations/MonomythArc.astro';
+import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
+import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
+import NextBestAction from '~/components/reader/NextBestAction.astro';
+import { t, type Locale } from '~/i18n';
+import { krishnaCounselReaderExtras } from '~/i18n/readers/mahabharataReaders';
+import { withBase } from '~/utils/url';
+import { getEntry } from 'astro:content';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const tr = t(locale);
+const rc = krishnaCounselReaderExtras(locale);
+
+const nas = 'nms://mahabharata/book-vi/krishna-counsel';
+const prevHref = withBase(`/${locale}/mahabharata/book-vi/arjunas-grief/`);
+const bookHref = withBase(`/${locale}/mahabharata/book-vi/`);
+const mahabharataHref = withBase(`/${locale}/mahabharata/`);
+
+const episode = await getEntry('episodes', 'mahabharata-krishna-counsel');
+const proppFunctions = episode?.data.proppFunctions;
+const campbellStages = episode?.data.campbellStages;
+const tmiMotifs = episode?.data.tmiMotifs;
+
+const isRu = locale === 'ru';
+---
+
+<BaseLayout title={tr.frag_krishna_counsel_title + tr.doc_title_suffix_book_vi_mahabharata} locale={locale}>
+
+  <div class="page-body">
+
+    <!-- Breadcrumb -->
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,                    href: withBase(`/${locale}/`) },
+      { label: tr.nav_mahabharata,             href: mahabharataHref },
+      { label: tr.maha_book_vi_hub_breadcrumb, href: bookHref },
+      { label: tr.frag_krishna_counsel_title },
+    ]} />
+
+    <!-- NAS row -->
+    <div class="nas-row" role="status" aria-live="polite">
+      <span class="nas-addr" aria-label={`${tr.nas_address_aria_prefix}${nas}`}>{nas}</span>
+      <button class="nas-copy" id="nas-copy-btn" aria-label={tr.copy_nas_aria}>
+        {tr.copy_btn}
+      </button>
+      <span class="copied-confirm" id="copied-confirm" role="status" aria-live="polite">
+        {tr.copied_confirm}
+      </span>
+    </div>
+
+    <TraditionDivider tradition="indian" />
+
+    <!-- Episode heading -->
+    <div class="ep-heading">
+      <h1 class="ep-title">{tr.frag_krishna_counsel_title}</h1>
+      <button class="badge ins" id="episode-badge" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_ai_reviewed}`} aria-expanded="false">
+        <span>{tr.badge_ai_reviewed}</span>
+        <div class="badge-pop" id="episode-badge-pop">
+          <div class="pop-head">
+            <span>{tr.badge_ai_reviewed}</span>
+            <button type="button" class="pop-close">{tr.close_x}</button>
+          </div>
+          <p>{tr.frag_badge_ai_pop_p1}</p>
+          <ul>
+            <li>{nas}{tr.frag_nas_tag_doc}</li>
+          </ul>
+        </div>
+      </button>
+    </div>
+    <p class="ep-sub">{tr.frag_krishna_counsel_subtitle}</p>
+
+    <HowToReadThisPage locale={locale} />
+
+    <!-- Layer indicator -->
+    <div class="layer-indicator" role="tablist" id="layer-indicator" aria-label={tr.layer_depth_tablist_aria}>
+      <button class="layer-tab" role="tab" id="tab-surface" aria-selected="true" aria-controls="layer-surface" data-layer="surface">
+        <span class="layer-tab__plain">{tr.layer_surface_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_surface_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-narrated" aria-selected="false" aria-controls="layer-narrated" data-layer="narrated">
+        <span class="layer-tab__plain">{tr.layer_narrated_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_narrated_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-translated" aria-selected="false" aria-controls="layer-translated" data-layer="translated">
+        <span class="layer-tab__plain">{tr.layer_translated_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_translated_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-original" aria-selected="false" aria-controls="layer-original" data-layer="original">
+        <span class="layer-tab__plain">{tr.layer_original_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_original_poetic}</span>
+      </button>
+      <span class="layer-sep" aria-hidden="true">·</span>
+      <button class="layer-tab" role="tab" id="tab-scholaria" aria-selected="false" aria-controls="layer-scholaria" data-layer="scholaria">
+        <span class="layer-tab__plain">{tr.layer_scholaria_plain}</span>
+        <span class="layer-tab__poetic">{tr.layer_scholaria_poetic}</span>
+      </button>
+    </div>
+
+    <!-- Content area -->
+    <div class="content-area" id="content-area" tabindex="-1">
+
+      <!-- ─── SURFACE LAYER ─── -->
+      <div id="layer-surface" class="layer-panel active" role="tabpanel" aria-labelledby="tab-surface">
+        <div class="ai-disclosure" role="note">
+          <span>{tr.frag_krishna_counsel_ai_disclosure_lead}&nbsp;</span>
+          <button type="button" class="disc-link" id="see-sources-btn" aria-expanded="false" aria-controls="sources-panel">
+            {tr.see_sources}
+          </button>
+          <div class="sources-panel" id="sources-panel" role="region" aria-label={tr.sources_region_label}>
+            <ul>
+              <li>{nas}{tr.frag_nas_tag_doc}</li>
+            </ul>
+          </div>
+        </div>
+        <DropCap tradition="indian">{tr.frag_surf_krishna_counsel_p1}</DropCap>
+        <p class="body-p">{tr.frag_surf_krishna_counsel_p2}</p>
+        <p class="body-p">{tr.frag_surf_krishna_counsel_p3}</p>
+        <p class="body-p">{tr.frag_surf_krishna_counsel_p4}</p>
+      </div>
+
+      <!-- ─── NARRATED LAYER ─── -->
+      <div id="layer-narrated" class="layer-panel" role="tabpanel" aria-labelledby="tab-narrated">
+        <p class="demo-marker">{tr.demo_content_marker}</p>
+        <div class="narr-body">
+          <p>{rc.narrP1}</p>
+          <p>{rc.narrP2}</p>
+          <blockquote class="narr-quote">
+            <span set:html={rc.narrQuoteKrishnaHtml} />
+            <cite class="narr-cite">{rc.narrQuoteKrishnaCite}</cite>
+          </blockquote>
+          <p>{rc.narrP3}</p>
+        </div>
+      </div>
+
+      <!-- ─── TRANSLATED LAYER ─── -->
+      <div id="layer-translated" class="layer-panel" role="tabpanel" aria-labelledby="tab-translated">
+        <div class="trans-header">
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">
+            {isRu ? 'Перевод: Э. Бесант и Бхагаван Дас (1905) · Эдвин Арнолд (1885)' : 'Translation: Annie Besant & Bhagavan Das (1905) and Edwin Arnold (1885)'}
+          </p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 2px;">
+            {isRu ? 'Источник: Бесант и Дас, «Бхагавад-гита» (1905) · Общественное достояние' : 'Source: Besant & Das, The Bhagavad-Gita (1905) · Public domain'}
+          </p>
+          <p style="font: 400 11px/1.4 var(--mono); color: var(--text-3);">
+            {isRu ? 'Бхишма-парва, Глава 2 (избранные стихи)' : 'Bhishma Parva, Chapter 2 (selected verses)'}
+          </p>
+        </div>
+        <div class="trans-passage" lang={isRu ? 'ru' : 'en'}>
+          {rc.transSegments.map((seg) =>
+            seg.kind === 'lacuna' ? (
+              <span class="lacuna" role="note" aria-label={seg.aria} set:html={seg.text} />
+            ) : seg.kind === 'verse' ? (
+              <p class="verse">{seg.text}</p>
+            ) : (
+              <p>{seg.text}</p>
+            )
+          )}
+          <p class="trans-attribution">{rc.transAttribution}</p>
+        </div>
+      </div>
+
+      <!-- ─── ORIGINAL LAYER ─── -->
+      <div id="layer-original" class="layer-panel" role="tabpanel" aria-labelledby="tab-original">
+        <p class="demo-marker">{tr.demo_content_marker}</p>
+        <div class="orig-header">
+          <p style="font: 400 16px/1.5 var(--serif); margin-bottom: 4px;">
+            {isRu ? 'Санскрит (транслитерация IAST) — по критическому изданию, Пуне (1966–75)' : 'Sanskrit (IAST romanization) — after Critical Edition, Pune (1966–75)'}
+          </p>
+          <p class="orig-attr">
+            {isRu ? 'Транслитерация IAST по критическому изданию. Составлено ИИ по опубликованным изданиям — не проверено учёным.' : 'IAST transliteration after the critical edition. AI-assembled from published editions — not scholar-reviewed.'}
+          </p>
+        </div>
+        <pre class="orig-passage" lang="sa" dir="ltr">BG 2.19  ya enaṃ vetti hantāraṃ yaś cainaṃ manyate hatam
+         ubhau tau na vijānīto nāyaṃ hanti na hanyate
+
+BG 2.20  na jāyate mriyate vā kadācin
+         nāyaṃ bhūtvā bhavitā vā na bhūyaḥ
+         ajo nityaḥ śāśvato 'yaṃ purāṇo
+         na hanyate hanyamāne śarīre
+
+BG 2.47  karmaṇy evādhikāras te mā phaleṣu kadācana
+         mā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi
+
+BG 2.48  yoga-sthaḥ kuru karmāṇi saṅgaṃ tyaktvā dhanañjaya
+         siddhy-asiddhyoḥ samo bhūtvā samatvaṃ yoga ucyate</pre>
+        <p class="orig-attr">
+          {isRu ? 'Демо-контент, созданный ИИ — не проверен учёным' : 'AI-generated demo content — not scholar-reviewed'}
+        </p>
+      </div>
+
+      <!-- ─── SCHOLARIA LAYER ─── -->
+      <div id="layer-scholaria" class="layer-panel" role="tabpanel" aria-labelledby="tab-scholaria">
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>{tr.schol_manuscript_status}</span>
+            <button class="badge doc" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_documented}`}>{tr.badge_documented}</button>
+          </div>
+          <div class="schol-body">
+            <p>{rc.scholMs}</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>{tr.schol_textual_history}</span>
+            <button class="badge rec" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_reconstructed}`}>{tr.badge_reconstructed}</button>
+          </div>
+          <div class="schol-body">
+            <p>{rc.scholHist}</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head">
+            <span>{rc.scholDebateHead}</span>
+            <button class="badge con" style="cursor: default;" aria-label={`${tr.tier_button_aria_prefix}${tr.badge_contested}`}>{tr.badge_contested}</button>
+          </div>
+          <div class="schol-body">
+            <p>{rc.scholDebateP}</p>
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head"><span>{tr.schol_visualization_tools}</span></div>
+          <div class="schol-body">
+            <MonomythArc stages={campbellStages} tradition="indian" locale={locale} />
+            <ProppMorphology functions={proppFunctions} locale={locale} />
+            <MotifTagCloud motifs={tmiMotifs} locale={locale} />
+          </div>
+        </div>
+
+        <div class="schol-section">
+          <div class="schol-head"><span>{tr.schol_scholarship_cited}</span></div>
+          <ul class="schol-cite">
+            <li><span set:html={rc.scholCite1_html} /></li>
+            <li><span set:html={rc.scholCite2_html} /></li>
+            <li><span set:html={rc.scholCite3_html} /></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Structure toggle -->
+      <button type="button" class="structure-toggle" id="structure-toggle" aria-expanded="false" aria-controls="track-view">
+        {tr.show_structure}
+      </button>
+
+    </div><!-- /content-area -->
+
+    <!-- Track View -->
+    <div class="track-view" id="track-view" role="region" aria-label={tr.track_region_aria} hidden aria-hidden="true">
+      <p class="track-view-head">{tr.track_head_book_vi_krishna_counsel}</p>
+
+      <!-- Propp -->
+      <div class="track-row">
+        <div class="track-label">
+          {tr.track_framework_label_propp}
+          <button class="fw-help" aria-label={tr.help_propp_morphology_aria} data-explainer="exp-propp">[?]</button>
+        </div>
+        <div class="fw-explainer" id="exp-propp">
+          <div class="fw-exp-head">
+            {isRu ? 'Морфология сказки Проппа (1928)' : "Propp's Morphology of the Folktale (1928)"}
+            <button class="fw-exp-close">{tr.close_x}</button>
+          </div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">
+            {isRu
+              ? 'Владимир Пропп выделил 31 нарративную функцию в русских народных сказках. Применительно к учению Гиты: переопределение задачи (ПРОПП-12), духовная трансформация (ПРОПП-15), признание истины (ПРОПП-31).'
+              : "Propp's 31 functions applied to the Gita's teaching arc: PROPP-12 marks the re-staging of departure (Arjuna re-takes his role), PROPP-15 the hero's transformation through the teaching, PROPP-31 the recognition of duty."}
+          </p>
+        </div>
+        <div class="annot-row" role="group" aria-label={tr.annot_group_propp_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">PROPP-12</p>
+            <p class="annot-name">{isRu ? 'Герой покидает дом' : 'Hero Leaves Home'}</p>
+            <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">PROPP-12 · {isRu ? 'Герой покидает дом' : 'Hero Leaves Home'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'Там, где в первой главе Арджуна отказался покинуть мир родственных привязанностей, здесь он получает учение, которое делает отправление возможным. Кришна не устраняет отношения — он переопределяет то, как к ним следует относиться. Это отложенное исполнение функции ПРОПП-12.'
+                : "Where in Chapter 1 Arjuna refused to leave the world of kinship attachments, here he receives the teaching that makes departure possible. Krishna does not remove the relationships — he reframes what the hero's relation to them should be. This is the deferred completion of PROPP-12."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+              <p class="meta-line">{tr.meta_nas_colon} {nas}</p>
+            </div>
+          </div>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">PROPP-15</p>
+            <p class="annot-name">{isRu ? 'Пространственное перемещение' : 'Spatial Translocation'}</p>
+            <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">PROPP-15 · {isRu ? 'Пространственное перемещение' : 'Spatial Translocation'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'В применении к Гите, «пространственное перемещение» — не физическое, а когнитивное: перемещение Арджуны из мирского понимания действия (основанного на привязанности к результату) к йогическому пониманию (действие ради самого действия). Это реконструкция, поскольку Пропп писал о физических путешествиях.'
+                : "In the Gita's application, 'spatial translocation' is cognitive rather than physical: Arjuna's movement from a worldly understanding of action (attached to outcome) to a yogic understanding (action for its own sake). This is a reconstruction, as Propp was writing about physical journeys."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">PROPP-31</p>
+            <p class="annot-name">{isRu ? 'Признание' : 'Recognition'}</p>
+            <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">PROPP-31 · {isRu ? 'Признание' : 'Recognition'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'Арджуна «признаёт» себя подлинным деятелем своей судьбы, когда поднимает лук в конце второй главы. Но здесь признание является и эпистемологическим: он признаёт природу вещей такой, какой открывает её Кришна. Это окончательная функция Проппа — завершение нарративного цикла.'
+                : "Arjuna 'recognizes' himself as the true agent of his destiny when he picks up his bow at the end of Chapter 2. But here the recognition is also epistemological: he recognizes the nature of things as Krishna has revealed it. This is Propp's closing function — the completion of the narrative arc."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campbell -->
+      <div class="track-row">
+        <div class="track-label">
+          {tr.track_framework_label_campbell}
+          <button class="fw-help" aria-label={tr.help_campbell_hero_aria} data-explainer="exp-campbell">[?]</button>
+        </div>
+        <div class="fw-explainer" id="exp-campbell">
+          <div class="fw-exp-head">
+            {isRu ? 'Герой с тысячью лиц Кэмпбелла (1949)' : "Campbell's Hero with a Thousand Faces (1949)"}
+            <button class="fw-exp-close">{tr.close_x}</button>
+          </div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">
+            {isRu
+              ? 'В структуре мономифа Кэмпбелла глава 2 знаменует переход от отказа к инициации. Кришна выступает как учитель-наставник; Арджуна — как герой в начале испытания.'
+              : "In Campbell's monomyth structure, Chapter 2 marks the transition from Refusal to Initiation. Krishna functions as the supernatural mentor-teacher; Arjuna as the hero entering the Road of Trials."}
+          </p>
+        </div>
+        <div class="annot-row" role="group" aria-label={tr.annot_group_campbell_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">CAMPBELL</p>
+            <p class="annot-name">{isRu ? 'Дорога испытаний' : 'The Road of Trials'}</p>
+            <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">Campbell · {isRu ? 'Дорога испытаний' : 'The Road of Trials'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'Дорога испытаний в Гите — это не физические испытания, а последовательность философских аргументов, которые Арджуна должен усвоить: бессмертие самости (гл. 2), природа действия, учение о свадхарме. Каждый аргумент требует от него принять всё более радикальное переосмысление своего положения.'
+                : "The Road of Trials in the Gita is not physical tests but a sequence of philosophical arguments Arjuna must absorb: the immortality of the self (Ch. 2), the nature of action, the teaching of svadharma. Each argument demands that he accept an increasingly radical reframing of his situation."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">CAMPBELL</p>
+            <p class="annot-name">{isRu ? 'Апофеоз' : 'Apotheosis'}</p>
+            <button class="badge rec" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_reconstructed}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">Campbell · {isRu ? 'Апофеоз' : 'Apotheosis'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'Кэмпбелл описывает апофеоз как момент, когда герой преодолевает предел собственного ego — когда отдельная воля растворяется в чём-то большем. В Гите это соответствует пониманию Арджуной учения о нишкама-карме (действии без желания): он действует уже не как «я», преследующее результат, а как инструмент высшего порядка.'
+                : "Campbell describes apotheosis as the moment when the hero transcends the limit of the ego — when individual will dissolves into something larger. In the Gita this corresponds to Arjuna's absorption of the nishkama karma teaching: he acts no longer as an 'I' pursuing an outcome, but as an instrument of a higher order."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_reconstructed}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TMI -->
+      <div class="track-row">
+        <div class="track-label">
+          {tr.track_label_tmi_paren}
+          <button class="fw-help" aria-label={tr.help_thompson_motif_aria} data-explainer="exp-tmi">[?]</button>
+        </div>
+        <div class="fw-explainer" id="exp-tmi">
+          <div class="fw-exp-head">
+            {isRu ? 'Указатель мотивов Томпсона (1955–1958)' : 'Thompson Motif Index (1955–1958)'}
+            <button class="fw-exp-close">{tr.close_x}</button>
+          </div>
+          <p style="font: 400 14px/1.5 var(--serif); color: var(--text-2);">
+            {isRu
+              ? 'Q-коды Томпсона охватывают божественное наставление смертных; A-коды — функции богов. Оба мотива в этом эпизоде документированы: прямая речь Кришны к Арджуне является одним из наиболее полных примеров Q2.1 и A182 в мировой эпической традиции.'
+              : "Thompson's Q-codes cover divine instruction to mortals; A-codes cover the actions of gods. Both motifs in this episode are documented: Krishna's direct address to Arjuna is one of the most fully elaborated instances of Q2.1 and A182 in world epic tradition."}
+          </p>
+        </div>
+        <div class="annot-row" role="group" aria-label={tr.annot_group_tmi_aria}>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">Q2.1</p>
+            <p class="annot-name">{isRu ? 'Бог наставляет смертного в долге' : 'God instructs mortal in duty'}</p>
+            <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">TMI Q2.1 · {isRu ? 'Бог наставляет смертного в долге' : 'God instructs mortal in duty'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'Томпсон Q2.1 документирует паттерн, в котором божественное существо напрямую обращается к смертному с учением о надлежащем поведении. Наставление Кришны в Бхагавад-гите — один из наиболее всесторонне разработанных примеров этого мотива в мировой литературе: оно охватывает не только непосредственное действие (сражайся), но и его метафизическое обоснование.'
+                : "Thompson Q2.1 documents the pattern of a divine being directly addressing a mortal with teaching about proper conduct. Krishna's instruction in the Bhagavad Gita is one of the most fully elaborated instances of this motif in world literature: it covers not just the immediate action (fight) but the metaphysical grounding for that action."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+          <div class="annot-block" role="button" aria-expanded="false" tabindex="0">
+            <p class="annot-code">A182</p>
+            <p class="annot-name">{isRu ? 'Бог преподаёт философское учение' : 'God teaches philosophical doctrine'}</p>
+            <button class="badge doc" style="cursor: default; font-size: 10px; pointer-events: none;">{tr.badge_documented}</button>
+            <div class="annot-panel">
+              <div class="annot-panel-head">TMI A182 · {isRu ? 'Бог преподаёт философское учение' : 'God teaches philosophical doctrine'} <button class="annot-panel-close">{tr.close_x}</button></div>
+              <p>{isRu
+                ? 'A182 охватывает более широкий паттерн: бог, открывающий философскую доктрину о природе реальности. Откровение Кришны о вечной самости, природе действия и бескорыстной деятельности выходит за рамки практического наставления и становится систематической метафизикой. Именно это делает Гиту чем-то иным, нежели просто наставлением воину.'
+                : "A182 covers the broader pattern of a god revealing philosophical doctrine about the nature of reality. Krishna's revelation about the eternal self, the nature of action, and selfless activity goes beyond practical instruction to become systematic metaphysics. This is what makes the Gita something more than a warrior's instruction manual."
+              }</p>
+              <p class="meta-line">{tr.meta_confidence_colon} {tr.badge_documented}</p>
+              <p class="meta-line">{tr.meta_annotated_by_sharma}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inactive tracks -->
+      <div class="inactive-tracks">
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_bakhtin}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_levi_strauss}</button>
+        <button class="add-track" aria-pressed="false">{tr.inactive_track_emotional_valence}</button>
+      </div>
+    </div><!-- /track-view -->
+
+    <NextBestAction
+      locale={locale}
+      deeper={{ href: '#tab-scholaria', label: tr.next_action_deeper_label, desc: tr.next_action_deeper_desc_krishna_counsel }}
+      next={{ href: prevHref, label: tr.next_action_related_label, desc: tr.frag_arjunas_grief_title }}
+    />
+
+    <!-- Episode navigation -->
+    <nav class="ep-nav" aria-label={tr.ep_nav_adjacent_aria}>
+      <a href={prevHref} rel="prev" aria-label={tr.ep_nav_prev_aria}>{tr.frag_nav_krishna_counsel_prev}</a>
+      <a href={bookHref}>{tr.frag_nav_krishna_counsel_hub}</a>
+    </nav>
+
+  </div><!-- /page-body -->
+
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-inline: var(--mx);
+    padding-block: 40px 0;
+    max-width: calc(var(--col) + var(--mx) * 2);
+    margin-inline: auto;
+  }
+
+  .nas-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .nas-addr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+  .nas-copy { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+  .nas-copy:hover { color: var(--link-h); }
+  .copied-confirm { font: 400 11px/1.4 var(--mono); color: var(--tier-doc); display: none; }
+
+  .ep-heading { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+  .ep-title { font: 500 24px/1.3 var(--serif); }
+  .ep-sub { font: 400 14px/1.5 var(--serif); color: var(--text-3); margin-bottom: 0; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font: 500 11px/1.4 var(--mono); padding: 2px 8px;
+    border: 1px solid currentColor; border-radius: 2px;
+    cursor: pointer; position: relative; user-select: none; background: transparent;
+    vertical-align: middle;
+  }
+  .badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .ins { color: var(--tier-ins); }
+  .doc { color: var(--tier-doc); }
+  .rec { color: var(--tier-rec); }
+  .con { color: var(--tier-con); }
+  .badge-pop {
+    display: none; position: absolute; top: calc(100% + 6px); left: 0;
+    width: min(300px, calc(100vw - 40px));
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 14px 16px; z-index: 200;
+    font: 400 14px/1.5 var(--serif); color: var(--text);
+  }
+  .badge-pop.open { display: block; }
+  .pop-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; align-items: center; }
+  .pop-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+  .badge-pop p { margin-bottom: 8px; }
+  .badge-pop ul { list-style: none; margin-top: 6px; }
+  .badge-pop li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 3px; }
+  .badge-pop li::before { content: "· "; }
+
+  .layer-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 24px; padding: 10px 0; border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2); margin-top: 20px; }
+  .layer-tab { background: none; border: none; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 4px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+  .layer-tab__plain { font: 500 12px/1.3 var(--mono); }
+  .layer-tab__poetic { font: 400 10px/1.3 var(--mono); color: var(--text-3); }
+  .layer-tab[aria-selected="true"] .layer-tab__plain { color: var(--text); }
+  .layer-tab[aria-selected="true"] .layer-tab__poetic { color: var(--text-2); }
+  .layer-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .layer-sep { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 0 12px; user-select: none; align-self: center; }
+
+  .content-area { border: 1px solid var(--border-2); background: var(--surface); padding: 32px 36px; }
+  .layer-panel { display: none; }
+  .layer-panel.active { display: block; }
+
+  .ai-disclosure { font: 400 14px/1.5 var(--serif); color: var(--text-2); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+  .disc-link { background: none; border: none; cursor: pointer; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 2px; padding: 0; }
+  .sources-panel { display: none; margin-top: 12px; background: var(--inset); padding: 12px 16px; }
+  .sources-panel li { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; list-style: none; }
+  .sources-panel li::before { content: "· "; }
+
+  .body-p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+  .body-p:last-of-type { margin-bottom: 0; }
+
+  .demo-marker { font: 400 11px/1.4 var(--mono); color: var(--text-3); padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-2); }
+
+  .narr-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 20px; }
+  .narr-body p:last-of-type { margin-bottom: 0; }
+  .narr-quote { display: block; margin: 20px 0 20px 24px; padding-left: 16px; border-left: 2px solid var(--border); font: italic 16px/1.7 var(--serif); }
+  .narr-cite { display: block; font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 6px; font-style: normal; }
+
+  .trans-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+  .trans-passage { font: 400 16px/1.7 var(--serif); }
+  .trans-passage p { margin-bottom: 16px; }
+  .trans-passage .verse { margin-inline-start: 20px; margin-bottom: 4px; font-style: italic; }
+  .lacuna { font: 400 italic 14px/1.5 var(--serif); color: var(--text-3); margin-block: 12px; display: block; }
+  .trans-attribution { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+
+  .orig-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-2); }
+  .orig-passage { font: 400 13px/1.6 var(--mono); white-space: pre; overflow-x: auto; background: var(--inset); padding: 20px 24px; margin-bottom: 12px; display: block; }
+  .orig-attr { font: 400 11px/1.4 var(--mono); color: var(--text-3); }
+
+  .schol-section { margin-bottom: 28px; }
+  .schol-section:last-child { margin-bottom: 0; }
+  .schol-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-2); display: flex; align-items: center; gap: 12px; }
+  .schol-body p { font: 400 16px/1.7 var(--serif); margin-bottom: 14px; }
+  .schol-body p:last-child { margin-bottom: 0; }
+  .schol-cite li { font: 400 14px/1.5 var(--serif); list-style: none; margin-bottom: 6px; color: var(--text-2); }
+  .schol-cite li::before { content: "· "; }
+
+  .structure-toggle {
+    display: block; background: none; border: none; cursor: pointer;
+    font: 400 14px/1.5 var(--serif); color: var(--accent); padding: 0;
+    margin-top: 24px; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .structure-toggle:hover { color: var(--link-h); }
+
+  .track-view {
+    display: none; background: var(--inset);
+    border: 1px solid var(--border-2); border-top: none;
+    padding: 24px 28px;
+  }
+  .track-view.open { display: block; }
+  .track-view-head { font: 500 13px/1.4 var(--mono); letter-spacing: 0.06em; color: var(--text-2); margin-bottom: 20px; }
+  .track-row { margin-bottom: 24px; }
+  .track-row:last-of-type { margin-bottom: 0; }
+  .track-label { font: 500 11px/1.4 var(--mono); color: var(--text-2); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .fw-help { background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 1px 5px; }
+  .fw-help:hover { color: var(--text); }
+  .annot-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .annot-block {
+    background: var(--surface); border: 1px solid var(--border-2);
+    padding: 10px 12px; cursor: pointer; position: relative; min-width: 120px;
+  }
+  .annot-block:hover { background: var(--overlay); }
+  .annot-block:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .annot-code { font: 500 11px/1.4 var(--mono); color: var(--text); margin-bottom: 3px; }
+  .annot-name { font: 400 13px/1.4 var(--serif); color: var(--text-2); margin-bottom: 6px; }
+  .annot-panel {
+    display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 150;
+    width: min(320px, calc(100vw - 32px));
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 14px 16px; font: 400 14px/1.5 var(--serif); color: var(--text);
+  }
+  .annot-panel.open { display: block; }
+  .annot-panel-head { font: 500 11px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+  .annot-panel-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+  .annot-panel p { margin-bottom: 8px; }
+  .annot-panel .meta-line { font: 400 11px/1.4 var(--mono); color: var(--text-3); margin-bottom: 4px; }
+  .fw-explainer { display: none; margin-top: 8px; background: var(--surface); border: 1px solid var(--border-2); padding: 14px 16px; }
+  .fw-explainer.open { display: block; }
+  .fw-exp-head { font: 500 13px/1.4 var(--mono); margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-2); display: flex; justify-content: space-between; }
+  .fw-exp-close { background: none; border: none; cursor: pointer; font: 500 11px/1.4 var(--mono); color: var(--link); padding: 0; }
+  .inactive-tracks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-2); }
+  .add-track { background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; font: 400 11px/1.4 var(--mono); color: var(--text-3); padding: 3px 10px; }
+  .add-track:hover { color: var(--text); }
+
+  .ep-nav { margin-top: 40px; display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border-2); padding-bottom: 8px; }
+  .ep-nav a { font: 400 14px/1.5 var(--serif); }
+
+  @media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+  @media (max-width: 767px) {
+    .page-body { padding-inline: var(--mx-m); }
+    .content-area { padding: 20px 18px; }
+    .annot-row { flex-direction: column; }
+    .annot-block { min-width: auto; }
+    .ep-nav { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+
+<script define:vars={{ showStructureLabel: tr.show_structure, hideStructureLabel: tr.hide_structure, seeSources: tr.see_sources, hideSources: tr.hide_sources, nasToCopy: nas, copiedText: tr.copied_confirm, layerPillAria: tr.layer_pill_aria }}>
+  const pill = document.createElement('div');
+  pill.className = 'layer-pill';
+  pill.setAttribute('aria-live', 'polite');
+  pill.setAttribute('aria-label', layerPillAria);
+  document.body.appendChild(pill);
+
+  const layerIndicator = document.getElementById('layer-indicator');
+  if (layerIndicator) {
+    new IntersectionObserver(([e]) => {
+      pill.classList.toggle('visible', !e.isIntersecting);
+    }, { threshold: 0 }).observe(layerIndicator);
+  }
+
+  function updatePill(labelEl) {
+    const plain = labelEl?.querySelector('.layer-tab__plain');
+    if (plain) pill.textContent = plain.textContent ?? '';
+  }
+  updatePill(document.querySelector('.layer-tab[aria-selected="true"]'));
+
+  document.querySelectorAll('.layer-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const layer = tab.dataset.layer;
+      document.querySelectorAll('.layer-tab').forEach(t => t.setAttribute('aria-selected', 'false'));
+      document.querySelectorAll('.layer-panel').forEach(p => p.classList.remove('active'));
+      tab.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById('layer-' + layer);
+      if (panel) panel.classList.add('active');
+      updatePill(tab);
+    });
+  });
+
+  const copyBtn = document.getElementById('nas-copy-btn');
+  const copiedEl = document.getElementById('copied-confirm');
+  if (copyBtn && copiedEl) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(nasToCopy).then(() => {
+        copiedEl.style.display = 'inline';
+        setTimeout(() => { copiedEl.style.display = 'none'; }, 2000);
+      });
+    });
+  }
+
+  const seeSrcBtn = document.getElementById('see-sources-btn');
+  const sourcesPanel = document.getElementById('sources-panel');
+  if (seeSrcBtn && sourcesPanel) {
+    seeSrcBtn.addEventListener('click', () => {
+      const open = sourcesPanel.style.display === 'block';
+      sourcesPanel.style.display = open ? 'none' : 'block';
+      seeSrcBtn.setAttribute('aria-expanded', String(!open));
+      seeSrcBtn.textContent = open ? seeSources : hideSources;
+    });
+  }
+
+  const structureToggle = document.getElementById('structure-toggle');
+  const trackView = document.getElementById('track-view');
+  if (structureToggle && trackView) {
+    structureToggle.addEventListener('click', () => {
+      const open = trackView.classList.contains('open');
+      trackView.classList.toggle('open', !open);
+      trackView.hidden = open;
+      trackView.setAttribute('aria-hidden', String(open));
+      structureToggle.setAttribute('aria-expanded', String(!open));
+      structureToggle.textContent = open ? showStructureLabel : hideStructureLabel;
+    });
+  }
+
+  document.querySelectorAll('.badge').forEach(badge => {
+    const pop = badge.querySelector('.badge-pop');
+    if (!pop) return;
+    badge.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = pop.classList.contains('open');
+      document.querySelectorAll('.badge-pop').forEach(p => p.classList.remove('open'));
+      if (!open) pop.classList.add('open');
+      badge.setAttribute('aria-expanded', String(!open));
+    });
+    const closeBtn = pop.querySelector('.pop-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        pop.classList.remove('open');
+        badge.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.querySelectorAll('.annot-block').forEach(block => {
+    const panel = block.querySelector('.annot-panel');
+    if (!panel) return;
+    block.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = panel.classList.contains('open');
+      document.querySelectorAll('.annot-panel').forEach(p => p.classList.remove('open'));
+      document.querySelectorAll('.annot-block').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!open) { panel.classList.add('open'); block.setAttribute('aria-expanded', 'true'); }
+    });
+    block.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); block.click(); }
+    });
+    const closeBtn = panel.querySelector('.annot-panel-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        panel.classList.remove('open');
+        block.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.querySelectorAll('.fw-help').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.explainer;
+      const exp = id ? document.getElementById(id) : null;
+      if (exp) exp.classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.fw-exp-close').forEach(btn => {
+    btn.addEventListener('click', () => { btn.closest('.fw-explainer')?.classList.remove('open'); });
+  });
+
+  document.querySelectorAll('.add-track').forEach(btn => {
+    btn.addEventListener('click', () => { btn.style.opacity = '0.5'; btn.setAttribute('aria-pressed', 'true'); });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.badge-pop.open').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.annot-panel.open').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.badge[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    document.querySelectorAll('.annot-block[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  });
+</script>

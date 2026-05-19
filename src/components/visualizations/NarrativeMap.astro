@@ -2,9 +2,9 @@
 import { t, type Locale } from '~/i18n';
 
 interface Props {
-  episode: 'flood' | 'sleep' | 'plant' | 'ransom' | 'grief';
+  episode: 'flood' | 'sleep' | 'plant' | 'ransom' | 'grief' | 'arjunas-grief' | 'krishna-counsel';
   locale: Locale;
-  tradition?: 'mesopotamian' | 'greek';
+  tradition?: 'mesopotamian' | 'greek' | 'indian';
 }
 
 const { episode, locale, tradition = 'mesopotamian' } = Astro.props;
@@ -31,10 +31,18 @@ const beats: Record<string, { en: string[]; ru: string[] }> = {
     en: ["Companion Dies", 'Refusal of Burial', 'The Vigil', 'The Worm', 'Departure'],
     ru: ['Гибель друга', 'Отказ от погребения', 'Бдение', 'Червь', 'Уход'],
   },
+  'arjunas-grief': {
+    en: ['Armies Arrayed', 'Arjuna Surveys', 'Recognition', 'Collapse', 'Bow Set Down'],
+    ru: ['Войска выстроены', 'Арджуна обозревает', 'Узнавание', 'Коллапс', 'Лук опущен'],
+  },
+  'krishna-counsel': {
+    en: ['Krishna Rebukes', 'Eternal Self', 'Duty Without Attachment', 'Svadharma', 'Bow Raised'],
+    ru: ['Упрёк Кришны', 'Вечная самость', 'Действие без привязанности', 'Свадхарма', 'Лук поднят'],
+  },
 };
 
-const labels = beats[episode][locale] ?? beats[episode]['en'];
-const accentVar = tradition === 'greek' ? 'var(--greek)' : 'var(--mesop)';
+const labels = (beats[episode]?.[locale] ?? beats[episode]?.['en']) ?? [];
+const accentVar = tradition === 'greek' ? 'var(--greek)' : tradition === 'indian' ? 'var(--indian)' : 'var(--mesop)';
 ---
 
 <div class="narrative-map" aria-label={tr.narrative_map_heading}>

@@ -601,4 +601,116 @@ export interface Translations {
   frag_nav_grief_back: string;
   frag_nav_grief_parallel: string;
   iliad_parallel_gilgamesh_fragment_link: string;
+
+  /* ── Mahabharata: Navigation ─────────────────────────────────────── */
+  nav_mahabharata: string;
+
+  /* ── Mahabharata: Tradition label ───────────────────────────────── */
+  tradition_indian: string;
+
+  /* ── Mahabharata: Landing page ──────────────────────────────────── */
+  idx_title_mahabharata: string;
+  idx_mahabharata_epoch: string;
+  idx_mahabharata_desc: string;
+  idx_mahabharata_stats: string;
+  enter_mahabharata: string;
+  idx_region_aria_mahabharata: string;
+
+  /* ── Mahabharata: Tradition overview ────────────────────────────── */
+  trad_mahabharata_epoch_full: string;
+  trad_mahabharata_desc_p1: string;
+  trad_mahabharata_desc_p2: string;
+  trad_mahabharata_cross_tradition_sub: string;
+  parvas_label: string;
+  maha_parva1_label: string; maha_parva1_name: string; maha_parva1_desc: string; maha_parva1_ep: string;
+  maha_parva2_label: string; maha_parva2_name: string; maha_parva2_desc: string; maha_parva2_ep: string;
+  maha_parva3_label: string; maha_parva3_name: string; maha_parva3_desc: string; maha_parva3_ep: string;
+  maha_parva4_label: string; maha_parva4_name: string; maha_parva4_desc: string; maha_parva4_ep: string;
+  maha_parva5_label: string; maha_parva5_name: string; maha_parva5_desc: string; maha_parva5_ep: string;
+  maha_parva6_label: string; maha_parva6_name: string; maha_parva6_desc: string;
+  maha_parva6_ep_parallel: string; maha_parva6_ep_count: string;
+
+  /* ── Mahabharata: Bhishma Parva Hub (Book VI) ───────────────────── */
+  maha_book_vi_hub_heading: string;
+  maha_book_vi_hub_subtitle: string;
+  maha_book_vi_hub_intro: string;
+  maha_book_vi_hub_breadcrumb: string;
+  maha_book_vi_nav_prev: string;
+  maha_book_vi_nav_return: string;
+  maha_book_vi_ep1_title: string; maha_book_vi_ep1_desc: string;
+  maha_book_vi_ep2_title: string; maha_book_vi_ep2_desc: string;
+  maha_book_vi_ep_coming: string;
+  doc_title_suffix_book_vi_mahabharata: string;
+
+  /* ── Mahabharata: Arjuna's Grief Reader ─────────────────────────── */
+  frag_arjunas_grief_title: string;
+  frag_arjunas_grief_subtitle: string;
+  frag_surf_arjunas_grief_p1: string;
+  frag_surf_arjunas_grief_p2: string;
+  frag_surf_arjunas_grief_p3: string;
+  frag_surf_arjunas_grief_p4: string;
+  frag_nav_arjunas_grief_hub: string;
+  frag_nav_arjunas_grief_next: string;
+  frag_arjunas_grief_ai_disclosure_lead: string;
+  frag_arjunas_grief_badge_ai_pop_p2: string;
+  track_head_book_vi_arjunas_grief: string;
+
+  /* ── Mahabharata: Krishna's Counsel Reader ──────────────────────── */
+  frag_krishna_counsel_title: string;
+  frag_krishna_counsel_subtitle: string;
+  frag_surf_krishna_counsel_p1: string;
+  frag_surf_krishna_counsel_p2: string;
+  frag_surf_krishna_counsel_p3: string;
+  frag_surf_krishna_counsel_p4: string;
+  frag_nav_krishna_counsel_prev: string;
+  frag_nav_krishna_counsel_hub: string;
+  frag_krishna_counsel_ai_disclosure_lead: string;
+  track_head_book_vi_krishna_counsel: string;
+
+  /* ── Mahabharata: Parallel strip (in Arjuna's Grief reader) ─────── */
+  reader_parallel_card_hero_crisis_title: string;
+  reader_parallel_card_hero_crisis_subtitle: string;
+  parallel_hero_crisis_reader_body: string;
+  parallel_read_hero_crisis_aria: string;
+
+  /* ── Mahabharata: Hero Crisis Parallel (index) ──────────────────── */
+  parallel_hero_crisis_heading: string;
+  parallel_hero_crisis_subtitle_refs: string;
+  parallel_hero_crisis_body: string;
+  parallel_hero_crisis_trad_lines: string;
+  parallel_hero_crisis_onboarded_note: string;
+  parallels_badge_rec_body_2: string;
+
+  /* ── Mahabharata: Hero Crisis Parallel View (detailed) ──────────── */
+  maha_parallel_heading: string;
+  maha_parallel_attributed: string;
+  maha_parallel_view_back: string;
+  maha_parallel_label_indian: string;
+  maha_parallel_maha_sub: string;
+  maha_parallel_maha_date: string;
+  maha_parallel_credit_maha: string;
+  maha_parallel_attr_maha: string;
+  maha_parallel_attr_gilgamesh: string;
+  maha_parallel_fragment_link: string;
+  maha_parallel_note_what_head: string;
+  maha_parallel_note_what_p1: string;
+  maha_parallel_note_what_p2: string;
+  maha_parallel_note_why_head: string;
+  maha_parallel_note_why_p1: string;
+  maha_parallel_note_why_p2: string;
+  maha_parallel_note_diverge_head: string;
+  maha_parallel_note_diverge_p1: string;
+  maha_parallel_note_diverge_p2: string;
+  maha_parallel_note_reveals_head: string;
+  maha_parallel_note_reveals_p1: string;
+  maha_parallel_note_reveals_p2: string;
+  maha_parallel_cite_van_buitenen_html: string;
+  maha_parallel_cite_doniger_html: string;
+  maha_parallel_cite_sharma_html: string;
+  maha_parallel_cite_george_html: string;
+  parallel_diagram_caption_hero_crisis: string;
+  maha_parallel_gilgamesh_fragment_link: string;
+  next_action_deeper_desc_arjunas_grief: string;
+  next_action_deeper_desc_krishna_counsel: string;
+  meta_annotated_by_sharma: string;
 }
