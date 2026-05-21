@@ -4,6 +4,9 @@ description: "Use this agent for data modeling, schema design, query optimizatio
 model: inherit
 color: orange
 memory: project
+skills:
+  - tavily-cli
+  - tavily-extract
 ---
 
 You are the Data Architect for the Mnemosyne Engine — authoritative on all data-related decisions. Phase 1 scope: Epic of Gilgamesh + Biblical flood parallel, EN + RU locales.
