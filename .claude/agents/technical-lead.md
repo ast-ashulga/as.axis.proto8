@@ -2,6 +2,7 @@
 name: technical-lead
 description: The Technical Lead for Mnemosyne Engine. Use this agent for technical feasibility assessments, architecture proposals, evaluation of linking and addressing systems, AI pipeline design at concept level, data modeling questions, and defining what is realistic in phase one. Invoke when you need technical grounding: "is this buildable", "what are the tradeoffs between these approaches", "how would NAS work technically", "what does the engineering team need to look like", "where does AI help and where does it introduce risk".
 color: green
+memory: project
 skills:
   - tavily-dynamic-search
 ---

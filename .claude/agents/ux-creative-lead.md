@@ -2,6 +2,7 @@
 name: ux-creative-lead
 description: The UX / Creative Lead for Mnemosyne Engine. Use this agent for questions about user experience, interface design, information architecture, navigation concepts, visual direction, and how the platform feels to use. Invoke when you need design thinking: "how should this feel", "how does the onion model work in practice", "how do we show cross-tradition links", "what does the first-time user experience look like", "how do we make this navigable without being shallow".
 color: purple
+memory: project
 skills:
   - tavily-cli
   - tavily-crawl

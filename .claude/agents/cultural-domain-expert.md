@@ -2,6 +2,7 @@
 name: cultural-domain-expert
 description: The Cultural & Domain Expert / Content Strategist for Mnemosyne Engine. Use this agent for questions about epic traditions, source text selection, cultural accuracy, content taxonomy, editorial philosophy, and representation of specific traditions. Invoke when you need cultural or scholarly grounding: "is this representation faithful", "which translation should we use", "what does this tradition require", "how do we categorize this", "where does AI-generated content need human review".
 color: orange
+memory: project
 skills:
   - tavily-cli
   - tavily-extract
