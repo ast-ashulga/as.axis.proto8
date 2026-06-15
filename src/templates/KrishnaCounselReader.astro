@@ -4,7 +4,6 @@ import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
-import MonomythArc from '~/components/visualizations/MonomythArc.astro';
 import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
 import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
@@ -26,7 +25,7 @@ const mahabharataHref = withBase(`/${locale}/mahabharata/`);
 
 const episode = await getEntry('episodes', 'mahabharata-krishna-counsel');
 const proppFunctions = episode?.data.proppFunctions;
-const campbellStages = episode?.data.campbellStages;
+
 const tmiMotifs = episode?.data.tmiMotifs;
 
 const isRu = locale === 'ru';
@@ -234,7 +233,6 @@ BG 2.48  yoga-sthaḥ kuru karmāṇi saṅgaṃ tyaktvā dhanañjaya
         <div class="schol-section">
           <div class="schol-head"><span>{tr.schol_visualization_tools}</span></div>
           <div class="schol-body">
-            <MonomythArc stages={campbellStages} tradition="indian" locale={locale} />
             <ProppMorphology functions={proppFunctions} locale={locale} />
             <MotifTagCloud motifs={tmiMotifs} locale={locale} />
           </div>

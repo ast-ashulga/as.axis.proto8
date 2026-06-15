@@ -2,7 +2,7 @@
 nas: nms://mahabharata/book-vi/arjunas-grief
 tradition: mahabharata
 tablet: Bhishma Parva (Book VI)
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -18,11 +18,6 @@ proppFunctions:
     tier: reconstructed
   - code: PROPP-12
     name: Hero Leaves Home
-    tier: documented
-campbellStages:
-  - stage: Refusal of the Call
-    tier: reconstructed
-  - stage: Meeting with the Mentor
     tier: documented
 tmiMotifs:
   - code: P14.6

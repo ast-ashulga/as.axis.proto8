@@ -2,7 +2,7 @@
 nas: nms://poetic-edda/stub/placeholder
 tradition: poetic-edda
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Poetic Edda

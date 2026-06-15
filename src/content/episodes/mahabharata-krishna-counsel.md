@@ -2,7 +2,7 @@
 nas: nms://mahabharata/book-vi/krishna-counsel
 tradition: mahabharata
 tablet: Bhishma Parva (Book VI)
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -17,11 +17,6 @@ proppFunctions:
     tier: reconstructed
   - code: PROPP-31
     name: Recognition
-    tier: reconstructed
-campbellStages:
-  - stage: The Road of Trials
-    tier: reconstructed
-  - stage: Apotheosis
     tier: reconstructed
 tmiMotifs:
   - code: Q2.1

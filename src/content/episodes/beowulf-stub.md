@@ -2,7 +2,7 @@
 nas: nms://beowulf/stub/placeholder
 tradition: beowulf
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Beowulf

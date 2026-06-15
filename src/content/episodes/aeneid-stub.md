@@ -2,7 +2,7 @@
 nas: nms://aeneid/stub/placeholder
 tradition: aeneid
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: The Aeneid

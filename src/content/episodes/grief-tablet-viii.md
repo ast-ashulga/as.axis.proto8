@@ -2,7 +2,7 @@
 nas: nms://gilgamesh/tablet-viii/grief
 tradition: gilgamesh
 tablet: Tablet VIII
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -15,11 +15,6 @@ proppFunctions:
   - code: PROPP-15
     name: Spatial Translocation
     tier: documented
-campbellStages:
-  - stage: The Road of Trials
-    tier: reconstructed
-  - stage: Belly of the Whale
-    tier: reconstructed
 tmiMotifs:
   - code: E607
     name: Burial of body

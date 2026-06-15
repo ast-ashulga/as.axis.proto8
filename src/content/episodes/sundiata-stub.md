@@ -2,7 +2,7 @@
 nas: nms://sundiata/stub/placeholder
 tradition: sundiata
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Epic of Sundiata

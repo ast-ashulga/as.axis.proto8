@@ -2,7 +2,7 @@
 nas: nms://odyssey/stub/placeholder
 tradition: odyssey
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: The Odyssey

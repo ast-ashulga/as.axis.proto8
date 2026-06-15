@@ -1,0 +1,210 @@
+---
+/**
+ * TabletHub — generic division/tablet hub component.
+ *
+ * Renders an episode list for any tradition + division combination,
+ * filtering phase2 episodes (always hidden per project policy).
+ * Fires PostHog `tablet_opened` on page load.
+ *
+ * Design target: doc/wireframes/03-tablet-hub.md
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  episodes: CollectionEntry<'episodes'>[];
+  locale: Locale;
+  division: string;
+  tradition: string;
+}
+
+const { episodes: allEpisodes, locale, division, tradition } = Astro.props;
+const tr = t(locale);
+const navBase = withBase(`/${locale}`);
+
+// Phase2 episodes are always hidden (feature flag policy: phase2 = false by default)
+const episodes = allEpisodes.filter(ep => !ep.data.phase2);
+
+// Derive layer labels
+const layerLabel: Record<string, string> = {
+  surface:    tr.layer_surface_plain,
+  translated: tr.layer_translated_plain,
+  scholaria:  tr.layer_scholaria_plain,
+};
+
+// Build episode list with hrefs derived from NAS
+const items = episodes.map(ep => {
+  const nasPath = ep.data.nas.replace('nms://', '');
+  const parts = nasPath.split('/');
+  const episodeSlug = parts[2] ?? '';
+  const href = withBase(`/${locale}/${tradition}/${division}/${episodeSlug}/`);
+  const title = locale === 'ru' ? ep.data.title_ru : ep.data.title_en;
+  const desc  = locale === 'ru' ? ep.data.desc_ru  : ep.data.desc_en;
+  return { ep, href, title, desc, episodeSlug };
+});
+
+// Capitalize tradition/division for display in the page title
+const headingTradition = tradition.charAt(0).toUpperCase() + tradition.slice(1);
+const headingDivision  = division;
+const pageTitle = `${headingDivision} — ${headingTradition}`;
+---
+
+<BaseLayout title={pageTitle} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,       href: `${navBase}/` },
+      { label: headingTradition, href: withBase(`/${locale}/${tradition}/`) },
+      { label: headingDivision },
+    ]} />
+
+    <!-- Division header -->
+    <header>
+      <p class="tradition-label">{headingTradition.toUpperCase()}</p>
+      <h1 class="division-heading">{headingDivision}</h1>
+    </header>
+
+    <!-- Episode list -->
+    {items.length === 0 ? (
+      <p class="empty-state">{tr.in_preparation}</p>
+    ) : (
+      <section aria-label={tr.episodes_label}>
+        <p class="section-label">{tr.episodes_label}</p>
+        <div role="list">
+          {items.map(({ ep, href, title, desc, episodeSlug }) => (
+            <a
+              href={href}
+              class="ep-card"
+              role="listitem"
+              data-track={`episode-card-${episodeSlug}`}
+              style={ep.data.parallelTo ? 'border-left: 3px solid var(--tier-doc);' : ''}
+            >
+              <div class="ep-card-header">
+                <h2 class="ep-card-title">
+                  {ep.data.parallelTo && (
+                    <span
+                      class="parallel-marker"
+                      aria-label={tr.hub_marker_parallel_doc_aria}
+                    >●</span>
+                  )}
+                  {title}
+                </h2>
+                <TierBadge tier={ep.data.tier} locale={locale} />
+              </div>
+              <p class="ep-card-desc">{desc}</p>
+              <p class="ep-card-nas">{ep.data.nas}</p>
+              {ep.data.layers.length > 0 && (
+                <p class="ep-card-layers">
+                  {ep.data.layers.map((layer: string, i: number) => (
+                    <span>
+                      {i > 0 && <span aria-hidden="true"> · </span>}
+                      {layerLabel[layer] ?? layer}
+                    </span>
+                  ))}
+                </p>
+              )}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<script define:vars={{ locale, tradition, division }}>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.posthog && window.posthog.capture('tablet_opened', {
+      locale: locale,
+      tradition: tradition,
+      division: division,
+    });
+  });
+</script>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+.tradition-label {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+
+.division-heading {
+  font: 500 24px/1.3 var(--serif);
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+.empty-state {
+  font: 400 16px/1.7 var(--serif);
+  color: var(--text-2);
+  margin-block: 24px;
+}
+
+.ep-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  padding: 24px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.1s ease-in-out;
+}
+.ep-card:hover { background: var(--overlay); }
+.ep-card:visited { color: var(--text); }
+
+.ep-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ep-card-title {
+  font: 400 18px/1.4 var(--serif);
+}
+
+.parallel-marker {
+  color: var(--tier-doc);
+  margin-inline-end: 6px;
+}
+
+.ep-card-desc {
+  font: 400 14px/1.5 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.ep-card-nas {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+
+.ep-card-layers {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px)  { .page-body { padding-inline: var(--mx-m); } }
+</style>

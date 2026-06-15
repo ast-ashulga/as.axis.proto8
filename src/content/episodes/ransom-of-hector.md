@@ -2,7 +2,7 @@
 nas: nms://iliad/book-xxiv/ransom-of-hector
 tradition: iliad
 tablet: Book XXIV
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -18,11 +18,6 @@ proppFunctions:
   - code: PROPP-31
     name: Recognition
     tier: documented
-campbellStages:
-  - stage: Return with the Elixir
-    tier: reconstructed
-  - stage: Atonement with the Father
-    tier: reconstructed
 tmiMotifs:
   - code: P325
     name: Guest and host

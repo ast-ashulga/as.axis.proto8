@@ -2,7 +2,7 @@
 nas: nms://tale-of-genji/stub/placeholder
 tradition: tale-of-genji
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: The Tale of Genji

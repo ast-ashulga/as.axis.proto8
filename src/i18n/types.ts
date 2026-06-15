@@ -101,6 +101,9 @@ export interface Translations {
   track_head_tablet_viii_grief: string;
   track_framework_label_propp: string;
   track_framework_label_campbell: string;
+  track_bakhtin: string;
+  methodology_fit_warning: string;
+  methodology_fit_note_label: string;
   inactive_track_bakhtin: string;
   inactive_track_levi_strauss: string;
   inactive_track_emotional_valence: string;

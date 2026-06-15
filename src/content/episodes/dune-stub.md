@@ -2,7 +2,7 @@
 nas: nms://dune/stub/placeholder
 tradition: dune
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Dune

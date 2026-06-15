@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
 import TierBadge from '~/components/epistemic/TierBadge.astro';
@@ -13,9 +13,9 @@ interface Props {
 const { locale } = Astro.props;
 const tr = t(locale);
 
-const allEpisodes = await getCollection('episodes');
-const active = allEpisodes.filter(e => !e.data.phase2);
-const phase2 = allEpisodes.filter(e => e.data.phase2);
+const allEpisodes: CollectionEntry<'episodes'>[] = await getCollection('episodes');
+const active: CollectionEntry<'episodes'>[] = allEpisodes.filter((e: CollectionEntry<'episodes'>) => !e.data.phase2);
+const phase2: CollectionEntry<'episodes'>[] = allEpisodes.filter((e: CollectionEntry<'episodes'>) => e.data.phase2);
 
 function nasToPath(nas: string): string | null {
   const m = nas.match(/^nms:\/\/([^/]+)\/([^/]+)\/([^/]+)$/);

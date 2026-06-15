@@ -2,7 +2,7 @@
 nas: nms://gilgamesh/tablet-xi/plant
 tradition: gilgamesh
 tablet: Tablet XI
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -16,11 +16,6 @@ proppFunctions:
     tier: documented
   - code: PROPP-31
     name: Recognition
-    tier: documented
-campbellStages:
-  - stage: The Road Back
-    tier: documented
-  - stage: Return with the Elixir
     tier: documented
 tmiMotifs:
   - code: D965

@@ -2,7 +2,7 @@
 nas: nms://journey-to-the-west/stub/placeholder
 tradition: journey-to-the-west
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Journey to the West

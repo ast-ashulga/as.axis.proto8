@@ -1,0 +1,528 @@
+---
+/**
+ * EpisodeReader — generic full episode reading experience.
+ *
+ * Renders layer switcher, body text, methodology fit warning,
+ * annotation tracks (Propp, Bakhtin, TMI), and artifacts panel.
+ * Fires PostHog `layer_changed` on tab switch.
+ *
+ * Design target: doc/wireframes/04-fragment-view.md
+ * Layer switching is handled entirely client-side via vanilla JS.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumb from '~/components/chrome/Breadcrumb.astro';
+import TierBadge from '~/components/epistemic/TierBadge.astro';
+import ArtifactFigure from '~/components/epistemic/ArtifactFigure.astro';
+import { t, type Locale } from '~/i18n';
+import { withBase } from '~/utils/url';
+import type { CollectionEntry } from 'astro:content';
+import type { ProppFunction, TmiMotif, Artifact, EpistemicTier } from '~/content.config';
+
+interface Props {
+  episode: CollectionEntry<'episodes'>;
+  locale: Locale;
+}
+
+const { episode, locale } = Astro.props;
+const tr = t(locale);
+const navBase = withBase(`/${locale}`);
+
+const { data } = episode;
+
+// Parse NAS: nms://tradition/division/episode
+const nasPath = data.nas.replace('nms://', '');
+const [tradition = '', division = ''] = nasPath.split('/');
+
+const title    = locale === 'ru' ? data.title_ru : data.title_en;
+const subtitle = locale === 'ru' ? data.desc_ru  : data.desc_en;
+
+// Layer display metadata
+const layerMeta: Record<string, { plain: string; poetic: string }> = {
+  surface:    { plain: tr.layer_surface_plain,    poetic: tr.layer_surface_poetic },
+  translated: { plain: tr.layer_translated_plain, poetic: tr.layer_translated_poetic },
+  scholaria:  { plain: tr.layer_scholaria_plain,  poetic: tr.layer_scholaria_poetic },
+};
+
+// Pre-typed arrays for TypeScript safety in JSX map callbacks
+type Layer = 'surface' | 'translated' | 'scholaria';
+const availableLayers: Layer[] = data.layers as Layer[];
+const proppFunctions: ProppFunction[] = data.proppFunctions ?? [];
+type BakhtinItem = { code: string; name: string; tier: EpistemicTier };
+const bakhtinChronotopes: BakhtinItem[] = (data.bakhtinChronotopes ?? []) as BakhtinItem[];
+const tmiMotifs: TmiMotif[] = data.tmiMotifs ?? [];
+const artifacts: Artifact[] = data.artifacts ?? [];
+
+// Body text per layer and locale
+const bodyText: Partial<Record<string, string>> = {};
+for (const layer of availableLayers) {
+  const layerBody = data.body?.[layer as keyof typeof data.body];
+  if (layerBody) {
+    bodyText[layer] = locale === 'ru' ? layerBody.ru : layerBody.en;
+  }
+}
+
+const headingTradition = tradition.charAt(0).toUpperCase() + tradition.slice(1);
+const headingDivision  = division;
+const pageTitle = `${title} — ${headingTradition}`;
+
+// Tracks
+const hasPropp    = proppFunctions.length > 0;
+const hasBakhtin  = bakhtinChronotopes.length > 0;
+const hasTmi      = tmiMotifs.length > 0;
+const hasAnyTrack = hasPropp || hasBakhtin || hasTmi;
+
+// Artifacts
+const hasArtifacts = artifacts.length > 0;
+---
+
+<BaseLayout title={pageTitle} locale={locale}>
+  <div class="page-body">
+
+    <Breadcrumb locale={locale} crumbs={[
+      { label: tr.bc_home,       href: `${navBase}/` },
+      { label: headingTradition, href: withBase(`/${locale}/${tradition}/`) },
+      { label: headingDivision,  href: withBase(`/${locale}/${tradition}/${division}/`) },
+      { label: title },
+    ]} />
+
+    <!-- Fragment header -->
+    <header class="frag-header">
+      <p class="tradition-label">{headingTradition.toUpperCase()}</p>
+      <div class="frag-title-row">
+        <h1 class="frag-title">{title}</h1>
+        <TierBadge tier={data.tier} locale={locale} />
+      </div>
+      {subtitle && (
+        <p class="frag-subtitle">{subtitle}</p>
+      )}
+      <p class="nas-address" aria-label={`${tr.nas_address_aria_prefix} ${data.nas}`}>
+        <span class="nas-label">{tr.meta_nas_colon}</span> {data.nas}
+      </p>
+    </header>
+
+    <!-- Methodology fit warning -->
+    {data.methodologyFitWarning && (
+      <div class="methodology-warning" role="note">
+        <p class="methodology-warning-heading">{tr.methodology_fit_warning}</p>
+        {data.methodologyFitNote && (
+          <p class="methodology-warning-note">
+            <strong>{tr.methodology_fit_note_label}:</strong> {data.methodologyFitNote}
+          </p>
+        )}
+      </div>
+    )}
+
+    <!-- Layer switcher -->
+    {availableLayers.length > 1 && (
+      <nav class="layer-nav" aria-label={tr.layer_depth_tablist_aria}>
+        <div class="layer-tabs" role="tablist">
+          {availableLayers.map((layer: string, i: number) => (
+            <button
+              type="button"
+              role="tab"
+              class="layer-tab"
+              data-layer-tab={layer}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`layer-panel-${layer}`}
+              id={`layer-tab-${layer}`}
+            >
+              {layerMeta[layer]?.plain ?? layer}
+            </button>
+          ))}
+        </div>
+      </nav>
+    )}
+
+    <!-- Layer content panels -->
+    <div class="layer-panels">
+      {availableLayers.map((layer: string, i: number) => (
+        <section
+          id={`layer-panel-${layer}`}
+          class="layer-panel"
+          data-layer={layer}
+          role="tabpanel"
+          aria-labelledby={`layer-tab-${layer}`}
+          hidden={i !== 0}
+        >
+          {bodyText[layer] ? (
+            <div class="layer-body">
+              <p>{bodyText[layer]}</p>
+            </div>
+          ) : (
+            <p class="layer-unavailable">{tr.layer_unavailable}</p>
+          )}
+        </section>
+      ))}
+      {availableLayers.length === 0 && (
+        <p class="layer-unavailable">{tr.layer_unavailable}</p>
+      )}
+    </div>
+
+    <!-- Annotation tracks -->
+    {hasAnyTrack && (
+      <section class="tracks-section" aria-label={tr.track_region_aria}>
+        <h2 class="tracks-heading">{tr.track_region_aria}</h2>
+
+        <!-- Propp functions -->
+        {hasPropp && (
+          <details class="track-details">
+            <summary class="track-summary">
+              <span class="track-label">{tr.track_framework_label_propp}</span>
+              <span class="track-count">({proppFunctions.length})</span>
+            </summary>
+            <ul class="track-items" aria-label={tr.annot_group_propp_aria}>
+              {proppFunctions.map((fn: ProppFunction) => (
+                <li class="track-item">
+                  <span class="track-item-code">{fn.code}</span>
+                  <span class="track-item-name">{fn.name}</span>
+                  <TierBadge tier={fn.tier} locale={locale} />
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+
+        <!-- Bakhtin chronotopes -->
+        {hasBakhtin && (
+          <details class="track-details">
+            <summary class="track-summary">
+              <span class="track-label">{tr.track_bakhtin}</span>
+              <span class="track-count">({bakhtinChronotopes.length})</span>
+            </summary>
+            <ul class="track-items">
+              {bakhtinChronotopes.map((chrono: { code: string; name: string; tier: EpistemicTier }) => (
+                <li class="track-item">
+                  <span class="track-item-code">{chrono.code}</span>
+                  <span class="track-item-name">{chrono.name}</span>
+                  <TierBadge tier={chrono.tier} locale={locale} />
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+
+        <!-- TMI motifs -->
+        {hasTmi && (
+          <details class="track-details">
+            <summary class="track-summary">
+              <span class="track-label">{tr.track_label_tmi_paren}</span>
+              <span class="track-count">({tmiMotifs.length})</span>
+            </summary>
+            <ul class="track-items" aria-label={tr.annot_group_tmi_aria}>
+              {tmiMotifs.map((motif: TmiMotif) => (
+                <li class="track-item">
+                  <span class="track-item-code">{motif.code}</span>
+                  <span class="track-item-name">{motif.name}</span>
+                  <TierBadge tier={motif.tier} locale={locale} />
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </section>
+    )}
+
+    <!-- Artifacts -->
+    {hasArtifacts && (
+      <section class="artifacts-section" aria-label={tr.sources_region_label}>
+        <h2 class="artifacts-heading">{tr.sources_region_label}</h2>
+        {artifacts.map((artifact: Artifact) => (
+          <ArtifactFigure
+            src={artifact.src}
+            tier={artifact.tier}
+            institution={artifact.institution}
+            accessionNumber={artifact.accessionNumber}
+            license={artifact.license}
+            captionEn={artifact.caption_en}
+            captionRu={artifact.caption_ru}
+            viewInCollectionUrl={artifact.viewUrl}
+            locale={locale}
+          />
+        ))}
+      </section>
+    )}
+
+    <!-- Navigation back to hub -->
+    <nav class="frag-nav" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-2);">
+      <a
+        href={withBase(`/${locale}/${tradition}/${division}/`)}
+        class="frag-nav-back"
+        data-track="frag-nav-back-to-hub"
+      >
+        ← {headingDivision}
+      </a>
+    </nav>
+
+  </div>
+</BaseLayout>
+
+<script define:vars={{ availableLayers, locale, tradition, nas: data.nas }}>
+  (function () {
+    var tabs   = document.querySelectorAll('[data-layer-tab]');
+    var panels = document.querySelectorAll('[data-layer]');
+
+    if (tabs.length === 0) return;
+
+    var currentLayer = availableLayers[0] ?? null;
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var next = tab.getAttribute('data-layer-tab');
+        if (!next || next === currentLayer) return;
+
+        var prev = currentLayer;
+        currentLayer = next;
+
+        // Update tabs
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', t.getAttribute('data-layer-tab') === next ? 'true' : 'false');
+        });
+
+        // Show/hide panels
+        panels.forEach(function (panel) {
+          if (panel.getAttribute('data-layer') === next) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+
+        // PostHog
+        window.posthog && window.posthog.capture('layer_changed', {
+          from:      prev,
+          to:        next,
+          locale:    locale,
+          tradition: tradition,
+          nas:       nas,
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+.page-body {
+  padding-inline: var(--mx);
+  padding-block: 40px 0;
+}
+
+/* Header */
+.tradition-label {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+
+.frag-header {
+  margin-bottom: 32px;
+}
+
+.frag-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.frag-title {
+  font: 500 24px/1.3 var(--serif);
+}
+
+.frag-subtitle {
+  font: 400 18px/1.4 var(--serif);
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.nas-address {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--text-3);
+}
+
+.nas-label {
+  color: var(--text-2);
+}
+
+/* Methodology warning */
+.methodology-warning {
+  background: var(--overlay);
+  border: 1px solid var(--border-2);
+  border-left: 3px solid var(--tier-rec);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.methodology-warning-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--tier-rec);
+  margin-bottom: 4px;
+}
+
+.methodology-warning-note {
+  font: 400 14px/1.5 var(--serif);
+  color: var(--text-2);
+}
+
+/* Layer switcher */
+.layer-nav {
+  margin-bottom: 0;
+}
+
+.layer-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border-2);
+  margin-bottom: 24px;
+}
+
+.layer-tab {
+  font: 400 13px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 16px;
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.layer-tab:hover {
+  color: var(--text);
+}
+
+.layer-tab[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+/* Layer panels */
+.layer-panels {
+  max-width: var(--col);
+  margin-bottom: 32px;
+}
+
+.layer-body {
+  font: 400 16px/1.7 var(--serif);
+}
+
+.layer-body p + p {
+  margin-top: 1em;
+}
+
+.layer-unavailable {
+  font: 400 14px/1.5 var(--serif);
+  color: var(--text-3);
+  font-style: italic;
+}
+
+/* Annotation tracks */
+.tracks-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-2);
+  margin-bottom: 32px;
+}
+
+.tracks-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.track-details {
+  border: 1px solid var(--border-2);
+  margin-bottom: 8px;
+}
+
+.track-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  list-style: none;
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+  background: var(--surface);
+}
+
+.track-summary::-webkit-details-marker { display: none; }
+
+.track-summary:hover {
+  background: var(--overlay);
+}
+
+.track-label {
+  color: var(--text);
+}
+
+.track-count {
+  color: var(--text-3);
+}
+
+.track-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border-2);
+}
+
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-2);
+  font: 400 13px/1.4 var(--mono);
+}
+
+.track-item:last-child {
+  border-bottom: none;
+}
+
+.track-item-code {
+  color: var(--text-2);
+  min-width: 3em;
+}
+
+.track-item-name {
+  flex: 1;
+  color: var(--text);
+}
+
+/* Artifacts */
+.artifacts-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-2);
+  margin-bottom: 32px;
+}
+
+.artifacts-heading {
+  font: 500 13px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+/* Nav */
+.frag-nav-back {
+  font: 400 14px/1.5 var(--serif);
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.frag-nav-back:hover {
+  color: var(--text);
+}
+
+@media (max-width: 1279px) { .page-body { padding-inline: var(--mx-t); } }
+@media (max-width: 767px)  { .page-body { padding-inline: var(--mx-m); } }
+</style>

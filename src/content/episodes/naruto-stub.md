@@ -2,7 +2,7 @@
 nas: nms://naruto/stub/placeholder
 tradition: naruto
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Naruto

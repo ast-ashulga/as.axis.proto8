@@ -2,7 +2,7 @@
 nas: nms://gilgamesh/tablet-xi/flood
 tradition: gilgamesh
 tablet: Tablet XI
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -29,11 +29,6 @@ proppFunctions:
     tier: documented
   - code: PROPP-31
     name: Recognition
-    tier: documented
-campbellStages:
-  - stage: Crossing the First Threshold
-    tier: reconstructed
-  - stage: The Road Back
     tier: documented
 tmiMotifs:
   - code: A1010

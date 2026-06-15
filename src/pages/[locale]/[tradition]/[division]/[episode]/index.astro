@@ -1,0 +1,59 @@
+---
+/**
+ * Dynamic Episode Reader Route
+ *
+ * Generates one page per {locale, tradition, division, episode} combination.
+ * Each episode's NAS uniquely identifies its tradition/division/slug.
+ *
+ * Existing static episode pages (e.g. en/gilgamesh/tablet-xi/flood/index.astro)
+ * take priority over this dynamic route in Astro's routing resolution.
+ *
+ * Phase2 episodes are excluded from path generation so they are never
+ * reachable via this route (feature flag policy: always off).
+ */
+import { getCollection } from 'astro:content';
+import EpisodeReader from '~/components/EpisodeReader.astro';
+import type { Locale } from '~/i18n';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allEpisodes = await getCollection('episodes');
+  const locales: Locale[] = ['en', 'ru'];
+
+  const paths: {
+    params: { locale: string; tradition: string; division: string; episode: string };
+    props:  { episode: CollectionEntry<'episodes'> };
+  }[] = [];
+
+  for (const locale of locales) {
+    for (const ep of allEpisodes) {
+      // Phase2 episodes are never made public (feature flag policy)
+      if (ep.data.phase2) continue;
+
+      const nasPath = ep.data.nas.replace('nms://', '');
+      const parts   = nasPath.split('/');
+      if (parts.length < 3) continue;
+
+      const tradition   = parts[0]!;
+      const division    = parts[1]!;
+      const episodeSlug = parts[2]!;
+
+      paths.push({
+        params: { locale, tradition, division, episode: episodeSlug },
+        props:  { episode: ep },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  episode: CollectionEntry<'episodes'>;
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const { episode } = Astro.props;
+---
+
+<EpisodeReader episode={episode} locale={locale} />

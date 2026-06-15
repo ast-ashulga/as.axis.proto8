@@ -2,7 +2,7 @@
 nas: nms://kalevala/stub/placeholder
 tradition: kalevala
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Kalevala

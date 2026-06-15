@@ -2,7 +2,7 @@
 nas: nms://warhammer-40k/stub/placeholder
 tradition: warhammer-40k
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: "Warhammer 40,000: Epic Artifacts"

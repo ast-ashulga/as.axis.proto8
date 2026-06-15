@@ -2,7 +2,7 @@
 nas: nms://gilgamesh/tablet-xi/sleep-challenge
 tradition: gilgamesh
 tablet: Tablet XI
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
   - translated
@@ -13,11 +13,6 @@ proppFunctions:
     tier: reconstructed
   - code: PROPP-15
     name: Spatial Translocation
-    tier: reconstructed
-campbellStages:
-  - stage: The Ordeal
-    tier: reconstructed
-  - stage: The Supreme Ordeal
     tier: reconstructed
 tmiMotifs:
   - code: D1960.3

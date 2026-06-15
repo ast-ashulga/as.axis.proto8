@@ -5,7 +5,6 @@ import HowToReadThisPage from '~/components/HowToReadThisPage.astro';
 import TraditionDivider from '~/components/TraditionDivider.astro';
 import DropCap from '~/components/DropCap.astro';
 import NarrativeMap from '~/components/visualizations/NarrativeMap.astro';
-import MonomythArc from '~/components/visualizations/MonomythArc.astro';
 import ProppMorphology from '~/components/visualizations/ProppMorphology.astro';
 import MotifTagCloud from '~/components/visualizations/MotifTagCloud.astro';
 import NextBestAction from '~/components/reader/NextBestAction.astro';
@@ -28,7 +27,7 @@ const parallelHref = withBase(`/${locale}/parallels/flood/`);
 
 const episode = await getEntry('episodes', 'flood');
 const proppFunctions = episode?.data.proppFunctions;
-const campbellStages = episode?.data.campbellStages;
+
 const tmiMotifs = episode?.data.tmiMotifs;
 const nextHref = withBase(`/${locale}/gilgamesh/tablet-xi/sleep-challenge/`);
 const tabletHref = withBase(`/${locale}/gilgamesh/tablet-xi/`);
@@ -268,7 +267,6 @@ XI.98   ikmi tenzâm ana mātim kī illikam</pre>
         <div class="schol-section">
           <div class="schol-head"><span>{tr.schol_visualization_tools}</span></div>
           <div class="schol-body">
-            <MonomythArc stages={campbellStages} tradition="mesopotamian" locale={locale} />
             <ProppMorphology functions={proppFunctions} locale={locale} />
             <MotifTagCloud motifs={tmiMotifs} locale={locale} />
           </div>

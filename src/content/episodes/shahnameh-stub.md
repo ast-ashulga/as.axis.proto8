@@ -2,7 +2,7 @@
 nas: nms://shahnameh/stub/placeholder
 tradition: shahnameh
 tablet: Phase 2
-tier: ai-reviewed
+tier: inspired
 layers:
   - surface
 title_en: Shahnameh
