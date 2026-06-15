@@ -206,38 +206,39 @@ The Fragment Graph is the primary data structure. Fragments are nodes; typed rel
 - `precedes` / `follows` — sequential ordering within a tradition
 - `parallel_to` — cross-tradition structural resonance (typed, confidence-tiered, human-confirmed)
 - `annotates` — annotation records to Fragments
-- `contains` — episode to constituent fragments
-- `translation_of` — translated Fragment to source Fragment
+- `contains` — container to constituent fragments (tablet → episode → unit, where a unit is a sub-episode, verse-range, or lacuna; max NAS depth 4 segments), materialized as `parent_fragment_id`
+- `translation_of` — intertextual link between two canonical texts (e.g. Akkadian Tablet XII to its Sumerian precursor). Translation *editions* (Thompson, Diakonoff) are not edges — they are registered editions surfaced as Translated-layer content (§6.5 Layer C)
 
 The Fragment Graph is the source of truth. Every other system component — search index, vector index, API responses, UI — is a read or transformation of the Fragment Graph. No content exists outside the graph.
 
 ### 6.3 AI Pipeline
 
-Six phases, each with a defined input, output, and human review gate:
+The canonical content pipeline has six phases, A–F. The same lettering is used by the data-preparation tool (`as.axis.dataminer` / Sisyphus, which implements A–F) so the two documents stay aligned. Human review is **not a single phase** — it is a cross-cutting gate that runs after Phases B, C, D, and F; nothing it produces reaches users until a scholar sets status `confirmed`.
 
 ```
-A: Ingestion + NAS Assignment
-   → text passage + tradition metadata → Fragment record with NAS address
+A: Ingestion & OCR
+   → raw source (PDF/TXT/image) + manifest → clean text with page/line provenance
 
-B: Structural Decomposition
-   → Fragment → Propp/Bakhtin/TMI annotation candidates (status: candidate)
+B: Segmentation & NAS Proposal
+   → clean text → bounded-passage segments + candidate NAS addresses
+   → [review gate: Cultural Expert confirms / revises / defers each NAS]
 
-C: Episode Summary Generation
-   → confirmed Fragment + tier ceiling → Surface-layer summary (status: candidate)
+C: Surface Summary Generation (Layer 0)
+   → confirmed segment + tier ceiling → Surface-layer summary per locale (status: candidate)
 
-D: Vector Embedding
-   → all confirmed Fragments → pgvector index entries
+D: Structural Annotation
+   → confirmed segment → Propp / Bakhtin / TMI annotation candidates (status: candidate)
 
-E: Human Review Gate
-   → scholar reviews candidates → status transitions to confirmed or rejected
+E: Vector Embedding
+   → confirmed content rows → pgvector index entries (deterministic; no review)
 
 F: Parallel Detection
    → confirmed annotated Fragments across traditions →
    score = (framework_match_count/max × 0.5) + (cosine_similarity × 0.5)
-   → threshold 0.65 → new candidate Parallels for scholar review
+   → threshold 0.65 → new candidate Parallels for the review gate
 ```
 
-Phase F requires content from at least two fully-annotated traditions. It is not operational until Phase 2.
+NAS assignment (B) precedes both summary (C) and annotation (D), since both consume confirmed, addressed segments. Phase F requires content from at least two fully-annotated traditions and is not operational until Phase 2.
 
 ### 6.4 System Architecture
 
@@ -267,7 +268,7 @@ All UI strings, navigation labels, confidence tier labels, Onion layer names, ba
 Layer 0 (Surface) summaries and the scholarly parallel notes visible in Parallel View are generated per target locale — not translated post-hoc from English. Generating per locale preserves the grounding validation chain: NAS citation markers survive only if generation occurs in the target language from source fragments. Machine-translated summaries break the citation chain and violate the post-gate grounding check. Each locale variant of a summary is treated as an independent candidate requiring independent scholar review and its own *AI-generated · Reviewed by · date* disclosure. Phase 1 generates EN and RU Surface summaries for all confirmed Fragments.
 
 **Layer C — Source-text translations (Layer 2)**
-The Translated layer already models language variation via `translation_of` edges in the Fragment Graph. A Russian translation of a Gilgamesh tablet is simply an additional Fragment with `translation_of` pointing to the source Fragment. No architectural change is required. Content availability per locale is a content pipeline decision, not a schema decision.
+Each published translation is a **registered edition** (a `translations` row: translator, year, license, locale). Its text is a Translated-layer content row on the relevant Fragment, carrying the edition's `translation_id`. The schema supports **multiple editions in the same locale** on one Fragment — several English Gilgameshes (Thompson 1930, George 2003), several Russian Iliads (Gnedich 1829, Shuysky 2020). Adding an edition is purely additive: one `translations` row plus its content rows, no schema change. When a locale has more than one edition, a per-(tradition, locale) preferred edition is served by default and the UI offers a translation switcher. Content availability per locale and per edition is a content-pipeline decision, not a schema decision.
 
 **NAS locale neutrality (non-negotiable constraint)**
 NAS addresses (`nms://gilgamesh/tablet-xi/flood/1`) identify narrative units, not language renderings. They never carry a locale segment. A locale switcher on `nms://gilgamesh/tablet-xi/flood/1` renders interface strings and Layer 0 summary in the new locale, but the NAS address does not change. This is the same guarantee NAS provides for division boundary changes: addresses are write-once identifiers, not content descriptors.
@@ -290,11 +291,11 @@ NAS addresses (`nms://gilgamesh/tablet-xi/flood/1`) identify narrative units, no
 
 | Deliverable | Detail |
 |---|---|
-| Gilgamesh corpus | 6 required tablets, ~200 source/translation Fragment pairs |
+| Gilgamesh corpus | 6 required tablets; ~600–700 Fragment records across episode, sub-episode, and verse-range granularity, of which ~200 episode/sub-episode units carry a full source-translation pair |
 | Translation | R. Campbell Thompson (1930) — public domain; Jastrow (1898) as secondary option for Tablets I–II |
 | Flood parallel | Genesis 6–9 (KJV), Satapatha Brahmana 1.8.1.1–10, Ovid Metamorphoses I.253–415 |
 | Onion layers | Surface (AI summary), Translated, Scholaria — layers 0, 2, 4 |
-| Annotation tracks | Propp functions + Bakhtin chronotopes for key episodes |
+| Annotation tracks | Propp functions + Bakhtin chronotopes + TMI motif codes for key episodes (Campbell un-scoped) |
 | Parallel view | Two-column flood narrative comparison with scholarly note |
 | Scholar interface | Internal review tool for annotation confirmation and summary review |
 | Public deployment | Deployed, SSL, basic rate limiting, error monitoring |
@@ -305,7 +306,7 @@ NAS addresses (`nms://gilgamesh/tablet-xi/flood/1`) identify narrative units, no
 **Phase 1 Milestones**:
 - M1 (Week 1–2): Infrastructure and Schema — database, services skeleton, CI/CD, staging deploy
 - M2 (Week 3–4): Content Ingestion — all Gilgamesh tablets + flood parallels in database
-- M3 (Week 5–7): Annotation and Epistemic Tagging — Propp/Bakhtin tracks reviewed; summaries approved
+- M3 (Week 5–7): Annotation and Epistemic Tagging — Propp/Bakhtin/TMI tracks reviewed; summaries approved
 - M4 (Week 8–10): Public Frontend — Fragment View, Parallel View, Track View, NAS URLs
 - M5 (Week 11–12): Validation — architectural bets tested with real users; production deploy; Phase 2 decision memo
 
